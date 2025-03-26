@@ -1,0 +1,139 @@
+﻿@model IEnumerable<TheCoffeeShop.Models.Product>
+@{
+    ViewData["Title"] = "Menu";
+    var categories = Model.Select(p => p.Category).Where(c => c != null).Distinct().ToList();
+}
+
+<link href="~/css/menu.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<section class="menu-section">
+    <div class="container">
+        <div class="menu-header">
+            <h1 class="menu-title">Our Coffee Menu</h1>
+            <p class="menu-subtitle">Discover our wide range of premium coffee and delicious treats. Each item is crafted with care using the finest ingredients.</p>
+        </div>
+
+        <div class="search-container">
+            <form class="search-bar" id="searchForm">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search our menu...">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="menu-filters">
+            <button type="button" class="filter-btn active" data-filter="all">All Items</button>
+            @foreach (var category in categories)
+            {
+                <button type="button" class="filter-btn" data-filter="@category.CategoryId">@category.CategoryName</button>
+            }
+        </div>
+
+        @foreach (var category in categories)
+        {
+            var categoryProducts = Model.Where(p => p.CategoryId == category.CategoryId).ToList();
+
+            <div class="menu-category" id="category-@category.CategoryId">
+                <h2 class="category-title">@category.CategoryName</h2>
+
+                @if (categoryProducts.Any())
+                {
+                    <div class="menu-grid">
+                        @foreach (var product in categoryProducts)
+                        {
+                            <div class="menu-item" data-category="@product.CategoryId">
+                                <img src="@(string.IsNullOrEmpty(product.ProductImage) ? "/Content/Images/placeholder.jpg" : product.ProductImage)"
+                                     alt="@product.ProductName" class="menu-item-image">
+                                <div class="menu-item-content">
+                                    <div class="menu-item-header">
+                                        <h3 class="menu-item-title">@product.ProductName</h3>
+                                        <span class="menu-item-price">$@product.ProductPrice.ToString("0.00")</span>
+                                    </div>
+                                    <p class="menu-item-description">@product.Description</p>
+                                    @if (!string.IsNullOrEmpty(product.Size))
+                                    {
+                                        <p class="menu-item-size">Size: @product.Size</p>
+                                    }
+                                    <div class="menu-item-actions">
+                                        <form asp-action="AddToCart" asp-controller="ShoppingCart" method="post">
+                                            <input type="hidden" name="productId" value="@product.ProductId" />
+                                            <input type="hidden" name="quantity" value="1" />
+                                            <button type="submit" class="btn-order">Add To Cart</button>
+                                        </form>
+                                        <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="btn-details">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <p class="empty-state-text">No products available in this category.</p>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Filter functionality
+            $('.filter-btn').click(function() {
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+
+                var filter = $(this).data('filter');
+
+                if (filter === 'all') {
+                    $('.menu-category').show();
+                    $('.menu-item').show();
+                } else {
+                    $('.menu-category').hide();
+                    $('#category-' + filter).show();
+                }
+            });
+
+            // Search functionality
+            $('#searchForm').submit(function(e) {
+                e.preventDefault();
+                var searchTerm = $('#searchInput').val().toLowerCase();
+
+                if (searchTerm === '') {
+                    $('.menu-item').show();
+                    $('.menu-category').show();
+                    return;
+                }
+
+                $('.menu-item').each(function() {
+                    var itemName = $(this).find('.menu-item-title').text().toLowerCase();
+                    var itemDesc = $(this).find('.menu-item-description').text().toLowerCase();
+
+                    if (itemName.includes(searchTerm) || itemDesc.includes(searchTerm)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+
+                // Hide categories with no visible items
+                $('.menu-category').each(function() {
+                    var visibleItems = $(this).find('.menu-item:visible').length;
+                    if (visibleItems === 0) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
+}

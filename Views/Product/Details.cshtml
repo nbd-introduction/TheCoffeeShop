@@ -1,0 +1,314 @@
+@model TheCoffeeShop.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<style>
+    :root {
+        --coffee-dark: #3c2415;
+        --coffee-medium: #6b4226;
+        --coffee-light: #a67c52;
+        --coffee-cream: #f5f0e8;
+        --coffee-accent: #d4a762;
+    }
+
+    .product-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .page-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--coffee-dark);
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+    }
+
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--coffee-accent);
+            border-radius: 2px;
+        }
+
+    .product-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        margin-bottom: 2rem;
+        border: none;
+    }
+
+    .product-header {
+        background: linear-gradient(to right, var(--coffee-medium), var(--coffee-light));
+        padding: 1.5rem 2rem;
+        color: white;
+        position: relative;
+    }
+
+    .product-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .product-image-container {
+        background-color: var(--coffee-cream);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5rem;
+        height: 100%;
+        position: relative;
+    }
+
+    .product-image {
+        max-width: 100%;
+        max-height: 350px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+    }
+
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+
+    .product-info {
+        padding: 2rem;
+    }
+
+    .product-price-tag {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--coffee-dark);
+        display: flex;
+        align-items: center;
+    }
+
+    .price-currency {
+        font-size: 1.2rem;
+        margin-right: 0.2rem;
+        font-weight: 600;
+        color: var(--coffee-light);
+    }
+
+    .product-category-badge {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: 50px;
+        background-color: var(--coffee-cream);
+        color: var(--coffee-medium);
+        border: 1px solid rgba(166, 124, 82, 0.3);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .info-section {
+        margin-top: 1.5rem;
+    }
+
+    .info-row {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+    .info-label {
+        font-weight: 600;
+        color: var(--coffee-medium);
+        font-size: 0.95rem;
+    }
+
+    .info-value {
+        color: #333;
+        font-size: 1rem;
+    }
+
+    .action-buttons {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn-coffee {
+        padding: 0.6rem 1.5rem;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .btn-primary-coffee {
+        background-color: var(--coffee-medium);
+        color: white;
+        border: none;
+    }
+
+        .btn-primary-coffee:hover {
+            background-color: var(--coffee-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 66, 38, 0.3);
+            color: white;
+        }
+
+    .btn-outline-coffee {
+        background-color: transparent;
+        color: var(--coffee-medium);
+        border: 2px solid var(--coffee-medium);
+    }
+
+        .btn-outline-coffee:hover {
+            background-color: var(--coffee-cream);
+            color: var(--coffee-dark);
+            transform: translateY(-2px);
+        }
+
+    .icon {
+        font-size: 1.1rem;
+    }
+
+    .description-box {
+        background-color: var(--coffee-cream);
+        border-radius: 8px;
+        padding: 1.2rem;
+        margin-top: 1rem;
+        position: relative;
+    }
+
+        .description-box:before {
+            content: '"';
+            position: absolute;
+            top: -5px;
+            left: 10px;
+            font-size: 3rem;
+            color: var(--coffee-accent);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+   
+
+    }
+</style>
+
+<div class="product-container">
+    <h1 class="page-title">Product Details</h1>
+
+    <div class="product-card">
+        <div class="product-header">
+            <h2 class="product-title">@Model.ProductName</h2>
+        </div>
+
+        <div class="row g-0">
+            <div class="col-lg-5">
+                <div class="product-image-container">
+                    @if (!string.IsNullOrEmpty(Model.ProductImage))
+                    {
+                        <img src="@Model.ProductImage" alt="@Model.ProductName" class="product-image" />
+                    }
+                    else
+                    {
+                        <img src="/images/placeholder.jpg" alt="No image available" class="product-image" />
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="product-info">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <span class="product-category-badge">
+                            <i class="bi bi-tag-fill me-1"></i>
+                            @Html.DisplayFor(model => model.Category.CategoryId)
+                        </span>
+                        <div class="product-price-tag">
+                            <span class="price-currency">$</span>
+                            @Html.DisplayFor(model => model.ProductPrice)
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="row info-row">
+                            <div class="col-sm-4 info-label">
+                                <i class="bi bi-cup-hot me-2"></i>
+                                @Html.DisplayNameFor(model => model.ProductName)
+                            </div>
+                            <div class="col-sm-8 info-value">
+                                @Html.DisplayFor(model => model.ProductName)
+                            </div>
+                        </div>
+
+                        <div class="row info-row">
+                            <div class="col-sm-4 info-label">
+                                <i class="bi bi-currency-dollar me-2"></i>
+                                @Html.DisplayNameFor(model => model.ProductPrice)
+                            </div>
+                            <div class="col-sm-8 info-value">
+                                $@Html.DisplayFor(model => model.ProductPrice)
+                            </div>
+                        </div>
+
+                        <div class="row info-row">
+                            <div class="col-sm-4 info-label">
+                                <i class="bi bi-rulers me-2"></i>
+                                @Html.DisplayNameFor(model => model.Size)
+                            </div>
+                            <div class="col-sm-8 info-value">
+                                @Html.DisplayFor(model => model.Size)
+                            </div>
+                        </div>
+
+                        <div class="row info-row">
+                            <div class="col-sm-4 info-label">
+                                <i class="bi bi-collection me-2"></i>
+                                @Html.DisplayNameFor(model => model.Category)
+                            </div>
+                            <div class="col-sm-8 info-value">
+                                @Html.DisplayFor(model => model.Category.CategoryId)
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-12 info-label mb-2">
+                                <i class="bi bi-info-circle me-2"></i>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </div>
+                            <div class="col-12">
+                                <div class="description-box">
+                                    @Html.DisplayFor(model => model.Description)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-coffee btn-primary-coffee">
+                            <i class="bi bi-pencil-square icon"></i>
+                            Edit Product
+                        </a>
+                        <a asp-action="Index" class="btn btn-coffee btn-outline-coffee">
+                            <i class="bi bi-arrow-left icon"></i>
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

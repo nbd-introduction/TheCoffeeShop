@@ -1,0 +1,273 @@
+﻿@model IEnumerable<TheCoffeeShop.Models.Account>
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid login-container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header text-center py-4">
+                    <h2 class="font-weight-bold">ĐĂNG NHẬP</h2>
+                    <p class="mb-0">Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục.</p>
+                </div>
+                <div class="card-body p-5">
+                    <form asp-action="Login" asp-controller="Account" method="post" class="needs-validation" novalidate>
+                        <div class="form-group mb-4">
+                            <label for="username" class="form-label">Tên đăng nhập</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập" required>
+                                <div class="invalid-feedback">Vui lòng nhập tên đăng nhập</div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required>
+                                <button class="btn btn-toggle" type="button" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <div class="invalid-feedback">Vui lòng nhập mật khẩu</div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
+                            </div>
+                            <a href="/Account/ForgotPassword" class="link-accent">Quên mật khẩu?</a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-accent btn-lg">Đăng nhập</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <p class="mb-0">Chưa có tài khoản? <a href="/Account/Register" class="link-accent">Đăng ký ngay</a></p>
+                </div>
+            </div>
+            <div class="text-center mt-4 text-white">
+                <p>&copy; @DateTime.Now.Year - The Coffee Shop</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --dark-bg: #121212;
+        --card-bg: #1e1e1e;
+        --card-header: #252525;
+        --card-footer: #252525;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --accent: #c8a97e;
+        --accent-hover: #b69669;
+        --input-bg: #2d2d2d;
+        --input-border: #3d3d3d;
+        --input-text: #e0e0e0;
+    }
+
+    body {
+        background-color: var(--dark-bg);
+        color: var(--text-primary);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .login-container {
+        background-image: url('https://images.unsplash.com/photo-1509785307050-d4066910ec1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1928&q=80');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        min-height: 100vh;
+    }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .login-container .row {
+            position: relative;
+            z-index: 2;
+        }
+
+    .card {
+        overflow: hidden;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        background-color: rgba(30, 30, 30, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-header {
+        background-color: var(--card-header);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-primary);
+    }
+
+        .card-header h2 {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .card-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+    .card-body {
+        background-color: var(--card-bg);
+    }
+
+    .card-footer {
+        background-color: var(--card-footer);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-secondary);
+    }
+
+    .form-label {
+        color: var(--text-primary);
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+
+    .input-group-text {
+        background-color: var(--input-bg);
+        border: 1px solid var(--input-border);
+        border-right: none;
+        color: var(--accent);
+    }
+
+    .form-control {
+        background-color: var(--input-bg);
+        border: 1px solid var(--input-border);
+        border-left: none;
+        color: var(--input-text);
+        caret-color: var(--accent);
+    }
+
+        .form-control:focus {
+            background-color: var(--input-bg);
+            box-shadow: none;
+            border-color: var(--input-border);
+            color: var(--input-text);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+    .btn-toggle {
+        background-color: var(--input-bg);
+        border: 1px solid var(--input-border);
+        border-left: none;
+        color: var(--accent);
+    }
+
+        .btn-toggle:hover {
+            color: var(--accent-hover);
+        }
+
+    .btn-accent {
+        background-color: var(--accent);
+        border: none;
+        color: #121212;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-accent:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(200, 169, 126, 0.4);
+        }
+
+    .form-check-label {
+        color: var(--text-secondary);
+    }
+
+    .form-check-input {
+        background-color: var(--input-bg);
+        border-color: var(--input-border);
+    }
+
+        .form-check-input:checked {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+    .link-accent {
+        color: var(--accent);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .link-accent:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+    .invalid-feedback {
+        color: #e57373;
+    }
+
+    /* Animation */
+    .card {
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    
+
+    }
+</style>
+
+@section Scripts {
+    <script>
+        // Hiển thị/ẩn mật khẩu
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        // Xác thực form
+        (function() {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+}
