@@ -23,14 +23,7 @@ public class HomeController : Controller
             return RedirectToAction("Index", "Account");
         }
 
-        // Lấy danh sách sản phẩm trong giỏ hàng
-        var carts = _context.Carts.Where(c => c.AccountId == accountId).Include(c => c.Product).ToList();
-
-        // Tính tổng số lượng sản phẩm trong giỏ hàng
-        int cartTotalQuantity = (int)carts.Sum(item => item.Quality);
-
-        // Đặt giá trị vào ViewBag để hiển thị trên nút giỏ hàng
-        ViewBag.CartCount = cartTotalQuantity;
+      
         return View();
     }
 

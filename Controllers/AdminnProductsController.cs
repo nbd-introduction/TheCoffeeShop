@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,37 +9,23 @@ using TheCoffeeShop.Models;
 
 namespace TheCoffeeShop.Controllers
 {
-    public class ProductController : Controller
+    public class AdminnProductsController : Controller
     {
         private readonly CoffeeShopDbContext _context;
 
-        public ProductController(CoffeeShopDbContext context)
+        public AdminnProductsController(CoffeeShopDbContext context)
         {
             _context = context;
         }
 
-        // GET: Product
+        // GET: AdminnProducts
         public async Task<IActionResult> Index()
         {
             var coffeeShopDbContext = _context.Products.Include(p => p.Category);
-            var accountId = HttpContext.Session.GetInt32("AccountId");
-            if (accountId == null)
-            {
-                return RedirectToAction("Index", "Account");
-            }
-
-            // Lấy danh sách sản phẩm trong giỏ hàng
-            var carts = _context.Carts.Where(c => c.AccountId == accountId).Include(c => c.Product).ToList();
-
-            // Tính tổng số lượng sản phẩm trong giỏ hàng
-            int cartTotalQuantity = (int)carts.Sum(item => item.Quality);
-
-            // Đặt giá trị vào ViewBag để hiển thị trên nút giỏ hàng
-            ViewBag.CartCounts = cartTotalQuantity;
             return View(await coffeeShopDbContext.ToListAsync());
         }
 
-        // GET: Product/Details/5
+        // GET: AdminnProducts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,14 +44,14 @@ namespace TheCoffeeShop.Controllers
             return View(product);
         }
 
-        // GET: Product/Create
+        // GET: AdminnProducts/Create
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
             return View();
         }
 
-        // POST: Product/Create
+        // POST: AdminnProducts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -82,7 +68,7 @@ namespace TheCoffeeShop.Controllers
             return View(product);
         }
 
-        // GET: Product/Edit/5
+        // GET: AdminnProducts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,7 +85,7 @@ namespace TheCoffeeShop.Controllers
             return View(product);
         }
 
-        // POST: Product/Edit/5
+        // POST: AdminnProducts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -135,7 +121,7 @@ namespace TheCoffeeShop.Controllers
             return View(product);
         }
 
-        // GET: Product/Delete/5
+        // GET: AdminnProducts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -154,7 +140,7 @@ namespace TheCoffeeShop.Controllers
             return View(product);
         }
 
-        // POST: Product/Delete/5
+        // POST: AdminnProducts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -173,17 +159,5 @@ namespace TheCoffeeShop.Controllers
         {
             return _context.Products.Any(e => e.ProductId == id);
         }
-        // GET: Product/Menu
-        public async Task<IActionResult> Menu()
-        {
-            var products = await _context.Products
-                .Include(p => p.Category)
-                .ToListAsync();
-            return View(products);
-        }
-
-       
-
-
     }
 }

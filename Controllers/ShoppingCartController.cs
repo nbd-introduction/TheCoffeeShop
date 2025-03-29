@@ -72,16 +72,12 @@ namespace TheCoffeeShop.Controllers
             }
                 _context.SaveChanges();
                 return RedirectToAction("Index", "ShoppingCart");
-            int cartCount = (int)_context.Carts
-                .Where(c => c.AccountId == accountId)
-            .Sum(c => c.Quality); // Hoặc c.Quality
-
-            return Json(new { success = true, cartCount });
         }
         public ActionResult RemoveFromCart(int productId)
         {
             // L?y AccountId t? session
             var accountId = HttpContext.Session.GetInt32("AccountId");
+
 
             if (accountId == null)
             {
@@ -89,18 +85,22 @@ namespace TheCoffeeShop.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+
             // Tìm cart item d?a trên productId và accountId
             var cartItem = _context.Carts.FirstOrDefault(c => c.ProductId == productId && c.AccountId == accountId);
+
 
             if (cartItem != null)
             {
                 // L?y thông tin s?n ph?m ?? tính giá
                 var product = _context.Products.Find(productId);
 
+
                 if (product != null)
                 {
                     // Xóa cart item
                     _context.Carts.Remove(cartItem);
+
 
                     // C?p nh?t t?ng giá cho các cart item còn l?i c?a user
                     var remainingCartItems = _context.Carts
@@ -108,20 +108,24 @@ namespace TheCoffeeShop.Controllers
                         .Include(c => c.Product)
                         .ToList();
 
+
                     foreach (var item in remainingCartItems)
                     {
                         // C?p nh?t TotalPrice cho m?i item d?a trên s? l??ng và giá s?n ph?m
                         item.TotalPrice = item.Quality * item.Product.ProductPrice;
                     }
 
+
                     // L?u thay ??i vào database
                     _context.SaveChanges();
                 }
             }
 
+
             // Chuy?n h??ng v? trang gi? hàng
             return RedirectToAction("Index", "ShoppingCart");
         }
+
         [HttpPost]
         public IActionResult UpdateQuantity(int productId, int quantity)
         {
@@ -150,21 +154,7 @@ namespace TheCoffeeShop.Controllers
 
             return RedirectToAction("Index", "ShoppingCart");
         }
-        [HttpGet]
-        public IActionResult GetCartCount()
-        {
-            var accountId = HttpContext.Session.GetInt32("AccountId");
-            int count = 0;
-
-            if (accountId != null)
-            {
-                // Tính tổng số lượng sản phẩm trong giỏ hàng
-                count = (int)_context.Carts
-                    .Where(c => c.AccountId == accountId)
-                    .Sum(c => c.Quality); // Hoặc c.Quality tùy thuộc vào tên thuộc tính trong model của bạn
-            }
-
-            return Json(new { count });
+        
         }
     }
-}
+

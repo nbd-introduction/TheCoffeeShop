@@ -1,434 +1,260 @@
-﻿@model TheCoffeeShop.Models.Order
-
+﻿@model List<TheCoffeeShop.Models.Cart>
 @{
-    ViewData["Title"] = "Order";
-   
+    ViewData["Title"] = "Xem lại đơn hàng";
+    decimal totalAmount = Model.Sum(item => item.Product?.ProductPrice * item.Quality ?? 0);
 }
 
-<div class="container py-5">
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-transparent border-0 pt-4 pb-0">
-                    <h2 class="card-title text-center mb-0">Thông tin đặt hàng</h2>
-                    <hr class="divider my-3">
+<div class="order-review-container">
+    <div class="order-review-header">
+        <h1 class="order-review-title">Xem lại đơn hàng</h1>
+        <p class="order-review-subtitle">Vui lòng kiểm tra lại thông tin đơn hàng trước khi xác nhận</p>
+    </div>
+
+    <div class="order-review-card">
+        <div class="order-summary">
+            <h2 class="summary-title">Tóm tắt đơn hàng</h2>
+
+            <div class="order-items">
+                @foreach (var item in Model)
+                {
+                    <div class="order-item">
+                        <div class="item-image">
+                            <img src="@(string.IsNullOrEmpty(item.Product?.ProductImage) ? "/Content/Images/placeholder.jpg" : item.Product?.ProductImage)"
+                                 alt="@item.Product?.ProductName" />
+                        </div>
+                        <div class="item-details">
+                            <h3 class="item-name">@item.Product?.ProductName</h3>
+                            <p class="item-price">@string.Format("{0:#,##0} VNĐ", item.Product?.ProductPrice)</p>
+                        </div>
+                        <div class="item-quantity">
+                            <span class="quantity-label">Số lượng:</span>
+                            <span class="quantity-value">@item.Quality</span>
+                        </div>
+                        <div class="item-total">
+                            <span class="total-label">Thành tiền:</span>
+                            <span class="total-value">@string.Format("{0:#,##0} VNĐ", item.Product?.ProductPrice * item.Quality)</span>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="order-totals">
+                <div class="total-row">
+                    <span>Tổng tiền hàng:</span>
+                    <span>@string.Format("{0:#,##0} VNĐ", totalAmount)</span>
                 </div>
-                <div class="card-body p-4">
-                    <form asp-action="Checkout" method="post" id="orderForm" class="needs-validation" novalidate>
-                        <div class="mb-4">
-                            <label for="fullName" class="form-label">Họ và tên <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="fullName" name="FullName" placeholder="Nhập họ và tên" required>
-                            <div class="invalid-feedback">Vui lòng nhập họ và tên</div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="phone" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control" id="phone" name="Phone" placeholder="Nhập số điện thoại" required pattern="[0-9]{10}">
-                            <div class="invalid-feedback">Vui lòng nhập số điện thoại hợp lệ (10 số)</div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="address" class="form-label">Địa chỉ giao hàng <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="address" name="Address" rows="3" placeholder="Nhập địa chỉ giao hàng chi tiết" required></textarea>
-                            <div class="invalid-feedback">Vui lòng nhập địa chỉ giao hàng</div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label">Phương thức thanh toán <span class="text-danger">*</span></label>
-                            <div class="payment-methods">
-                                <div class="form-check payment-method">
-                                    <input class="form-check-input" type="radio" name="PaymentMethod" id="cod" value="COD" checked required>
-                                    <label class="form-check-label" for="cod">
-                                        <span class="payment-icon"><i class="fas fa-money-bill-wave"></i></span>
-                                        <span class="payment-title">Thanh toán khi nhận hàng (COD)</span>
-                                        <span class="payment-description">Thanh toán bằng tiền mặt khi nhận hàng</span>
-                                    </label>
-                                </div>
-
-                                <div class="form-check payment-method">
-                                    <input class="form-check-input" type="radio" name="PaymentMethod" id="banking" value="Banking" required>
-                                    <label class="form-check-label" for="banking">
-                                        <span class="payment-icon"><i class="fas fa-university"></i></span>
-                                        <span class="payment-title">Chuyển khoản ngân hàng</span>
-                                        <span class="payment-description">Thanh toán qua chuyển khoản ngân hàng</span>
-                                    </label>
-                                </div>
-
-                                <div class="form-check payment-method">
-                                    <input class="form-check-input" type="radio" name="PaymentMethod" id="momo" value="Momo" required>
-                                    <label class="form-check-label" for="momo">
-                                        <span class="payment-icon"><i class="fas fa-wallet"></i></span>
-                                        <span class="payment-title">Ví điện tử MoMo</span>
-                                        <span class="payment-description">Thanh toán qua ví điện tử MoMo</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="invalid-feedback">Vui lòng chọn phương thức thanh toán</div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="note" class="form-label">Ghi chú (tùy chọn)</label>
-                            <textarea class="form-control" id="note" name="Note" rows="2" placeholder="Nhập ghi chú cho đơn hàng (nếu có)"></textarea>
-                        </div>
-
-                        <div class="d-grid gap-2 mt-5">
-                            <button type="submit" class="btn btn-primary btn-lg">Hoàn tất đặt hàng</button>
-                            <a href="@Url.Action("Index", "ShoppingCart")" class="btn btn-outline-secondary">Quay lại giỏ hàng</a>
-                        </div>
-                    </form>
+                <div class="total-row">
+                    <span>Phí vận chuyển:</span>
+                    <span>30,000 VNĐ</span>
+                </div>
+                <div class="total-row grand-total">
+                    <span>Tổng thanh toán:</span>
+                    <span>@string.Format("{0:#,##0} VNĐ", totalAmount + 30000)</span>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-transparent border-0 pt-4 pb-0">
-                    <h3 class="card-title mb-0">Tóm tắt đơn hàng</h3>
-                    <hr class="divider my-3">
-                </div>
-                <div class="card-body p-4">
-                    <div class="order-summary">
-                        @if (ViewBag.CartItems != null && ViewBag.CartItems.Count > 0)
-                        {
-                            <div class="order-items">
-                                @foreach (var item in ViewBag.CartItems)
-                                {
-                                    <div class="order-item">
-                                        <div class="order-item-image">
-                                            @if (!string.IsNullOrEmpty(item.Product.ProductImage))
-                                            {
-                                                <img src="@item.Product.ProductImage" alt="@item.Product.ProductName">
-                                            }
-                                            else
-                                            {
-                                                <div class="no-image"><i class="fas fa-coffee"></i></div>
-                                            }
-                                        </div>
-                                        <div class="order-item-details">
-                                            <h5>@item.Product.ProductName</h5>
-                                            <div class="order-item-meta">
-                                                <span class="quantity">SL: @item.Quantity</span>
-                                                <span class="price">@((item.Product.ProductPrice * item.Quantity).ToString("N0")) đ</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-
-                            <div class="order-totals">
-                                <div class="order-subtotal">
-                                    <span>Tạm tính:</span>
-                                    <span>@ViewBag.SubTotal.ToString("N0") đ</span>
-                                </div>
-                                <div class="order-shipping">
-                                    <span>Phí vận chuyển:</span>
-                                    <span>@ViewBag.ShippingFee.ToString("N0") đ</span>
-                                </div>
-                                <div class="order-total">
-                                    <span>Tổng cộng:</span>
-                                    <span>@ViewBag.Total.ToString("N0") đ</span>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="text-center py-4">
-                                <i class="fas fa-shopping-cart fa-3x mb-3 text-muted"></i>
-                                <p>Giỏ hàng của bạn đang trống</p>
-                                <a href="@Url.Action("Menu", "Product")" class="btn btn-primary mt-2">Tiếp tục mua sắm</a>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
+        <div class="order-actions">
+            <form asp-action="AdminIndex" asp-asp-controller="Order" method="post">
+                <button type="submit" class="btn-confirm">Xác nhận đặt hàng</button>
+                <a href="/ShoppingCart" class="btn-back">Quay lại giỏ hàng</a>
+            </form>
         </div>
     </div>
 </div>
 
 <style>
-    /* Màu sắc chủ đạo */
     :root {
         --primary: #6b4226;
+        --primary-dark: #5a371f;
         --secondary: #a67c52;
         --accent: #d4a762;
-        --light: #f5f0e8;
+        --accent-light: #e9d2b3;
+        --light: #f9f5f0;
         --dark: #3c2415;
         --bg: #fcfaf7;
+        --text: #333333;
+        --text-light: #666666;
+        --white: #ffffff;
+        --border: #e0e0e0;
+        --success: #4caf50;
+        --success-dark: #388e3c;
     }
 
     body {
         background-color: var(--bg);
         font-family: 'Poppins', sans-serif;
+        color: var(--text);
     }
 
-    .divider {
-        width: 60px;
-        height: 3px;
-        background-color: var(--accent);
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 2px;
+    .order-review-container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
     }
 
-    .card {
+    .order-review-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .order-review-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 36px;
+        color: var(--primary);
+        margin-bottom: 10px;
+    }
+
+    .order-review-subtitle {
+        color: var(--text-light);
+        font-size: 16px;
+    }
+
+    .order-review-card {
+        background-color: var(--white);
         border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         overflow: hidden;
     }
 
-    .card-title {
-        color: var(--dark);
-        font-weight: 600;
-    }
-
-    /* Form Styles */
-    .form-label {
-        color: var(--dark);
-        font-weight: 500;
-        margin-bottom: 8px;
-    }
-
-    .form-control {
-        padding: 12px 15px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        transition: all 0.3s ease;
-    }
-
-        .form-control:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 0.2rem rgba(166, 124, 82, 0.25);
-        }
-
-    /* Payment Methods */
-    .payment-methods {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .payment-method {
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        margin: 0;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-
-        .payment-method:hover {
-            border-color: var(--secondary);
-            background-color: var(--light);
-        }
-
-        .payment-method input {
-            margin-top: 0.3rem;
-        }
-
-        .payment-method label {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            cursor: pointer;
-            padding-left: 10px;
-        }
-
-    .payment-icon {
-        font-size: 1.5rem;
-        color: var(--secondary);
-        margin-bottom: 5px;
-    }
-
-    .payment-title {
-        font-weight: 600;
-        color: var(--dark);
-        margin-bottom: 5px;
-    }
-
-    .payment-description {
-        font-size: 0.85rem;
-        color: #666;
-    }
-
-    .form-check-input:checked ~ label .payment-title {
-        color: var(--primary);
-    }
-
-    .form-check-input:checked ~ label .payment-icon {
-        color: var(--primary);
-    }
-
-    .form-check-input:checked {
-        background-color: var(--primary);
-        border-color: var(--primary);
-    }
-
-    /* Buttons */
-    .btn-primary {
-        background-color: var(--primary);
-        border-color: var(--primary);
-        padding: 12px 20px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-        .btn-primary:hover {
-            background-color: var(--dark);
-            border-color: var(--dark);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-    .btn-outline-secondary {
-        color: var(--dark);
-        border-color: #ddd;
-        padding: 12px 20px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-        .btn-outline-secondary:hover {
-            background-color: var(--light);
-            color: var(--dark);
-            border-color: var(--secondary);
-        }
-
-    /* Order Summary */
     .order-summary {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+        padding: 30px;
+    }
+
+    .summary-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 24px;
+        color: var(--dark);
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--border);
     }
 
     .order-items {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        max-height: 300px;
-        overflow-y: auto;
-        padding-right: 5px;
+        margin-bottom: 30px;
     }
 
     .order-item {
-        display: flex;
-        gap: 15px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #eee;
+        display: grid;
+        grid-template-columns: 80px 1fr 120px 150px;
+        gap: 20px;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border);
     }
 
-        .order-item:last-child {
-            border-bottom: none;
-        }
-
-    .order-item-image {
-        width: 60px;
-        height: 60px;
-        border-radius: 8px;
+    .item-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
         overflow: hidden;
-        background-color: var(--light);
     }
 
-        .order-item-image img {
+        .item-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-    .no-image {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--secondary);
-        font-size: 1.5rem;
+    .item-name {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 5px;
     }
 
-    .order-item-details {
-        flex: 1;
+    .item-price {
+        color: var(--text-light);
+        font-size: 14px;
     }
 
-        .order-item-details h5 {
-            margin: 0 0 5px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
+    .quantity-label, .total-label {
+        display: block;
+        font-size: 14px;
+        color: var(--text-light);
+        margin-bottom: 5px;
+    }
 
-    .order-item-meta {
-        display: flex;
-        justify-content: space-between;
-        color: #666;
-        font-size: 0.9rem;
+    .quantity-value, .total-value {
+        font-weight: 600;
+        color: var(--dark);
+    }
+
+    .total-value {
+        color: var(--primary);
     }
 
     .order-totals {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding-top: 15px;
-        border-top: 1px solid #eee;
+        background-color: var(--light);
+        padding: 25px;
+        border-radius: 10px;
     }
 
-    .order-subtotal, .order-shipping, .order-total {
+    .total-row {
         display: flex;
         justify-content: space-between;
+        padding: 10px 0;
+        font-size: 16px;
     }
 
-    .order-total {
+    .grand-total {
+        margin-top: 10px;
+        padding-top: 15px;
+        border-top: 2px dashed var(--border);
         font-weight: 700;
-        color: var(--dark);
-        font-size: 1.1rem;
-        padding-top: 10px;
-        border-top: 1px dashed #ddd;
-        margin-top: 5px;
+        font-size: 20px;
+        color: var(--primary);
     }
 
-    
+    .order-actions {
+        padding: 30px;
+        background-color: var(--light);
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-confirm, .btn-back {
+        display: inline-block;
+        padding: 14px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center;
+        margin: 0 10px;
+    }
+
+    .btn-confirm {
+        background: linear-gradient(135deg, var(--success), var(--success-dark));
+        color: var(--white);
+        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+    }
+
+        .btn-confirm:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+
+    .btn-back {
+        background: transparent;
+        color: var(--text);
+        border: 2px solid var(--text-light);
+    }
+
+        .btn-back:hover {
+            background-color: var(--text-light);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+   
+
+    }
+
+   
 
     }
 </style>
-
-@section Scripts {
-    <script>
-        // Form validation
-        (function() {
-            'use strict';
-
-            // Fetch all forms we want to apply validation styles to
-            var forms = document.querySelectorAll('.needs-validation');
-
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms).forEach(function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-
-                    form.classList.add('was-validated');
-                }, false);
-            });
-
-            // Highlight selected payment method
-            const paymentMethods = document.querySelectorAll('.payment-method');
-            paymentMethods.forEach(method => {
-                const radio = method.querySelector('input[type="radio"]');
-
-                method.addEventListener('click', function() {
-                    radio.checked = true;
-
-                    // Remove active class from all methods
-                    paymentMethods.forEach(m => m.classList.remove('active'));
-
-                    // Add active class to selected method
-                    method.classList.add('active');
-                });
-
-                // Set initial active state
-                if (radio.checked) {
-                    method.classList.add('active');
-                }
-            });
-        })();
-    </script>
-}

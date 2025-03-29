@@ -4,6 +4,7 @@
     var categories = Model.Select(p => p.Category).Where(c => c != null).Distinct().ToList();
 }
 
+
 <link href="~/css/menu.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -14,6 +15,7 @@
             <p class="menu-subtitle">Discover our wide range of premium coffee and delicious treats. Each item is crafted with care using the finest ingredients.</p>
         </div>
 
+
         <div class="search-container">
             <form class="search-bar" id="searchForm">
                 <input type="text" id="searchInput" class="search-input" placeholder="Search our menu...">
@@ -23,6 +25,7 @@
             </form>
         </div>
 
+
         <div class="menu-filters">
             <button type="button" class="filter-btn active" data-filter="all">All Items</button>
             @foreach (var category in categories)
@@ -31,12 +34,15 @@
             }
         </div>
 
+
         @foreach (var category in categories)
         {
             var categoryProducts = Model.Where(p => p.CategoryId == category.CategoryId).ToList();
 
+
             <div class="menu-category" id="category-@category.CategoryId">
                 <h2 class="category-title">@category.CategoryName</h2>
+
 
                 @if (categoryProducts.Any())
                 {
@@ -83,6 +89,7 @@
     </div>
 </section>
 
+
 @section Scripts {
     <script>
         $(document).ready(function() {
@@ -91,7 +98,9 @@
                 $('.filter-btn').removeClass('active');
                 $(this).addClass('active');
 
+
                 var filter = $(this).data('filter');
+
 
                 if (filter === 'all') {
                     $('.menu-category').show();
@@ -102,10 +111,12 @@
                 }
             });
 
+
             // Search functionality
             $('#searchForm').submit(function(e) {
                 e.preventDefault();
                 var searchTerm = $('#searchInput').val().toLowerCase();
+
 
                 if (searchTerm === '') {
                     $('.menu-item').show();
@@ -113,9 +124,11 @@
                     return;
                 }
 
+
                 $('.menu-item').each(function() {
                     var itemName = $(this).find('.menu-item-title').text().toLowerCase();
                     var itemDesc = $(this).find('.menu-item-description').text().toLowerCase();
+
 
                     if (itemName.includes(searchTerm) || itemDesc.includes(searchTerm)) {
                         $(this).show();
@@ -123,6 +136,7 @@
                         $(this).hide();
                     }
                 });
+
 
                 // Hide categories with no visible items
                 $('.menu-category').each(function() {
@@ -137,3 +151,4 @@
         });
     </script>
 }
+

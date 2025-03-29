@@ -1,59 +1,462 @@
-@model TheCoffeeShop.Models.Product
+﻿@model TheCoffeeShop.Models.Product
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Product";
 }
 
-<h1>Edit</h1>
+<style>
+    /* Màu sắc chủ đạo */
+    :root {
+        --primary: #6b4226;
+        --secondary: #a67c52;
+        --accent: #d4a762;
+        --light: #f9f5f0;
+        --dark: #3a2a18;
+        --bg: #fcfaf7;
+    }
 
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ProductId" />
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductPrice" class="control-label"></label>
-                <input asp-for="ProductPrice" class="form-control" />
-                <span asp-validation-for="ProductPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Size" class="control-label"></label>
-                <input asp-for="Size" class="form-control" />
-                <span asp-validation-for="Size" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductImage" class="control-label"></label>
-                <input asp-for="ProductImage" class="form-control" />
-                <span asp-validation-for="ProductImage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    body {
+        background-color: var(--bg);
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+    }
+
+    /* Form Styles */
+    .edit-product-section {
+        padding: 80px 0;
+        background-color: var(--bg);
+        background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        position: relative;
+        min-height: 100vh;
+    }
+
+        .edit-product-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(252, 250, 247, 0.9);
+            z-index: 1;
+        }
+
+    .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .form-container {
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        padding: 50px;
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+        }
+
+    .page-title {
+        font-family: 'Playfair Display', serif;
+        color: var(--dark);
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 2.8rem;
+        font-weight: 700;
+    }
+
+    .form-subtitle {
+        color: #666;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+
+    .form-divider {
+        height: 3px;
+        background: linear-gradient(to right, var(--secondary), var(--accent));
+        width: 80px;
+        margin: 0 auto 40px;
+        border-radius: 3px;
+    }
+
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .control-label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 1.05rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #eee;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: #f9f9f9;
+    }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(166, 124, 82, 0.1);
+            background-color: white;
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 8px;
+        display: block;
+    }
+
+    /* Radio Button Styles */
+    .size-options {
+        display: flex;
+        gap: 25px;
+        margin-top: 15px;
+    }
+
+    .size-option {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .size-radio {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .size-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-color: white;
+        border: 2px solid #eee;
+        color: #666;
+        font-weight: 600;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .size-radio:checked + .size-label {
+        background: linear-gradient(135deg, var(--secondary), var(--accent));
+        border-color: var(--secondary);
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(166, 124, 82, 0.2);
+    }
+
+    .size-radio:focus + .size-label {
+        box-shadow: 0 0 0 4px rgba(166, 124, 82, 0.2);
+    }
+
+    .size-option:hover .size-label {
+        border-color: var(--secondary);
+        transform: translateY(-3px);
+    }
+
+    /* Button Styles */
+    .btn {
+        display: inline-block;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--secondary), var(--accent));
+        color: white;
+        box-shadow: 0 5px 15px rgba(166, 124, 82, 0.3);
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(166, 124, 82, 0.4);
+        }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+        }
+
+    .btn-outline {
+        background-color: transparent;
+        color: var(--dark);
+        border: 2px solid #ddd;
+    }
+
+        .btn-outline:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .back-link {
+        color: #666;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: 2px solid #eee;
+    }
+
+        .back-link:hover {
+            color: var(--secondary);
+            background-color: var(--light);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .back-link i {
+            margin-right: 8px;
+        }
+
+    /* Product Image Preview */
+    .product-image-preview {
+        margin-top: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+        .product-image-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid white;
+        }
+
+    .image-placeholder {
+        width: 200px;
+        height: 200px;
+        background-color: var(--light);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--secondary);
+        font-size: 3rem;
+        margin: 0 auto;
+    }
+
+    /* Select Styling */
+    select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b4226' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: calc(100% - 15px) center;
+        padding-right: 40px;
+    }
+
+    
+
+    }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<section class="edit-product-section">
+    <div class="container">
+        <div class="form-container">
+            <h1 class="page-title">Edit Product</h1>
+            <p class="form-subtitle">Update your coffee product details</p>
+            <div class="form-divider"></div>
+
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ProductId" />
+
+                <div class="form-group">
+                    <label asp-for="ProductName" class="control-label">Product Name</label>
+                    <input asp-for="ProductName" class="form-control" placeholder="Enter product name" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ProductPrice" class="control-label">Price ($)</label>
+                    <input asp-for="ProductPrice" class="form-control" placeholder="Enter price" />
+                    <span asp-validation-for="ProductPrice" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter product description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Size" class="control-label">Size</label>
+                    <div class="size-options">
+                        <label class="size-option">
+                            <input type="radio" asp-for="Size" value="S" class="size-radio" />
+                            <span class="size-label">S</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" asp-for="Size" value="M" class="size-radio" />
+                            <span class="size-label">M</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" asp-for="Size" value="L" class="size-radio" />
+                            <span class="size-label">L</span>
+                        </label>
+                    </div>
+                    <span asp-validation-for="Size" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ProductImage" class="control-label">Product Image</label>
+
+                    @if (!string.IsNullOrEmpty(Model.ProductImage))
+                    {
+                        <div class="product-image-preview">
+                            <img src="@Model.ProductImage" alt="@Model.ProductName" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="product-image-preview">
+                            <div class="image-placeholder">
+                                <i class="fas fa-coffee"></i>
+                            </div>
+                        </div>
+                    }
+
+                    <input asp-for="ProductImage" class="form-control" placeholder="Enter image URL" />
+                    <span asp-validation-for="ProductImage" class="text-danger"></span>
+
+                    <div class="mt-3">
+                        <label class="control-label">Upload New Image (Optional)</label>
+                        <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label">Category</label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
+                        <option value="">-- Select Category --</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-actions">
+                    <div>
+                        <a asp-action="Index" class="back-link">
+                            <i class="fas fa-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <a asp-action="Delete" asp-route-id="@Model.ProductId" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</section>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Hiển thị hình ảnh khi nhập URL
+        document.querySelector('input[name="ProductImage"]').addEventListener('input', function(e) {
+            const imageUrl = e.target.value;
+            const previewContainer = document.querySelector('.product-image-preview');
+
+            if (imageUrl) {
+                // Tạo hoặc cập nhật thẻ img
+                let imgElement = previewContainer.querySelector('img');
+                if (!imgElement) {
+                    previewContainer.innerHTML = '';
+                    imgElement = document.createElement('img');
+                    previewContainer.appendChild(imgElement);
+                }
+
+                imgElement.src = imageUrl;
+                imgElement.alt = document.querySelector('input[name="ProductName"]').value || 'Product';
+            }
+        });
+
+        // Hiển thị hình ảnh khi chọn file
+        document.querySelector('input[name="ImageFile"]').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const previewContainer = document.querySelector('.product-image-preview');
+
+                    // Tạo hoặc cập nhật thẻ img
+                    let imgElement = previewContainer.querySelector('img');
+                    if (!imgElement) {
+                        previewContainer.innerHTML = '';
+                        imgElement = document.createElement('img');
+                        previewContainer.appendChild(imgElement);
+                    }
+
+                    imgElement.src = event.target.result;
+                    imgElement.alt = document.querySelector('input[name="ProductName"]').value || 'Product';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 }

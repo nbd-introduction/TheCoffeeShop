@@ -2,250 +2,469 @@
     ViewBag.Title = "Home Page";
 }
 
-
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-<link href="~/css/Home.css" rel="stylesheet" />
-
 
 <style>
     :root {
         --primary: #6b4226;
+        --primary-dark: #5a371f;
         --secondary: #a67c52;
         --accent: #d4a762;
-        --light: #f5f0e8;
+        --accent-light: #e9d2b3;
+        --light: #f9f5f0;
         --dark: #3c2415;
         --bg: #fcfaf7;
+        --text: #333333;
+        --text-light: #666666;
+        --white: #ffffff;
     }
 
     body {
         font-family: 'Poppins', sans-serif;
         background-color: var(--bg);
-        color: #333;
+        color: var(--text);
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
     }
 
     .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 15px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    p {
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    /* Buttons */
+    .btn {
+        display: inline-block;
+        padding: 14px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: var(--white);
+        box-shadow: 0 5px 15px rgba(107, 66, 38, 0.3);
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(107, 66, 38, 0.4);
+        }
+
+    .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+    }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(107, 66, 38, 0.2);
+        }
+
+    /* Section Styles */
+    .section {
+        padding: 100px 0;
+        position: relative;
+    }
+
+    .section-title {
+        font-size: 42px;
+        margin-bottom: 20px;
+        color: var(--dark);
+        position: relative;
+        display: inline-block;
+    }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+
+    .text-center .section-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .section-description {
+        max-width: 800px;
+        margin: 30px auto;
+        font-size: 18px;
+        color: var(--text-light);
     }
 
     /* Hero Section */
     .hero-section {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
         background-size: cover;
-        width: 100%;
-        height: 300px;
         background-position: center;
-        color: white;
-        padding: 120px 0;
+        background-attachment: fixed;
+        color: var(--white);
+        padding: 180px 0;
         text-align: center;
         position: relative;
     }
 
     .hero-content {
-        max-width: 700px;
+        max-width: 800px;
         margin: 0 auto;
+        animation: fadeInUp 1s ease-out;
     }
 
     .hero-subtitle {
         font-size: 18px;
-        margin-bottom: 15px;
-        letter-spacing: 2px;
+        margin-bottom: 20px;
+        letter-spacing: 3px;
         text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 500;
     }
 
     .hero-title {
-        font-size: 72px;
+        font-size: 82px;
         font-weight: 700;
-        margin-bottom: 20px;
-        font-family: 'Playfair Display', serif;
+        margin-bottom: 30px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        letter-spacing: 2px;
     }
 
     .hero-description {
+        font-size: 20px;
+        margin-bottom: 40px;
+        line-height: 1.8;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-btn {
+        padding: 16px 36px;
         font-size: 18px;
-        margin-bottom: 30px;
-        line-height: 1.6;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     }
 
     /* Discover Section */
     .discover-section {
-        padding: 80px 0;
+        padding: 120px 0;
         text-align: center;
-        background-color: white;
+        background-color: var(--white);
+        position: relative;
+        overflow: hidden;
     }
 
-    .section-title {
-        font-size: 36px;
-        margin-bottom: 20px;
-        color: var(--dark);
-        font-family: 'Playfair Display', serif;
-    }
+        .discover-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background-color: var(--light);
+            border-radius: 50%;
+            opacity: 0.5;
+            z-index: 1;
+        }
 
-    .section-description {
-        max-width: 800px;
-        margin: 0 auto 30px;
-        line-height: 1.6;
-        color: #666;
-    }
+        .discover-section::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background-color: var(--light);
+            border-radius: 50%;
+            opacity: 0.5;
+            z-index: 1;
+        }
 
     /* Coffee Types Section */
     .coffee-types-section {
-        padding: 80px 0;
+        padding: 120px 0;
         background-color: var(--light);
+        position: relative;
     }
+
+        .coffee-types-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--white), var(--light));
+        }
 
     .coffee-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 30px;
-        margin-top: 40px;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
     }
 
     .coffee-item {
-        background-color: white;
-        border-radius: 10px;
+        background-color: var(--white);
+        border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s ease;
+        position: relative;
     }
 
         .coffee-item:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
+
+    .coffee-img-container {
+        position: relative;
+        overflow: hidden;
+        height: 220px;
+    }
 
     .coffee-img {
         width: 100%;
-        height: 200px;
+        height: 100%;
         object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+
+    .coffee-item:hover .coffee-img {
+        transform: scale(1.1);
+    }
+
+    .coffee-content {
+        padding: 25px;
     }
 
     .coffee-item h3 {
-        padding: 15px 20px 5px;
-        margin: 0;
         color: var(--dark);
         font-weight: 600;
+        font-size: 22px;
+        margin-bottom: 10px;
     }
 
-    .coffee-item p {
-        padding: 0 20px 15px;
-        margin: 0;
-        color: var(--secondary);
+    .coffee-price {
+        color: var(--primary);
         font-weight: 700;
-        font-size: 18px;
+        font-size: 20px;
+        margin-bottom: 20px;
+        display: block;
     }
 
     .coffee-item .btn {
-        margin: 0 20px 20px;
-        display: block;
+        width: 100%;
     }
 
     /* Features Section */
     .features-section {
-        padding: 80px 0;
-        background-color: white;
+        padding: 120px 0;
+        background-color: var(--white);
+        position: relative;
     }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--light), var(--white));
+        }
 
     .features-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 30px;
-        margin-top: 40px;
+        gap: 40px;
+        margin-top: 60px;
     }
 
     .feature-item {
         text-align: center;
-        padding: 30px 20px;
-        border-radius: 10px;
-        background-color: var(--light);
-        transition: transform 0.3s ease;
+        padding: 40px 30px;
+        border-radius: 20px;
+        background-color: var(--white);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: all 0.4s ease;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
     }
 
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--light), var(--accent-light));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
         }
 
+        .feature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+            .feature-item:hover::before {
+                opacity: 1;
+            }
+
     .feature-icon {
-        font-size: 36px;
+        font-size: 46px;
         color: var(--primary);
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        transition: transform 0.4s ease;
+    }
+
+    .feature-item:hover .feature-icon {
+        transform: scale(1.2);
+        color: var(--secondary);
     }
 
     .feature-item h3 {
         margin-bottom: 15px;
         color: var(--dark);
+        font-size: 22px;
+        transition: color 0.4s ease;
+    }
+
+    .feature-item:hover h3 {
+        color: var(--primary);
     }
 
     .feature-item p {
-        color: #666;
-        line-height: 1.6;
+        color: var(--text-light);
+        line-height: 1.7;
     }
 
     .cta-center {
         text-align: center;
-        margin-top: 40px;
+        margin-top: 60px;
     }
 
     /* Promo Section */
     .promo-section {
-        padding: 100px 0;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        padding: 150px 0;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
         background-size: cover;
         background-position: center;
-        color: white;
+        background-attachment: fixed;
+        color: var(--white);
         text-align: center;
+        position: relative;
     }
 
     .promo-content {
-        max-width: 700px;
+        max-width: 800px;
         margin: 0 auto;
+        position: relative;
+        z-index: 2;
     }
 
-    .promo-description {
+    .promo-section .section-title {
+        color: var(--white);
         margin-bottom: 30px;
-        font-size: 18px;
-        line-height: 1.6;
+    }
+
+        .promo-section .section-title::after {
+            background: linear-gradient(to right, var(--accent), var(--white));
+        }
+
+    .promo-description {
+        margin-bottom: 40px;
+        font-size: 20px;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.9);
     }
 
     /* Testimonial Section */
     .testimonial-section {
-        padding: 80px 0;
+        padding: 120px 0;
         background-color: var(--light);
+        position: relative;
     }
+
+        .testimonial-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--white), var(--light));
+        }
 
     .testimonial-slider {
         max-width: 800px;
-        margin: 40px auto 0;
+        margin: 60px auto 0;
         position: relative;
     }
 
     .testimonial-item {
-        background-color: white;
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        background-color: var(--white);
+        padding: 50px;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
         text-align: center;
         position: relative;
     }
 
     .quote {
-        font-size: 80px;
+        font-size: 100px;
         line-height: 1;
         color: var(--accent);
         font-family: 'Georgia', serif;
         position: absolute;
         top: 20px;
         left: 30px;
-        opacity: 0.3;
+        opacity: 0.2;
     }
 
     .testimonial-text {
-        font-size: 18px;
-        line-height: 1.6;
-        color: #555;
-        margin-bottom: 30px;
+        font-size: 20px;
+        line-height: 1.8;
+        color: var(--text);
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 2;
+        font-style: italic;
     }
 
     .testimonial-author {
@@ -255,255 +474,318 @@
     }
 
     .author-img {
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
-        margin-right: 15px;
+        margin-right: 20px;
+        border: 3px solid var(--accent-light);
     }
 
-    .testimonial-author h4 {
+    .author-info h4 {
         margin: 0;
         color: var(--dark);
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .author-info p {
+        color: var(--text-light);
+        margin-top: 5px;
     }
 
     .testimonial-controls {
         display: flex;
         justify-content: center;
-        margin-top: 20px;
+        margin-top: 30px;
     }
 
-    .control-prev, .control-next {
-        background-color: var(--primary);
-        color: white;
+    .control-btn {
+        background-color: var(--white);
+        color: var(--primary);
         border: none;
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
-        margin: 0 5px;
+        margin: 0 10px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-        .control-prev:hover, .control-next:hover {
-            background-color: var(--dark);
+        .control-btn:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .control-btn i {
+            font-size: 18px;
         }
 
     /* Subscribe Section */
     .subscribe-section {
-        padding: 80px 0;
-        background-color: white;
+        padding: 120px 0;
+        background-color: var(--white);
         text-align: center;
+        position: relative;
     }
+
+        .subscribe-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--light), var(--white));
+        }
 
     .subscribe-description {
         max-width: 600px;
-        margin: 0 auto 30px;
-        color: #666;
+        margin: 30px auto 40px;
+        color: var(--text-light);
+        font-size: 18px;
     }
 
     .subscribe-form {
-        max-width: 500px;
+        max-width: 600px;
         margin: 0 auto;
         display: flex;
+        position: relative;
     }
 
-        .subscribe-form input {
-            flex: 1;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px 0 0 5px;
-            font-size: 16px;
-        }
-
-        .subscribe-form button {
-            border-radius: 0 5px 5px 0;
-            padding: 0 25px;
-        }
-
-    /* Buttons */
-    .btn {
-        display: inline-block;
-        padding: 12px 25px;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: 600;
+    .subscribe-input {
+        flex: 1;
+        padding: 18px 25px;
+        border: 2px solid #eee;
+        border-radius: 50px;
+        font-size: 16px;
+        background-color: var(--white);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
     }
 
-    .btn-primary {
-        background-color: var(--primary);
-        color: white;
-    }
-
-        .btn-primary:hover {
-            background-color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        .subscribe-input:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 5px 25px rgba(212, 167, 98, 0.2);
         }
 
-    /* Cart Button Styles */
+    .subscribe-btn {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        bottom: 5px;
+        padding: 0 30px;
+        border-radius: 50px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: var(--white);
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .subscribe-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            box-shadow: 0 5px 15px rgba(107, 66, 38, 0.3);
+        }
+
     /* Cart Button Styles */
     .cart-button {
         position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 60px;
-        height: 60px;
-        background-color: #6b4226;
+        bottom: 40px;
+        right: 40px;
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
         color: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
         z-index: 1000;
     }
 
         .cart-button:hover {
-            background-color: #3c2415;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
         }
 
     .cart-icon {
-        font-size: 24px;
+        font-size: 28px;
     }
 
     .cart-count {
         position: absolute;
-        top: -5px;
-        right: -5px;
-        background-color: #dc3545;
+        top: -8px;
+        right: -8px;
+        background-color: #e74c3c;
         color: white;
-        width: 22px;
-        height: 22px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
-        /* Đảm bảo số hiển thị rõ ràng */
-        text-align: center;
-        line-height: 1;
-        padding: 0;
-        margin: 0;
+        box-shadow: 0 3px 10px rgba(231, 76, 60, 0.5);
+        border: 2px solid white;
     }
 
+   
+
+    }
 </style>
-<div class="hero-section">
+
+<!-- Hero Section -->
+<section class="hero-section">
     <div class="container">
         <div class="hero-content">
             <p class="hero-subtitle">Your all-day beverage, served with love</p>
             <h1 class="hero-title">Coffee</h1>
             <p class="hero-description">A cup of hot coffee in the morning is the perfect start to a productive day. Enjoy our premium coffee beans.</p>
-            <a href="@Url.Action("Menu", "Product")" class="btn btn-primary">Shop Now</a>
+            <a href="@Url.Action("Menu", "Product")" class="btn btn-primary hero-btn">Shop Now</a>
         </div>
     </div>
-</div>
+</section>
 
-<div class="discover-section">
+<!-- Discover Section -->
+<section class="discover-section section">
     <div class="container">
-        <h2 class="section-title">Discover the best coffee</h2>
-        <p class="section-description">
-            At our coffee shop, we select and roast the finest coffee beans from around the world.
-            Our expert baristas craft each cup with precision and care, ensuring a perfect brew every time.
-            Experience the rich flavors and aromas that make our coffee truly exceptional.
-        </p>
-        <a href="#" class="btn btn-primary">Learn More</a>
+        <div class="text-center">
+            <h2 class="section-title">Discover the best coffee</h2>
+            <p class="section-description">
+                At our coffee shop, we select and roast the finest coffee beans from around the world.
+                Our expert baristas craft each cup with precision and care, ensuring a perfect brew every time.
+                Experience the rich flavors and aromas that make our coffee truly exceptional.
+            </p>
+            <a href="#" class="btn btn-primary">Learn More</a>
+        </div>
     </div>
-</div>
+</section>
 
-<div class="coffee-types-section">
+<!-- Coffee Types Section -->
+<section class="coffee-types-section section">
     <div class="container">
         <h2 class="section-title">Enjoy a new blend of coffee style</h2>
         <div class="coffee-grid">
             <div class="coffee-item">
-                <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                     alt="Cappuccino" class="coffee-img">
-                <h3>Cappuccino</h3>
-                <p>$4.99</p>
-                <a href="#" class="btn btn-primary add-to-cart" data-id="1">Order Now</a>
+                <div class="coffee-img-container">
+                    <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                         alt="Cappuccino" class="coffee-img">
+                </div>
+                <div class="coffee-content">
+                    <h3>Cappuccino</h3>
+                    <span class="coffee-price">$4.99</span>
+                    <a href="#" class="btn btn-primary add-to-cart" data-id="1">Order Now</a>
+                </div>
             </div>
             <div class="coffee-item">
-                <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2075&q=80"
-                     alt="Latte" class="coffee-img">
-                <h3>Latte</h3>
-                <p>$4.50</p>
-                <a href="#" class="btn btn-primary add-to-cart" data-id="2">Order Now</a>
+                <div class="coffee-img-container">
+                    <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2075&q=80"
+                         alt="Latte" class="coffee-img">
+                </div>
+                <div class="coffee-content">
+                    <h3>Latte</h3>
+                    <span class="coffee-price">$4.50</span>
+                    <a href="#" class="btn btn-primary add-to-cart" data-id="2">Order Now</a>
+                </div>
             </div>
             <div class="coffee-item">
-                <img src="https://images.unsplash.com/photo-1551030173-122aabc4489c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80"
-                     alt="Americano" class="coffee-img">
-                <h3>Americano</h3>
-                <p>$3.99</p>
-                <a href="#" class="btn btn-primary add-to-cart" data-id="3">Order Now</a>
+                <div class="coffee-img-container">
+                    <img src="https://images.unsplash.com/photo-1551030173-122aabc4489c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80"
+                         alt="Americano" class="coffee-img">
+                </div>
+                <div class="coffee-content">
+                    <h3>Americano</h3>
+                    <span class="coffee-price">$3.99</span>
+                    <a href="#" class="btn btn-primary add-to-cart" data-id="3">Order Now</a>
+                </div>
             </div>
             <div class="coffee-item">
-                <img src="https://www.fourthestatecoffee.com/wp-content/uploads/2020/05/gallery8.jpg"
-                     alt="Espresso" class="coffee-img">
-                <h3>Espresso</h3>
-                <p>$3.50</p>
-                <a href="#" class="btn btn-primary add-to-cart" data-id="4">Order Now</a>
+                <div class="coffee-img-container">
+                    <img src="https://www.fourthestatecoffee.com/wp-content/uploads/2020/05/gallery8.jpg"
+                         alt="Espresso" class="coffee-img">
+                </div>
+                <div class="coffee-content">
+                    <h3>Espresso</h3>
+                    <span class="coffee-price">$3.50</span>
+                    <a href="#" class="btn btn-primary add-to-cart" data-id="4">Order Now</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="features-section">
+<!-- Features Section -->
+<section class="features-section section">
     <div class="container">
-        <h2 class="section-title">Why are we different?</h2>
+        <div class="text-center">
+            <h2 class="section-title">Why are we different?</h2>
+        </div>
         <div class="features-grid">
             <div class="feature-item">
                 <div class="feature-icon">
                     <i class="fas fa-heart"></i>
                 </div>
                 <h3>Selected Beans</h3>
-                <p>We carefully select premium coffee beans from sustainable sources.</p>
+                <p>We carefully select premium coffee beans from sustainable sources around the world.</p>
             </div>
             <div class="feature-item">
                 <div class="feature-icon">
                     <i class="fas fa-award"></i>
                 </div>
                 <h3>Best Quality</h3>
-                <p>Our coffee meets the highest quality standards in the industry.</p>
+                <p>Our coffee meets the highest quality standards in the industry with perfect roasting.</p>
             </div>
             <div class="feature-item">
                 <div class="feature-icon">
                     <i class="fas fa-coffee"></i>
                 </div>
                 <h3>Extraordinary Taste</h3>
-                <p>Experience unique flavors crafted by our expert baristas.</p>
+                <p>Experience unique flavors crafted by our expert baristas with passion and precision.</p>
             </div>
             <div class="feature-item">
                 <div class="feature-icon">
                     <i class="fas fa-truck"></i>
                 </div>
                 <h3>Affordable Price</h3>
-                <p>Premium coffee at prices that won't break your budget.</p>
+                <p>Premium coffee at prices that won't break your budget, with special offers daily.</p>
             </div>
         </div>
         <div class="cta-center">
             <a href="@Url.Action("Menu", "Product")" class="btn btn-primary">Get more today</a>
         </div>
     </div>
-</div>
+</section>
 
-<div class="promo-section">
+<!-- Promo Section -->
+<section class="promo-section">
     <div class="container">
         <div class="promo-content">
             <h2 class="section-title">Get a chance to have an Amazing morning</h2>
-            <p class="promo-description">Start your day with our premium coffee. Order now and enjoy the perfect brew.</p>
+            <p class="promo-description">Start your day with our premium coffee. Order now and enjoy the perfect brew that will energize your entire day.</p>
             <a href="@Url.Action("Menu", "Product")" class="btn btn-primary">Order Now</a>
         </div>
     </div>
-</div>
+</section>
 
-<div class="testimonial-section">
+<!-- Testimonial Section -->
+<section class="testimonial-section section">
     <div class="container">
-        <h2 class="section-title">Our coffee perfection feedback</h2>
+        <div class="text-center">
+            <h2 class="section-title">Our coffee perfection feedback</h2>
+        </div>
         <div class="testimonial-slider">
             <div class="testimonial-item active">
                 <div class="quote">"</div>
@@ -513,55 +795,76 @@
                 </p>
                 <div class="testimonial-author">
                     <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jamie Thomas" class="author-img">
-                    <h4>Jamie Thomas</h4>
+                    <div class="author-info">
+                        <h4>Jamie Thomas</h4>
+                        <p>Coffee Enthusiast</p>
+                    </div>
                 </div>
             </div>
             <div class="testimonial-controls">
-                <button class="control-prev"><i class="fas fa-chevron-left"></i></button>
-                <button class="control-next"><i class="fas fa-chevron-right"></i></button>
+                <button class="control-btn control-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="control-btn control-next"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="subscribe-section">
+<!-- Subscribe Section -->
+<section class="subscribe-section section">
     <div class="container">
-        <h2 class="section-title">Subscribe to get the latest News</h2>
-        <p class="subscribe-description">Join our newsletter for updates, promotions, and coffee tips.</p>
-        <div class="subscribe-form">
-            <form>
-                <input type="email" placeholder="Your email address" required>
-                <button type="submit" class="btn btn-primary">Subscribe</button>
-            </form>
+        <div class="text-center">
+            <h2 class="section-title">Subscribe to get the latest News</h2>
+            <p class="subscribe-description">Join our newsletter for updates, promotions, and coffee tips delivered straight to your inbox.</p>
         </div>
+        <form class="subscribe-form">
+            <input type="email" class="subscribe-input" placeholder="Your email address" required>
+            <button type="submit" class="subscribe-btn">Subscribe</button>
+        </form>
     </div>
-</div>
+</section>
+
+<!-- Cart Button -->
+<a href="@Url.Action("Index", "Cart")" class="cart-button">
+    <i class="fas fa-shopping-cart cart-icon"></i>
+    <span class="cart-count">0</span>
+</a>
 
 <script>
-       document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
+        // Khởi tạo số lượng giỏ hàng từ localStorage
         let cartCount = localStorage.getItem("cartCount") || 0;
         updateCartCount(cartCount);
-    });
 
-    function updateCartCount(count) {
-        let cartCountElement = document.querySelector(".cart-count");
-        if (cartCountElement) {
-            if (count > 0) {
-                cartCountElement.textContent = count;
-                cartCountElement.style.display = "flex";
-            } else {
-                cartCountElement.style.display = "none";
+        // Cập nhật số lượng giỏ hàng
+        function updateCartCount(count) {
+            let cartCountElement = document.querySelector(".cart-count");
+            if (cartCountElement) {
+                if (count > 0) {
+                    cartCountElement.textContent = count;
+                    cartCountElement.style.display = "flex";
+                } else {
+                    cartCountElement.style.display = "none";
+                }
             }
         }
-    }
 
-    document.querySelectorAll(".add-to-cart").forEach(button => {
-        button.addEventListener("click", function () {
-            let count = parseInt(localStorage.getItem("cartCount") || "0") + 1;
-            localStorage.setItem("cartCount", count);
-            updateCartCount(count);
+        // Xử lý sự kiện thêm vào giỏ hàng
+        document.querySelectorAll(".add-to-cart").forEach(button => {
+            button.addEventListener("click", function(e) {
+                e.preventDefault();
+                let count = parseInt(localStorage.getItem("cartCount") || "0") + 1;
+                localStorage.setItem("cartCount", count);
+                updateCartCount(count);
+
+                // Hiệu ứng thêm vào giỏ hàng
+                const cartButton = document.querySelector('.cart-button');
+                cartButton.classList.add('pulse');
+                setTimeout(() => {
+                    cartButton.classList.remove('pulse');
+                }, 1000);
+            });
         });
-    });
+
         // Xử lý slider testimonial
         const prevButton = document.querySelector('.control-prev');
         const nextButton = document.querySelector('.control-next');
@@ -591,5 +894,32 @@
                 testimonials[currentIndex].style.display = 'block';
             });
         }
+
+        // Hiệu ứng scroll
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.coffee-item, .feature-item');
+
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (elementPosition < windowHeight * 0.8) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Thêm hiệu ứng ban đầu
+        document.querySelectorAll('.coffee-item, .feature-item').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+
+        // Gọi hàm khi scroll
+        window.addEventListener('scroll', animateOnScroll);
+        // Gọi một lần khi trang tải xong
+        animateOnScroll();
     });
 </script>

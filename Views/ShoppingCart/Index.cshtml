@@ -299,20 +299,26 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 <section class="cart-section">
+    <div class="cart-button-container">
+        <a href="@Url.Action("Index", "ShoppingCart")" class="cart-button">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">@(ViewBag.CartCount ?? 0)</span>
+        </a>
+    </div>
     <div class="cart-container">
-        <h1 class="page-title">Your Shopping Cart</h1>
-        <p class="page-subtitle">Review your items and proceed to checkout</p>
+        <h1 class="page-title">Giỏ hàng của bạn</h1>
+        <p class="page-subtitle">Xem lại sản phẩm và tiến hành thanh toán</p>
 
-        @if (!Model.Any())
+        @if (Model == null || !Model.Any())
         {
             <div class="cart-empty">
                 <div class="cart-empty-icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <h3 class="cart-empty-text">Your cart is empty</h3>
-                <p>Looks like you haven't added any products to your cart yet.</p>
+                <h3 class="cart-empty-text">Giỏ hàng của bạn đang trống</h3>
+                <p>Có vẻ như bạn chưa thêm sản phẩm nào vào giỏ hàng.</p>
                 <a href="@Url.Action("Menu", "Product")" class="btn btn-primary">
-                    Continue Shopping
+                    Tiếp tục mua sắm
                 </a>
             </div>
         }
@@ -321,7 +327,7 @@
             <div class="cart-content">
                 <div class="cart-items">
                     <div class="cart-header">
-                        <h3>Cart Items (@Model.Count())</h3>
+                        <h3>Sản phẩm trong giỏ (@Model.Count())</h3>
                     </div>
 
                     @foreach (var item in Model)
@@ -341,7 +347,7 @@
 
                             <div class="cart-item-details">
                                 <h4 class="cart-item-name">@item.Product.ProductName</h4>
-                                <p class="cart-item-price">$@item.Product.ProductPrice.ToString("0.00")</p>
+                                <p class="cart-item-price">@item.Product.ProductPrice.ToString("#,##0") VNĐ</p>
 
                                 @if (!string.IsNullOrEmpty(item.Product.Size))
                                 {
@@ -367,10 +373,7 @@
                                         <button type="submit" name="action" value="increase" class="remove-item" onclick="return confirm('Bạn muốn xóa mặt hàng này chứ ?');">
                                             <i class="fas fa-trash"></i>
                                         </button>
-
                                     </form>
-                                    
-                                    
                                 </div>
                             </div>
                         </div>
@@ -378,48 +381,56 @@
 
                     <div class="cart-actions">
                         <a href="@Url.Action("Menu", "Product")" class="btn btn-outline action-btn">
-                            <i class="fas fa-arrow-left"></i> Continue Shopping
+                            <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
                         </a>
                         <button id="update-cart" class="btn btn-outline action-btn">
-                            <i class="fas fa-sync"></i> Update Cart
+                            <i class="fas fa-sync"></i> Cập nhật giỏ hàng
                         </button>
                     </div>
                 </div>
 
                 <div class="cart-summary">
-                    <h3 class="summary-title">Order Summary</h3>
+                    <h3 class="summary-title">Tóm tắt đơn hàng</h3>
 
                     <div class="summary-row">
-                        <span class="summary-label">Subtotal</span>
-                        <span class="summary-value">$@cartTotal.ToString("0.00")</span>
+                        <span class="summary-label">Tạm tính</span>
+                        <span class="summary-value">@cartTotal.ToString("#,##0") VNĐ</span>
                     </div>
 
                     <div class="summary-row">
-                        <span class="summary-label">Shipping</span>
-                        <span class="summary-value">Free</span>
+                        <span class="summary-label">Phí vận chuyển</span>
+                        <span class="summary-value">Miễn phí</span>
                     </div>
 
-                    
                     <div class="summary-row summary-total">
-                        <span class="summary-label">Total</span>
-                        <span class="summary-value">$@((cartTotal).ToString("0.00"))</span>
+                        <span class="summary-label">Tổng cộng</span>
+                        <span class="summary-value">@((cartTotal).ToString("#,##0")) VNĐ</span>
                     </div>
-
-                    <a href="#" class="btn btn-primary checkout-btn">
-                        <i class="fas fa-lock"></i> Proceed to Checkout
+                    <a href="/Order" class="btn btn-primary checkout-btn">
+                        <i class="fas fa-lock"></i> Tiến hành thanh toán
                     </a>
 
                     <a href="@Url.Action("Menu", "Product")" class="continue-shopping">
-                        <i class="fas fa-arrow-left"></i> Continue Shopping
+                        <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
                     </a>
                 </div>
             </div>
         }
     </div>
 </section>
-
 @section Scripts {
     <script>
+        
+        // Đảm bảo số lượng hiển thị đúng khi trang tải
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lấy số lượng từ server thông qua AJAX
+            fetch('@Url.Action("GetCartCount", "Cart")')
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('.cart-count').textContent = data.count;
+                })
+                .catch(error => console.error('Error:', error));
+        });
         $(document).ready(function() {
             // Tăng số lượng
             $('.increase-quantity').click(function() {

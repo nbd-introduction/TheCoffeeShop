@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZqweWwvYu+t09LXHB4fan8QkkA4/HjkZWlF4/Q1j+5I=",
+  "Hash": "L7qKYDgRB0KUb6iHYjb2YM+jFdbOA+MLYUrLeXCMWvA=",
   "Source": "TheCoffeeShop",
   "BasePath": "_content/TheCoffeeShop",
   "Mode": "Default",
@@ -206,12 +206,12 @@
       "OriginalItemSpec": "D:\\Study\\TheCoffeeShop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-8s0re5qzuz.gz",
+      "Identity": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-yk9f32fg3f.gz",
       "SourceId": "TheCoffeeShop",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/TheCoffeeShop",
-      "RelativePath": "css/site#[.{fingerprint=8s0re5qzuz}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=yk9f32fg3f}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -220,8 +220,8 @@
       "RelatedAsset": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "k2daswokn5",
-      "Integrity": "rPzqVaHm7Qork4a/MvbxnahIculGenOI+78rOy3p7EE=",
+      "Fingerprint": "qslcbbxemq",
+      "Integrity": "pn9RTr/awLCo+wdGkHNkbfYBtPn5QmmfllwSCpYvunI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\site.css"
@@ -332,12 +332,12 @@
       "OriginalItemSpec": "D:\\Study\\TheCoffeeShop\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-h46rsm7zrh.gz",
+      "Identity": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-tg5xy2lhwe.gz",
       "SourceId": "TheCoffeeShop",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/TheCoffeeShop",
-      "RelativePath": "css/menu#[.{fingerprint=h46rsm7zrh}]?.css.gz",
+      "RelativePath": "css/menu#[.{fingerprint=tg5xy2lhwe}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -346,8 +346,8 @@
       "RelatedAsset": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\menu.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "p7yku1vd36",
-      "Integrity": "y2OuSPpPyDuyd9aPd6iM8APeSBIQln/cLh26c3IcmcU=",
+      "Fingerprint": "isy2ufidyf",
+      "Integrity": "XgmHadZ/QxvDx0w8otWRF129USwCjpZ0CUrrTVBJeSM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\menu.css"
@@ -605,12 +605,12 @@
       "OriginalItemSpec": "D:\\Study\\TheCoffeeShop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-3r8b2a0bt1.gz",
+      "Identity": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-o042bexiku.gz",
       "SourceId": "TheCoffeeShop",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/TheCoffeeShop",
-      "RelativePath": "css/Home#[.{fingerprint=3r8b2a0bt1}]?.css.gz",
+      "RelativePath": "css/Home#[.{fingerprint=o042bexiku}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -619,8 +619,8 @@
       "RelatedAsset": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\Home.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "7t0uxwsjr0",
-      "Integrity": "Zd+4tKe+YyWXvSCQtbmshsT5I0pKoALzyCu8fniaMWo=",
+      "Fingerprint": "xps1zqh9ok",
+      "Integrity": "W70wqorm1W6KC3mmLsknxBq0wQPeDTbPqqThmus9+oA=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\Home.css"
@@ -1459,8 +1459,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "3r8b2a0bt1",
-      "Integrity": "8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=",
+      "Fingerprint": "o042bexiku",
+      "Integrity": "KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\Home.css"
@@ -1480,8 +1480,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "h46rsm7zrh",
-      "Integrity": "P8RpzLPcOO73YdvvIdEigA6hEE0Se+oQ7MVNa5jfjfY=",
+      "Fingerprint": "tg5xy2lhwe",
+      "Integrity": "7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\menu.css"
@@ -1501,8 +1501,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "8s0re5qzuz",
-      "Integrity": "SGH8IKHw7VWGziA1FnYUpk6YB8289YN2FexH7gQ6svA=",
+      "Fingerprint": "yk9f32fg3f",
+      "Integrity": "QvmR3rEcrvNKHHlqSKjHZY1FY60dSfzeYD8J0SdY5pw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -2833,13 +2833,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/Home.3r8b2a0bt1.css",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-3r8b2a0bt1.gz",
+      "Route": "css/Home.css",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-o042bexiku.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.041666666667"
+          "Quality": "0.000335008375"
         }
       ],
       "ResponseHeaders": [
@@ -2849,19 +2849,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "23"
+          "Value": "2984"
         },
         {
           "Name": "ETag",
-          "Value": "\"Zd+4tKe+YyWXvSCQtbmshsT5I0pKoALzyCu8fniaMWo=\""
+          "Value": "\"W70wqorm1W6KC3mmLsknxBq0wQPeDTbPqqThmus9+oA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 26 Mar 2025 17:02:32 GMT"
+          "Value": "Thu, 27 Mar 2025 06:54:55 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -2877,26 +2877,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=\""
+          "Value": "W/\"KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "3r8b2a0bt1"
-        },
-        {
-          "Name": "label",
-          "Value": "css/Home.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U="
+          "Value": "sha256-KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814="
         }
       ]
     },
     {
-      "Route": "css/Home.3r8b2a0bt1.css",
+      "Route": "css/Home.css",
       "AssetFile": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\Home.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2906,7 +2898,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3"
+          "Value": "15459"
         },
         {
           "Name": "Content-Type",
@@ -2914,11 +2906,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=\""
+          "Value": "\"KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 26 Mar 2025 17:02:32 GMT"
+          "Value": "Thu, 27 Mar 2025 06:54:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814="
+        }
+      ]
+    },
+    {
+      "Route": "css/Home.css.gz",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-o042bexiku.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2984"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W70wqorm1W6KC3mmLsknxBq0wQPeDTbPqqThmus9+oA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 06:54:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-W70wqorm1W6KC3mmLsknxBq0wQPeDTbPqqThmus9+oA="
+        }
+      ]
+    },
+    {
+      "Route": "css/Home.o042bexiku.css",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-o042bexiku.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000335008375"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2984"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W70wqorm1W6KC3mmLsknxBq0wQPeDTbPqqThmus9+oA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 06:54:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "o042bexiku"
+        },
+        {
+          "Name": "label",
+          "Value": "css/Home.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814="
+        }
+      ]
+    },
+    {
+      "Route": "css/Home.o042bexiku.css",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\Home.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "15459"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 06:54:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2928,7 +3065,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "3r8b2a0bt1"
+          "Value": "o042bexiku"
         },
         {
           "Name": "label",
@@ -2936,13 +3073,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U="
+          "Value": "sha256-KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814="
         }
       ]
     },
     {
-      "Route": "css/Home.3r8b2a0bt1.css.gz",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-3r8b2a0bt1.gz",
+      "Route": "css/Home.o042bexiku.css.gz",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-o042bexiku.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2951,7 +3088,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "23"
+          "Value": "2984"
         },
         {
           "Name": "Content-Type",
@@ -2959,11 +3096,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Zd+4tKe+YyWXvSCQtbmshsT5I0pKoALzyCu8fniaMWo=\""
+          "Value": "\"W70wqorm1W6KC3mmLsknxBq0wQPeDTbPqqThmus9+oA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 26 Mar 2025 17:02:32 GMT"
+          "Value": "Thu, 27 Mar 2025 06:54:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2981,7 +3118,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "3r8b2a0bt1"
+          "Value": "o042bexiku"
         },
         {
           "Name": "label",
@@ -2989,155 +3126,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Zd+4tKe+YyWXvSCQtbmshsT5I0pKoALzyCu8fniaMWo="
-        }
-      ]
-    },
-    {
-      "Route": "css/Home.css",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-3r8b2a0bt1.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.041666666667"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "23"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Zd+4tKe+YyWXvSCQtbmshsT5I0pKoALzyCu8fniaMWo=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 26 Mar 2025 17:02:32 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U="
-        }
-      ]
-    },
-    {
-      "Route": "css/Home.css",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\Home.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 26 Mar 2025 17:02:32 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U="
-        }
-      ]
-    },
-    {
-      "Route": "css/Home.css.gz",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\e5t25gcmm5-3r8b2a0bt1.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "23"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Zd+4tKe+YyWXvSCQtbmshsT5I0pKoALzyCu8fniaMWo=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 26 Mar 2025 17:02:32 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Zd+4tKe+YyWXvSCQtbmshsT5I0pKoALzyCu8fniaMWo="
+          "Value": "sha256-W70wqorm1W6KC3mmLsknxBq0wQPeDTbPqqThmus9+oA="
         }
       ]
     },
     {
       "Route": "css/menu.css",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-h46rsm7zrh.gz",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-tg5xy2lhwe.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000653167864"
+          "Quality": "0.000565610860"
         }
       ],
       "ResponseHeaders": [
@@ -3147,15 +3147,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1530"
+          "Value": "1767"
         },
         {
           "Name": "ETag",
-          "Value": "\"y2OuSPpPyDuyd9aPd6iM8APeSBIQln/cLh26c3IcmcU=\""
+          "Value": "\"XgmHadZ/QxvDx0w8otWRF129USwCjpZ0CUrrTVBJeSM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 22 Mar 2025 16:06:29 GMT"
+          "Value": "Thu, 27 Mar 2025 06:40:08 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3175,13 +3175,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"P8RpzLPcOO73YdvvIdEigA6hEE0Se+oQ7MVNa5jfjfY=\""
+          "Value": "W/\"7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-P8RpzLPcOO73YdvvIdEigA6hEE0Se+oQ7MVNa5jfjfY="
+          "Value": "sha256-7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk="
         }
       ]
     },
@@ -3196,7 +3196,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6173"
+          "Value": "7211"
         },
         {
           "Name": "Content-Type",
@@ -3204,11 +3204,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"P8RpzLPcOO73YdvvIdEigA6hEE0Se+oQ7MVNa5jfjfY=\""
+          "Value": "\"7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 22 Mar 2025 16:06:29 GMT"
+          "Value": "Thu, 27 Mar 2025 06:40:08 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3218,13 +3218,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-P8RpzLPcOO73YdvvIdEigA6hEE0Se+oQ7MVNa5jfjfY="
+          "Value": "sha256-7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk="
         }
       ]
     },
     {
       "Route": "css/menu.css.gz",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-h46rsm7zrh.gz",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-tg5xy2lhwe.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3233,7 +3233,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1530"
+          "Value": "1767"
         },
         {
           "Name": "Content-Type",
@@ -3241,11 +3241,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"y2OuSPpPyDuyd9aPd6iM8APeSBIQln/cLh26c3IcmcU=\""
+          "Value": "\"XgmHadZ/QxvDx0w8otWRF129USwCjpZ0CUrrTVBJeSM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 22 Mar 2025 16:06:29 GMT"
+          "Value": "Thu, 27 Mar 2025 06:40:08 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3263,18 +3263,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-y2OuSPpPyDuyd9aPd6iM8APeSBIQln/cLh26c3IcmcU="
+          "Value": "sha256-XgmHadZ/QxvDx0w8otWRF129USwCjpZ0CUrrTVBJeSM="
         }
       ]
     },
     {
-      "Route": "css/menu.h46rsm7zrh.css",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-h46rsm7zrh.gz",
+      "Route": "css/menu.tg5xy2lhwe.css",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-tg5xy2lhwe.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000653167864"
+          "Quality": "0.000565610860"
         }
       ],
       "ResponseHeaders": [
@@ -3284,15 +3284,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1530"
+          "Value": "1767"
         },
         {
           "Name": "ETag",
-          "Value": "\"y2OuSPpPyDuyd9aPd6iM8APeSBIQln/cLh26c3IcmcU=\""
+          "Value": "\"XgmHadZ/QxvDx0w8otWRF129USwCjpZ0CUrrTVBJeSM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 22 Mar 2025 16:06:29 GMT"
+          "Value": "Thu, 27 Mar 2025 06:40:08 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3312,13 +3312,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"P8RpzLPcOO73YdvvIdEigA6hEE0Se+oQ7MVNa5jfjfY=\""
+          "Value": "W/\"7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "h46rsm7zrh"
+          "Value": "tg5xy2lhwe"
         },
         {
           "Name": "label",
@@ -3326,12 +3326,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-P8RpzLPcOO73YdvvIdEigA6hEE0Se+oQ7MVNa5jfjfY="
+          "Value": "sha256-7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk="
         }
       ]
     },
     {
-      "Route": "css/menu.h46rsm7zrh.css",
+      "Route": "css/menu.tg5xy2lhwe.css",
       "AssetFile": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\menu.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3341,7 +3341,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6173"
+          "Value": "7211"
         },
         {
           "Name": "Content-Type",
@@ -3349,11 +3349,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"P8RpzLPcOO73YdvvIdEigA6hEE0Se+oQ7MVNa5jfjfY=\""
+          "Value": "\"7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 22 Mar 2025 16:06:29 GMT"
+          "Value": "Thu, 27 Mar 2025 06:40:08 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3363,7 +3363,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "h46rsm7zrh"
+          "Value": "tg5xy2lhwe"
         },
         {
           "Name": "label",
@@ -3371,13 +3371,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-P8RpzLPcOO73YdvvIdEigA6hEE0Se+oQ7MVNa5jfjfY="
+          "Value": "sha256-7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk="
         }
       ]
     },
     {
-      "Route": "css/menu.h46rsm7zrh.css.gz",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-h46rsm7zrh.gz",
+      "Route": "css/menu.tg5xy2lhwe.css.gz",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\akccqu7kjm-tg5xy2lhwe.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3386,7 +3386,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1530"
+          "Value": "1767"
         },
         {
           "Name": "Content-Type",
@@ -3394,11 +3394,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"y2OuSPpPyDuyd9aPd6iM8APeSBIQln/cLh26c3IcmcU=\""
+          "Value": "\"XgmHadZ/QxvDx0w8otWRF129USwCjpZ0CUrrTVBJeSM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 22 Mar 2025 16:06:29 GMT"
+          "Value": "Thu, 27 Mar 2025 06:40:08 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3416,7 +3416,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "h46rsm7zrh"
+          "Value": "tg5xy2lhwe"
         },
         {
           "Name": "label",
@@ -3424,18 +3424,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-y2OuSPpPyDuyd9aPd6iM8APeSBIQln/cLh26c3IcmcU="
+          "Value": "sha256-XgmHadZ/QxvDx0w8otWRF129USwCjpZ0CUrrTVBJeSM="
         }
       ]
     },
     {
-      "Route": "css/site.8s0re5qzuz.css",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-8s0re5qzuz.gz",
+      "Route": "css/site.css",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-yk9f32fg3f.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000418760469"
+          "Quality": "0.000985221675"
         }
       ],
       "ResponseHeaders": [
@@ -3445,19 +3445,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2387"
+          "Value": "1014"
         },
         {
           "Name": "ETag",
-          "Value": "\"rPzqVaHm7Qork4a/MvbxnahIculGenOI+78rOy3p7EE=\""
+          "Value": "\"pn9RTr/awLCo+wdGkHNkbfYBtPn5QmmfllwSCpYvunI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 06:49:01 GMT"
+          "Value": "Fri, 28 Mar 2025 16:34:55 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -3473,26 +3473,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"SGH8IKHw7VWGziA1FnYUpk6YB8289YN2FexH7gQ6svA=\""
+          "Value": "W/\"QvmR3rEcrvNKHHlqSKjHZY1FY60dSfzeYD8J0SdY5pw=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "8s0re5qzuz"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-SGH8IKHw7VWGziA1FnYUpk6YB8289YN2FexH7gQ6svA="
+          "Value": "sha256-QvmR3rEcrvNKHHlqSKjHZY1FY60dSfzeYD8J0SdY5pw="
         }
       ]
     },
     {
-      "Route": "css/site.8s0re5qzuz.css",
+      "Route": "css/site.css",
       "AssetFile": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3502,7 +3494,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "10705"
+          "Value": "3425"
         },
         {
           "Name": "Content-Type",
@@ -3510,11 +3502,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"SGH8IKHw7VWGziA1FnYUpk6YB8289YN2FexH7gQ6svA=\""
+          "Value": "\"QvmR3rEcrvNKHHlqSKjHZY1FY60dSfzeYD8J0SdY5pw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 06:49:01 GMT"
+          "Value": "Fri, 28 Mar 2025 16:34:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-QvmR3rEcrvNKHHlqSKjHZY1FY60dSfzeYD8J0SdY5pw="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css.gz",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-yk9f32fg3f.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1014"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"pn9RTr/awLCo+wdGkHNkbfYBtPn5QmmfllwSCpYvunI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 28 Mar 2025 16:34:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-pn9RTr/awLCo+wdGkHNkbfYBtPn5QmmfllwSCpYvunI="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.yk9f32fg3f.css",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-yk9f32fg3f.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000985221675"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1014"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"pn9RTr/awLCo+wdGkHNkbfYBtPn5QmmfllwSCpYvunI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 28 Mar 2025 16:34:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"QvmR3rEcrvNKHHlqSKjHZY1FY60dSfzeYD8J0SdY5pw=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yk9f32fg3f"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-QvmR3rEcrvNKHHlqSKjHZY1FY60dSfzeYD8J0SdY5pw="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.yk9f32fg3f.css",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3425"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QvmR3rEcrvNKHHlqSKjHZY1FY60dSfzeYD8J0SdY5pw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 28 Mar 2025 16:34:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3524,7 +3661,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8s0re5qzuz"
+          "Value": "yk9f32fg3f"
         },
         {
           "Name": "label",
@@ -3532,13 +3669,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-SGH8IKHw7VWGziA1FnYUpk6YB8289YN2FexH7gQ6svA="
+          "Value": "sha256-QvmR3rEcrvNKHHlqSKjHZY1FY60dSfzeYD8J0SdY5pw="
         }
       ]
     },
     {
-      "Route": "css/site.8s0re5qzuz.css.gz",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-8s0re5qzuz.gz",
+      "Route": "css/site.yk9f32fg3f.css.gz",
+      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-yk9f32fg3f.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3547,7 +3684,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2387"
+          "Value": "1014"
         },
         {
           "Name": "Content-Type",
@@ -3555,11 +3692,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"rPzqVaHm7Qork4a/MvbxnahIculGenOI+78rOy3p7EE=\""
+          "Value": "\"pn9RTr/awLCo+wdGkHNkbfYBtPn5QmmfllwSCpYvunI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 06:49:01 GMT"
+          "Value": "Fri, 28 Mar 2025 16:34:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3577,7 +3714,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8s0re5qzuz"
+          "Value": "yk9f32fg3f"
         },
         {
           "Name": "label",
@@ -3585,144 +3722,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-rPzqVaHm7Qork4a/MvbxnahIculGenOI+78rOy3p7EE="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-8s0re5qzuz.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000418760469"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2387"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"rPzqVaHm7Qork4a/MvbxnahIculGenOI+78rOy3p7EE=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 06:49:01 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"SGH8IKHw7VWGziA1FnYUpk6YB8289YN2FexH7gQ6svA=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-SGH8IKHw7VWGziA1FnYUpk6YB8289YN2FexH7gQ6svA="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "10705"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"SGH8IKHw7VWGziA1FnYUpk6YB8289YN2FexH7gQ6svA=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 06:49:01 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-SGH8IKHw7VWGziA1FnYUpk6YB8289YN2FexH7gQ6svA="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css.gz",
-      "AssetFile": "D:\\Study\\TheCoffeeShop\\obj\\Debug\\net9.0\\compressed\\8072xdtji4-8s0re5qzuz.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2387"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"rPzqVaHm7Qork4a/MvbxnahIculGenOI+78rOy3p7EE=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 23 Mar 2025 06:49:01 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-rPzqVaHm7Qork4a/MvbxnahIculGenOI+78rOy3p7EE="
+          "Value": "sha256-pn9RTr/awLCo+wdGkHNkbfYBtPn5QmmfllwSCpYvunI="
         }
       ]
     },
