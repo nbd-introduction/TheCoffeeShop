@@ -1,59 +1,658 @@
-@model TheCoffeeShop.Models.Blog
+﻿@model TheCoffeeShop.Models.Blog
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa bài viết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<div class="blog-edit-container">
+    <div class="blog-edit-header">
+        <div class="header-content">
+            <h1 class="edit-title">Chỉnh sửa bài viết</h1>
+            <p class="edit-subtitle">Cập nhật thông tin cho bài viết của bạn</p>
+        </div>
+        <div class="header-actions">
+            <a href="@Url.Action("Index")" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Quay lại danh sách
+            </a>
+        </div>
+    </div>
 
-<h4>Blog</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BlogId" />
-            <div class="form-group">
-                <label asp-for="BlogName" class="control-label"></label>
-                <input asp-for="BlogName" class="form-control" />
-                <span asp-validation-for="BlogName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BlogDate" class="control-label"></label>
-                <input asp-for="BlogDate" class="form-control" />
-                <span asp-validation-for="BlogDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BlogContent" class="control-label"></label>
-                <input asp-for="BlogContent" class="form-control" />
-                <span asp-validation-for="BlogContent" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BlogImage" class="control-label"></label>
-                <input asp-for="BlogImage" class="form-control" />
-                <span asp-validation-for="BlogImage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AccountId" class="control-label"></label>
-                <select asp-for="AccountId" class="form-control" asp-items="ViewBag.AccountId"></select>
-                <span asp-validation-for="AccountId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
-                <span asp-validation-for="ProductId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="blog-edit-content">
+        <div class="edit-form-container">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data" id="blogEditForm">
+                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+                <input type="hidden" asp-for="BlogId" />
+
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <div class="form-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-info-circle"></i> Thông tin cơ bản</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label asp-for="BlogName">Tiêu đề bài viết <span class="required">*</span></label>
+                                    <input asp-for="BlogName" class="form-control" placeholder="Nhập tiêu đề bài viết" required />
+                                    <span asp-validation-for="BlogName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="BlogDate">Ngày đăng</label>
+                                    <div class="input-with-icon">
+                                        <i class="far fa-calendar-alt"></i>
+                                        <input asp-for="BlogDate" class="form-control" type="date" />
+                                    </div>
+                                    <span asp-validation-for="BlogDate" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="BlogContent">Nội dung bài viết</label>
+                                    <textarea asp-for="BlogContent" class="form-control rich-editor" rows="10" placeholder="Nhập nội dung bài viết"></textarea>
+                                    <span asp-validation-for="BlogContent" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <div class="form-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-image"></i> Hình ảnh</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="image-upload-container">
+                                    <div class="image-preview" id="imagePreview">
+                                        @if (!string.IsNullOrEmpty(Model.BlogImage))
+                                        {
+                                            <img src="@Model.BlogImage" alt="Blog Image" id="previewImage" />
+                                            <button type="button" class="btn-remove-image" id="removeImage">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <div class="no-image" id="noImage">
+                                                <i class="fas fa-image"></i>
+                                                <p>Chưa có hình ảnh</p>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="image-upload-actions">
+                                        <label for="imageUpload" class="btn-upload">
+                                            <i class="fas fa-upload"></i> Tải ảnh lên
+                                        </label>
+                                        <input type="file" id="imageUpload" accept="image/*" style="display: none;" />
+                                        <input asp-for="BlogImage" type="hidden" id="blogImagePath" />
+                                    </div>
+                                    <div class="image-upload-help">
+                                        <small>Hỗ trợ định dạng: JPG, PNG, GIF. Kích thước tối đa: 2MB</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-card mt-4">
+                            <div class="card-header">
+                                <h3><i class="fas fa-link"></i> Liên kết</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label asp-for="AccountId">Tác giả</label>
+                                    <div class="select-container">
+                                        <select asp-for="AccountId" class="form-control custom-select" asp-items="ViewBag.AccountId">
+                                            <option value="">-- Chọn tác giả --</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <span asp-validation-for="AccountId" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="ProductId">Sản phẩm liên quan</label>
+                                    <div class="select-container">
+                                        <select asp-for="ProductId" class="form-control custom-select" asp-items="ViewBag.ProductId">
+                                            <option value="">-- Chọn sản phẩm --</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <span asp-validation-for="ProductId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="location.href='@Url.Action("Index")'">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                    <button type="submit" class="btn-save">
+                        <i class="fas fa-save"></i> Lưu thay đổi
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+    :root {
+        --primary: #6b4226;
+        --primary-light: #8c6242;
+        --primary-dark: #4e301c;
+        --secondary: #a67c52;
+        --accent: #d4a762;
+        --accent-light: #e9d2b3;
+        --success: #4caf50;
+        --warning: #ff9800;
+        --danger: #f44336;
+        --info: #2196f3;
+        --dark: #333333;
+        --light: #f5f5f5;
+        --gray: #757575;
+        --gray-light: #e0e0e0;
+        --white: #ffffff;
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9f5f0;
+        color: var(--dark);
+        line-height: 1.6;
+    }
+
+    .blog-edit-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .blog-edit-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .edit-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 5px;
+    }
+
+    .edit-subtitle {
+        font-size: 16px;
+        color: var(--gray);
+        margin: 0;
+    }
+
+    .btn-back {
+        background-color: var(--white);
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        padding: 10px 20px;
+        border-radius: 30px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+        .btn-back:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+    .blog-edit-content {
+        margin-bottom: 40px;
+    }
+
+    .edit-form-container {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        padding: 30px;
+    }
+
+    .validation-summary {
+        background-color: rgba(244, 67, 54, 0.1);
+        border-left: 4px solid var(--danger);
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: var(--border-radius);
+        color: var(--danger);
+    }
+
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .col-md-8 {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .col-md-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .form-card {
+        border: 1px solid var(--gray-light);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background-color: var(--light);
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--gray-light);
+    }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+    .required {
+        color: var(--danger);
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--gray-light);
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        transition: var(--transition);
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 66, 38, 0.1);
+        }
+
+    .input-with-icon {
+        position: relative;
+    }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .input-with-icon input {
+            padding-left: 40px;
+        }
+
+    .rich-editor {
+        min-height: 300px;
+        resize: vertical;
+    }
+
+    .image-upload-container {
+        text-align: center;
+    }
+
+    .image-preview {
+        width: 100%;
+        height: 200px;
+        border: 2px dashed var(--gray-light);
+        border-radius: var(--border-radius);
+        margin-bottom: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .no-image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: var(--gray);
+    }
+
+        .no-image i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .no-image p {
+            margin: 0;
+        }
+
+    .btn-remove-image {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: rgba(244, 67, 54, 0.8);
+        color: white;
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+        .btn-remove-image:hover {
+            background-color: var(--danger);
+        }
+
+    .image-upload-actions {
+        margin-bottom: 10px;
+    }
+
+    .btn-upload {
+        background-color: var(--accent);
+        color: var(--primary-dark);
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+    }
+
+        .btn-upload:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+    .image-upload-help {
+        color: var(--gray);
+        font-size: 12px;
+    }
+
+    .select-container {
+        position: relative;
+    }
+
+        .select-container i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            pointer-events: none;
+        }
+
+    .custom-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding-right: 40px;
+        background-color: var(--white);
+    }
+
+    .mt-4 {
+        margin-top: 20px;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid var(--gray-light);
+    }
+
+    .btn-cancel, .btn-save {
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+    }
+
+    .btn-cancel {
+        background-color: var(--light);
+        color: var(--dark);
+    }
+
+    .btn-save {
+        background-color: var(--primary);
+        color: var(--white);
+    }
+
+    .btn-cancel:hover {
+        background-color: var(--gray-light);
+    }
+
+    .btn-save:hover {
+        background-color: var(--primary-dark);
+    }
+
+    .text-danger {
+        color: var(--danger);
+        font-size: 13px;
+        margin-top: 5px;
+        display: block;
+    }
+
+  
+
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Image upload preview
+        const imageUpload = document.getElementById('imageUpload');
+        const previewImage = document.getElementById('previewImage');
+        const noImage = document.getElementById('noImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const removeImage = document.getElementById('removeImage');
+        const blogImagePath = document.getElementById('blogImagePath');
+
+        // Check if there's already an image
+        if (blogImagePath.value) {
+            if (!previewImage) {
+                const img = document.createElement('img');
+                img.id = 'previewImage';
+                img.src = blogImagePath.value;
+                img.alt = 'Blog Image';
+
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'btn-remove-image';
+                removeBtn.id = 'removeImage';
+                removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+
+                imagePreview.innerHTML = '';
+                imagePreview.appendChild(img);
+                imagePreview.appendChild(removeBtn);
+
+                noImage.style.display = 'none';
+            }
+        }
+
+        // Handle image upload
+        imageUpload.addEventListener('change', function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    if (!previewImage) {
+                        const img = document.createElement('img');
+                        img.id = 'previewImage';
+                        img.src = e.target.result;
+                        img.alt = 'Blog Image';
+
+                        const removeBtn = document.createElement('button');
+                        removeBtn.type = 'button';
+                        removeBtn.className = 'btn-remove-image';
+                        removeBtn.id = 'removeImage';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+
+                        imagePreview.innerHTML = '';
+                        imagePreview.appendChild(img);
+                        imagePreview.appendChild(removeBtn);
+
+                        // Update hidden input with image path (in a real app, you'd upload the image and get the path)
+                        // For demo purposes, we're just setting it to the file name
+                        blogImagePath.value = file.name;
+
+                        // Add event listener to the newly created remove button
+                        document.getElementById('removeImage').addEventListener('click', removeImageHandler);
+                    } else {
+                        previewImage.src = e.target.result;
+                        blogImagePath.value = file.name;
+                    }
+
+                    if (noImage) {
+                        noImage.style.display = 'none';
+                    }
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle remove image
+        function removeImageHandler() {
+            if (previewImage) {
+                previewImage.remove();
+            }
+
+            if (this.parentNode) {
+                this.remove();
+            }
+
+            if (!noImage) {
+                const noImageDiv = document.createElement('div');
+                noImageDiv.id = 'noImage';
+                noImageDiv.className = 'no-image';
+                noImageDiv.innerHTML = '<i class="fas fa-image"></i><p>Chưa có hình ảnh</p>';
+
+                imagePreview.appendChild(noImageDiv);
+            } else {
+                noImage.style.display = 'flex';
+            }
+
+            blogImagePath.value = '';
+            imageUpload.value = '';
+        }
+
+        if (removeImage) {
+            removeImage.addEventListener('click', removeImageHandler);
+        }
+
+        // Initialize rich text editor (if available)
+        if (typeof tinymce !== 'undefined') {
+            tinymce.init({
+                selector: '.rich-editor',
+                height: 400,
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                content_style: 'body { font-family:Poppins,sans-serif; font-size:14px }'
+            });
+        }
+
+        // Form validation
+        const blogEditForm = document.getElementById('blogEditForm');
+
+        blogEditForm.addEventListener('submit', function(e) {
+            let isValid = true;
+
+            // Validate required fields
+            const blogName = document.querySelector('[name="BlogName"]');
+
+            if (!blogName.value.trim()) {
+                isValid = false;
+                blogName.classList.add('is-invalid');
+
+                // Create error message if it doesn't exist
+                let errorSpan = blogName.nextElementSibling;
+                if (!errorSpan || !errorSpan.classList.contains('text-danger')) {
+                    errorSpan = document.createElement('span');
+                    errorSpan.className = 'text-danger';
+                    errorSpan.textContent = 'Vui lòng nhập tiêu đề bài viết';
+                    blogName.parentNode.appendChild(errorSpan);
+                }
+            } else {
+                blogName.classList.remove('is-invalid');
+
+                // Remove error message if it exists
+                const errorSpan = blogName.nextElementSibling;
+                if (errorSpan && errorSpan.classList.contains('text-danger')) {
+                    errorSpan.textContent = '';
+                }
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

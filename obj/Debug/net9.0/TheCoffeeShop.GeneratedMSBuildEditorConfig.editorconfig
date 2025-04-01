@@ -60,6 +60,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Study/TheCoffeeShop/Views/Blog/UserIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xVc2VySW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Study/TheCoffeeShop/Views/Category/AdminIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcQWRtaW5JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Study/TheCoffeeShop/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -78,6 +86,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Study/TheCoffeeShop/Views/Order/ThankYou.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcVGhhbmtZb3UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Study/TheCoffeeShop/Views/Product/AdminIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxBZG1pbkluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Study/TheCoffeeShop/Views/Product/Create.cshtml]

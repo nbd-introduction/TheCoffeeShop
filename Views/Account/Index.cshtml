@@ -1,57 +1,126 @@
-﻿@model IEnumerable<TheCoffeeShop.Models.Account>
-
-@{
+﻿@{
     ViewData["Title"] = "Đăng nhập";
-    Layout = "_Layout";
+    
 }
 
-<div class="container-fluid login-container">
-    <div class="row justify-content-center align-items-center min-vh-100">
-        <div class="col-md-5">
-            <div class="card shadow-lg border-0 rounded-lg">
-                <div class="card-header text-center py-4">
-                    <h2 class="font-weight-bold">ĐĂNG NHẬP</h2>
-                    <p class="mb-0">Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục.</p>
+<div class="login-container">
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-coffee"></i>
+                    </div>
                 </div>
-                <div class="card-body p-5">
-                    <form asp-action="Login" asp-controller="Account" method="post" class="needs-validation" novalidate>
-                        <div class="form-group mb-4">
-                            <label for="username" class="form-label">Tên đăng nhập</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập" required>
-                                <div class="invalid-feedback">Vui lòng nhập tên đăng nhập</div>
+                <h1 class="login-title">Đăng nhập</h1>
+                <p class="login-subtitle">Đăng nhập để tiếp tục mua sắm và theo dõi đơn hàng</p>
+            </div>
+
+            <div class="login-content">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                @if (ViewData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewData["ErrorMessage"]
+                    </div>
+                }
+
+                <form asp-action="Login" method="post" id="loginForm">
+                    <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+                    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <div class="input-with-icon password-input">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required />
+                            <button type="button" class="toggle-password" tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <div class="custom-checkbox">
+                                <input type="checkbox" id="rememberMe" name="rememberMe" value="true" />
+                                <label for="rememberMe"></label>
                             </div>
+                            <span>Ghi nhớ đăng nhập</span>
                         </div>
-                        <div class="form-group mb-4">
-                            <label for="password" class="form-label">Mật khẩu</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required>
-                                <button class="btn btn-toggle" type="button" id="togglePassword">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <div class="invalid-feedback">Vui lòng nhập mật khẩu</div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe">
-                                <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
-                            </div>
-                            <a href="/Account/ForgotPassword" class="link-accent">Quên mật khẩu?</a>
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-accent btn-lg">Đăng nhập</button>
-                        </div>
-                    </form>
+                        <a href="@Url.Action("ForgotPassword")" class="forgot-password">Quên mật khẩu?</a>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-login">
+                            <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                        </button>
+                    </div>
+                </form>
+
+                <div class="register-link">
+                    Chưa có tài khoản? <a href="@Url.Action("Create")">Đăng ký ngay</a>
                 </div>
-                <div class="card-footer text-center py-3">
-                    <p class="mb-0">Chưa có tài khoản? <a href="/Account/Register" class="link-accent">Đăng ký ngay</a></p>
+
+                <div class="social-login">
+                    <div class="social-login-divider">
+                        <span>Hoặc đăng nhập với</span>
+                    </div>
+                    <div class="social-buttons">
+                        <button type="button" class="social-button facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Facebook</span>
+                        </button>
+                        <button type="button" class="social-button google">
+                            <i class="fab fa-google"></i>
+                            <span>Google</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="text-center mt-4 text-white">
-                <p>&copy; @DateTime.Now.Year - The Coffee Shop</p>
+        </div>
+
+        <div class="login-banner">
+            <div class="banner-content">
+                <h2>Chào mừng quay trở lại!</h2>
+                <p>Đăng nhập để trải nghiệm dịch vụ tốt nhất từ The Coffee Shop.</p>
+                <div class="banner-image">
+                    <img src="/images/coffee-banner.jpg" alt="Coffee Shop" onerror="this.src='/images/coffee-banner-placeholder.jpg'" />
+                </div>
+                <div class="banner-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="feature-text">Giao hàng nhanh chóng</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="feature-text">Ưu đãi hấp dẫn</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <div class="feature-text">Sản phẩm chất lượng</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -59,263 +128,440 @@
 
 <style>
     :root {
-        --dark-bg: #121212;
-        --card-bg: #1e1e1e;
-        --card-header: #252525;
-        --card-footer: #252525;
-        --text-primary: #e0e0e0;
-        --text-secondary: #a0a0a0;
-        --accent: #c8a97e;
-        --accent-hover: #b69669;
-        --input-bg: #2d2d2d;
-        --input-border: #3d3d3d;
-        --input-text: #e0e0e0;
+        --primary: #6b4226;
+        --primary-light: #8c6242;
+        --primary-dark: #4e301c;
+        --secondary: #a67c52;
+        --accent: #d4a762;
+        --accent-light: #e9d2b3;
+        --success: #4caf50;
+        --warning: #ff9800;
+        --danger: #f44336;
+        --info: #2196f3;
+        --dark: #333333;
+        --light: #f5f5f5;
+        --gray: #757575;
+        --gray-light: #e0e0e0;
+        --white: #ffffff;
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
     }
 
     body {
-        background-color: var(--dark-bg);
-        color: var(--text-primary);
         font-family: 'Poppins', sans-serif;
+        background-color: #f9f5f0;
+        color: var(--dark);
+        line-height: 1.6;
     }
 
     .login-container {
-        background-image: url('https://images.unsplash.com/photo-1509785307050-d4066910ec1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1928&q=80');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: relative;
-        min-height: 100vh;
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
     }
 
-        .login-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
-            z-index: 1;
-        }
+    .login-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
 
-        .login-container .row {
-            position: relative;
-            z-index: 2;
-        }
-
-    .card {
+    .login-card {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
         overflow: hidden;
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        background-color: rgba(30, 30, 30, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        transform: translateY(0);
-        transition: all 0.5s ease;
     }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-        }
-
-    .card-header {
-        background-color: var(--card-header);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        color: var(--text-primary);
-        padding: 25px 20px;
+    .login-header {
+        background-color: var(--primary);
+        color: var(--white);
+        padding: 30px;
+        text-align: center;
     }
 
-        .card-header h2 {
-            color: var(--accent);
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            font-size: 28px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-header p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-    .card-body {
-        background-color: var(--card-bg);
-        padding: 40px 30px;
+    .logo-container {
+        margin-bottom: 20px;
     }
 
-    .card-footer {
-        background-color: var(--card-footer);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: var(--text-secondary);
-        padding: 20px;
+    .logo {
+        width: 70px;
+        height: 70px;
+        background-color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        color: var(--primary);
+        font-size: 32px;
     }
 
-    .form-label {
-        color: var(--text-primary);
-        font-weight: 500;
+    .login-title {
+        font-size: 28px;
+        font-weight: 700;
         margin-bottom: 10px;
-        font-size: 0.95rem;
-        letter-spacing: 0.5px;
     }
 
-    .input-group {
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
+    .login-subtitle {
+        font-size: 16px;
+        opacity: 0.9;
+        margin: 0;
     }
 
-        .input-group:focus-within {
-            box-shadow: 0 5px 20px rgba(200, 169, 126, 0.3);
+    .login-content {
+        padding: 30px;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: var(--border-radius);
+    }
+
+    .alert-success {
+        background-color: rgba(76, 175, 80, 0.1);
+        border-left: 4px solid var(--success);
+        color: var(--success);
+    }
+
+    .alert-danger {
+        background-color: rgba(244, 67, 54, 0.1);
+        border-left: 4px solid var(--danger);
+        color: var(--danger);
+    }
+
+    .validation-summary {
+        background-color: rgba(244, 67, 54, 0.1);
+        border-left: 4px solid var(--danger);
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: var(--border-radius);
+        color: var(--danger);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--dark);
+    }
+
+    .input-with-icon {
+        position: relative;
+    }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
         }
-
-    .input-group-text {
-        background-color: var(--input-bg);
-        border: 1px solid var(--input-border);
-        border-right: none;
-        color: var(--accent);
-        padding: 12px 15px;
-        font-size: 18px;
-    }
 
     .form-control {
-        background-color: var(--input-bg);
-        border: 1px solid var(--input-border);
-        border-left: none;
-        color: var(--input-text);
-        caret-color: var(--accent);
-        padding: 12px 15px;
-        font-size: 16px;
-        height: auto;
-        transition: all 0.3s ease;
+        width: 100%;
+        padding: 12px 15px 12px 40px;
+        border: 1px solid var(--gray-light);
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        transition: var(--transition);
     }
 
         .form-control:focus {
-            background-color: var(--input-bg);
-            box-shadow: none;
-            border-color: var(--input-border);
-            color: var(--input-text);
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 66, 38, 0.1);
         }
 
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-            font-style: italic;
-        }
-
-    .btn-toggle {
-        background-color: var(--input-bg);
-        border: 1px solid var(--input-border);
-        border-left: none;
-        color: var(--accent);
-        padding: 0 15px;
-        font-size: 18px;
-        transition: all 0.3s ease;
+    .password-input {
+        position: relative;
     }
 
-        .btn-toggle:hover {
-            color: var(--accent-hover);
-            background-color: rgba(45, 45, 45, 0.9);
+    .toggle-password {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--gray);
+        cursor: pointer;
+        padding: 0;
+    }
+
+        .toggle-password:focus {
+            outline: none;
         }
 
-    .btn-accent {
-        background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-        border: none;
-        color: #121212;
-        font-weight: 600;
-        letter-spacing: 1px;
-        padding: 14px 20px;
-        border-radius: 12px;
-        transition: all 0.4s ease;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .custom-checkbox {
         position: relative;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .custom-checkbox label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .custom-checkbox input:checked + label {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .custom-checkbox label:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox input:checked + label:after {
+            display: block;
+        }
+
+    .forgot-password {
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+    .form-actions {
+        margin-bottom: 25px;
+    }
+
+    .btn-login {
+        width: 100%;
+        background-color: var(--primary);
+        color: var(--white);
+        border: none;
+        padding: 14px;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+        .btn-login:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+    .register-link {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 14px;
+        color: var(--gray);
+    }
+
+        .register-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+            .register-link a:hover {
+                text-decoration: underline;
+            }
+
+    .social-login {
+        margin-top: 20px;
+    }
+
+    .social-login-divider {
+        position: relative;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .social-login-divider:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: var(--gray-light);
+        }
+
+        .social-login-divider span {
+            position: relative;
+            background-color: var(--white);
+            padding: 0 15px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+    .social-buttons {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-button {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--gray-light);
+        background-color: var(--white);
+        color: var(--dark);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+        .social-button.facebook {
+            border-color: #3b5998;
+            color: #3b5998;
+        }
+
+        .social-button.google {
+            border-color: #db4437;
+            color: #db4437;
+        }
+
+        .social-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+    /* Login Banner */
+    .login-banner {
+        background-color: var(--primary);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .banner-content {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+        .banner-content h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .banner-content p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+    .banner-image {
+        flex: 1;
+        margin-bottom: 20px;
+        border-radius: var(--border-radius);
         overflow: hidden;
     }
 
-        .btn-accent::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        .banner-image img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.6s ease;
+            object-fit: cover;
         }
 
-        .btn-accent:hover {
-            background: linear-gradient(135deg, var(--accent-hover), var(--accent));
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(200, 169, 126, 0.4);
-        }
-
-            .btn-accent:hover::before {
-                left: 100%;
-            }
-
-    .form-check-label {
-        color: var(--text-secondary);
-        font-size: 0.9rem;
-        padding-left: 5px;
+    .banner-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
     }
 
-    .form-check-input {
-        background-color: var(--input-bg);
-        border-color: var(--input-border);
-        width: 18px;
-        height: 18px;
-        margin-top: 0.2rem;
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
-        .form-check-input:checked {
-            background-color: var(--accent);
-            border-color: var(--accent);
-        }
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-    .link-accent {
-        color: var(--accent);
-        text-decoration: none;
-        transition: all 0.3s ease;
+    .feature-text {
+        font-size: 14px;
         font-weight: 500;
-        position: relative;
     }
 
-        .link-accent::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .link-accent:hover {
-            color: var(--accent-hover);
-        }
-
-            .link-accent:hover::after {
-                width: 100%;
-            }
-
-    .invalid-feedback {
-        color: #e57373;
-        font-size: 0.85rem;
-        margin-top: 5px;
-    }
-
-  
+   
 
     }
 </style>
 
-@section Scripts {
-    <script>
-        // Hiển thị/ẩn mật khẩu
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePasswordButton = document.querySelector('.toggle-password');
+        const passwordInput = document.getElementById('password');
+
+        // Toggle password visibility
+        togglePasswordButton.addEventListener('click', function() {
             const icon = this.querySelector('i');
 
             if (passwordInput.type === 'password') {
@@ -329,63 +575,33 @@
             }
         });
 
-        // Xác thực form
-        (function() {
-            'use strict';
-            var forms = document.querySelectorAll('.needs-validation');
-            Array.prototype.slice.call(forms).forEach(function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        })();
+        // Form validation
+        const loginForm = document.getElementById('loginForm');
 
-        // Hiệu ứng ripple cho nút đăng nhập
-        document.querySelector('.btn-accent').addEventListener('click', function(e) {
-            const button = this;
+        loginForm.addEventListener('submit', function(e) {
+            const username = document.getElementById('username');
+            const password = document.getElementById('password');
 
-            // Tạo hiệu ứng ripple
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
+            if (!username.value.trim()) {
+                e.preventDefault();
+                username.focus();
+                return;
+            }
 
-            // Đặt vị trí của ripple tại điểm click
-            const rect = button.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-
-            // Thêm ripple vào nút
-            button.appendChild(ripple);
-
-            // Xóa ripple sau khi hoàn thành animation
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
+            if (!password.value) {
+                e.preventDefault();
+                password.focus();
+                return;
+            }
         });
-    </script>
 
-    <style>
-        /* Hiệu ứng ripple cho nút */
-        .btn-accent {
-            position: relative;
-            overflow: hidden;
-        }
+        // Social login buttons (placeholder functionality)
+        const socialButtons = document.querySelectorAll('.social-button');
 
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.4);
-            transform: scale(0);
-            animation: ripple 0.6s linear;
-            pointer-events: none;
-        }
-
-      
-    </style>
-}
+        socialButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Tính năng đăng nhập bằng mạng xã hội đang được phát triển!');
+            });
+        });
+    });
+</script>

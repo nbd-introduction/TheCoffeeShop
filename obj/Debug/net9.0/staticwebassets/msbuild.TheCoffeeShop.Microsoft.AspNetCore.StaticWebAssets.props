@@ -12,29 +12,11 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>o042bexiku</Fingerprint>
-      <Integrity>KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814=</Integrity>
+      <Fingerprint>t4pdyudg2t</Fingerprint>
+      <Integrity>fSp+CqvID8A/O4b2/z8QggVDAYXwIfWn+06ksd82nHw=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\Home.css'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\menu.css'))">
-      <SourceType>Package</SourceType>
-      <SourceId>TheCoffeeShop</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TheCoffeeShop</BasePath>
-      <RelativePath>css/menu.css</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>tg5xy2lhwe</Fingerprint>
-      <Integrity>7dNq6i6T8j9+4AVya8B3mzNyC/qLoQv9azmj9UK7IGk=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\menu.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))">
       <SourceType>Package</SourceType>

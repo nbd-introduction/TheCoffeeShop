@@ -1,54 +1,437 @@
-@model TheCoffeeShop.Models.Blog
+﻿@model TheCoffeeShop.Models.Blog
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết bài viết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<div class="blog-details-container">
+    <div class="blog-details-header">
+        <div class="header-content">
+            <h1 class="details-title">Chi tiết bài viết</h1>
+            <p class="details-subtitle">Xem thông tin chi tiết về bài viết</p>
+        </div>
+        <div class="header-actions">
+            <a href="@Url.Action("Edit", new { id = Model.BlogId })" class="btn-edit-blog">
+                <i class="fas fa-edit"></i> Chỉnh sửa
+            </a>
+            <a href="@Url.Action("Index")" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Quay lại danh sách
+            </a>
+        </div>
+    </div>
 
-<div>
-    <h4>Blog</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BlogName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BlogName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BlogDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BlogDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BlogContent)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BlogContent)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BlogImage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BlogImage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Account)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Account.AccountId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.ProductId)
-        </dd>
-    </dl>
+    <div class="blog-details-content">
+        <div class="blog-preview-card">
+            @if (!string.IsNullOrEmpty(Model.BlogImage))
+            {
+                <div class="blog-banner" style="background-image: url('@Model.BlogImage')">
+                    <div class="blog-overlay"></div>
+                    <h2 class="blog-banner-title">@Model.BlogName</h2>
+                </div>
+            }
+            else
+            {
+                <div class="blog-banner no-image">
+                    <div class="blog-overlay"></div>
+                    <div class="no-image-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h2 class="blog-banner-title">@Model.BlogName</h2>
+                </div>
+            }
+
+            <div class="blog-meta-info">
+                <div class="meta-item">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Ngày đăng: @(Model.BlogDate.HasValue ? Model.BlogDate.Value.ToString("dd/MM/yyyy") : "Chưa cập nhật")</span>
+                </div>
+                <div class="meta-item">
+                    <i class="far fa-user"></i>
+                    <span>Tác giả: @(Model.Account != null ? Model.Account.UserName : "Không có thông tin")</span>
+                </div>
+                @if (Model.Product != null)
+                {
+                    <div class="meta-item">
+                        <i class="fas fa-coffee"></i>
+                        <span>Sản phẩm liên quan: @Model.Product.ProductName</span>
+                    </div>
+                }
+            </div>
+
+            <div class="blog-content">
+                @if (!string.IsNullOrEmpty(Model.BlogContent))
+                {
+                    <div class="content-section">
+                        @Html.Raw(Model.BlogContent)
+                    </div>
+                }
+                else
+                {
+                    <div class="no-content">
+                        <i class="fas fa-file-alt"></i>
+                        <p>Bài viết chưa có nội dung</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="blog-details-info">
+            <div class="details-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-info-circle"></i> Thông tin bài viết</h3>
+                </div>
+                <div class="card-body">
+                    <table class="details-table">
+                        <tr>
+                            <th>ID bài viết:</th>
+                            <td>@Model.BlogId</td>
+                        </tr>
+                        <tr>
+                            <th>Tiêu đề:</th>
+                            <td>@Model.BlogName</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày đăng:</th>
+                            <td>@(Model.BlogDate.HasValue ? Model.BlogDate.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa cập nhật")</td>
+                        </tr>
+                        <tr>
+                            <th>Tác giả:</th>
+                            <td>@(Model.Account != null ? Model.Account.UserName : "Không có thông tin")</td>
+                        </tr>
+                        <tr>
+                            <th>Sản phẩm liên quan:</th>
+                            <td>@(Model.Product != null ? Model.Product.ProductName : "Không có")</td>
+                        </tr>
+                        <tr>
+                            <th>Đường dẫn hình ảnh:</th>
+                            <td class="image-path">@(string.IsNullOrEmpty(Model.BlogImage) ? "Không có" : Model.BlogImage)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-actions">
+        <a href="@Url.Action("Index")" class="btn-secondary">
+            <i class="fas fa-list"></i> Danh sách bài viết
+        </a>
+        <a href="@Url.Action("Edit", new { id = Model.BlogId })" class="btn-primary">
+            <i class="fas fa-edit"></i> Chỉnh sửa
+        </a>
+        <a href="@Url.Action("Delete", new { id = Model.BlogId })" class="btn-danger">
+            <i class="fas fa-trash"></i> Xóa
+        </a>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.BlogId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<style>
+    :root {
+        --primary: #6b4226;
+        --primary-light: #8c6242;
+        --primary-dark: #4e301c;
+        --secondary: #a67c52;
+        --accent: #d4a762;
+        --accent-light: #e9d2b3;
+        --success: #4caf50;
+        --warning: #ff9800;
+        --danger: #f44336;
+        --info: #2196f3;
+        --dark: #333333;
+        --light: #f5f5f5;
+        --gray: #757575;
+        --gray-light: #e0e0e0;
+        --white: #ffffff;
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9f5f0;
+        color: var(--dark);
+        line-height: 1.6;
+    }
+
+    .blog-details-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .blog-details-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .details-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 5px;
+    }
+
+    .details-subtitle {
+        font-size: 16px;
+        color: var(--gray);
+        margin: 0;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-edit-blog, .btn-back {
+        padding: 10px 20px;
+        border-radius: 30px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .btn-edit-blog {
+        background-color: var(--accent);
+        color: var(--primary-dark);
+    }
+
+    .btn-back {
+        background-color: var(--white);
+        color: var(--primary);
+        border: 1px solid var(--primary);
+    }
+
+    .btn-edit-blog:hover {
+        background-color: var(--primary);
+        color: var(--white);
+    }
+
+    .btn-back:hover {
+        background-color: var(--primary);
+        color: var(--white);
+    }
+
+    .blog-details-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .blog-preview-card {
+        flex: 1;
+        min-width: 0;
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+    }
+
+    .blog-banner {
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+        .blog-banner.no-image {
+            background-color: var(--accent-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+    .no-image-icon {
+        font-size: 64px;
+        color: var(--primary);
+        margin-bottom: 20px;
+    }
+
+    .blog-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+    }
+
+    .blog-banner-title {
+        color: var(--white);
+        font-size: 28px;
+        font-weight: 700;
+        padding: 30px;
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .blog-meta-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px 30px;
+        background-color: var(--light);
+        border-bottom: 1px solid var(--gray-light);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--gray);
+        font-size: 14px;
+    }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+    .blog-content {
+        padding: 30px;
+    }
+
+    .content-section {
+        line-height: 1.8;
+    }
+
+        .content-section p {
+            margin-bottom: 20px;
+        }
+
+    .no-content {
+        text-align: center;
+        padding: 50px 0;
+        color: var(--gray);
+    }
+
+        .no-content i {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+    .blog-details-info {
+        width: 350px;
+    }
+
+    .details-card {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background-color: var(--primary);
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .details-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .details-table th, .details-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .details-table th {
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+            width: 40%;
+        }
+
+        .details-table tr:last-child th, .details-table tr:last-child td {
+            border-bottom: none;
+        }
+
+    .image-path {
+        word-break: break-all;
+        font-size: 13px;
+        color: var(--gray);
+    }
+
+    .blog-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn-primary, .btn-secondary, .btn-danger {
+        padding: 12px 24px;
+        border-radius: 30px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .btn-primary {
+        background-color: var(--primary);
+        color: var(--white);
+    }
+
+    .btn-secondary {
+        background-color: var(--light);
+        color: var(--dark);
+    }
+
+    .btn-danger {
+        background-color: var(--danger);
+        color: var(--white);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-dark);
+        color: var(--white);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--gray-light);
+    }
+
+    .btn-danger:hover {
+        background-color: #d32f2f;
+    }
+
+   
+
+    }
+
+   
+
+    }
+</style>

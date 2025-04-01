@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +17,21 @@ namespace TheCoffeeShop.Controllers
         {
             _context = context;
         }
+        public async Task<IActionResult> AdminIndex()
+        {
+            // Lấy danh sách danh mục kèm theo số lượng sản phẩm
+            var categories = await _context.Categories
+                .Include(c => c.Products)
+                .ToListAsync();
 
+            // Thống kê cho dashboard
+            ViewBag.TotalCategories = categories.Count;
+            ViewBag.TotalProducts = await _context.Products.CountAsync();
+            ViewBag.ActiveCategories = categories.Count(c => c.Products.Any());
+            ViewBag.EmptyCategories = categories.Count(c => !c.Products.Any());
+
+            return View(categories);
+        }
         // GET: Category
         public async Task<IActionResult> Index()
         {

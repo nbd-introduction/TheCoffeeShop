@@ -4,151 +4,1328 @@
     var categories = Model.Select(p => p.Category).Where(c => c != null).Distinct().ToList();
 }
 
-
-<link href="~/css/menu.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-<section class="menu-section">
-    <div class="container">
-        <div class="menu-header">
-            <h1 class="menu-title">Our Coffee Menu</h1>
-            <p class="menu-subtitle">Discover our wide range of premium coffee and delicious treats. Each item is crafted with care using the finest ingredients.</p>
+<div class="menu-page">
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Thực đơn của chúng tôi</h1>
+                <div class="hero-divider">
+                    <span class="divider-dot"></span>
+                    <span class="divider-line"></span>
+                    <span class="divider-dot"></span>
+                </div>
+                <p class="hero-subtitle">Khám phá hương vị cà phê tuyệt hảo</p>
+                <div class="breadcrumb">
+                    <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <span class="current">Thực đơn</span>
+                </div>
+            </div>
         </div>
-
-
-        <div class="search-container">
-            <form class="search-bar" id="searchForm">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search our menu...">
-                <button type="submit" class="search-btn">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
+        <div class="hero-shape-bottom">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#f9f5f0" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
         </div>
+    </div>
 
+    <section class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-mug-hot"></i>
+                </div>
+                <h2 class="section-title">Khám phá hương vị cà phê</h2>
+                <div class="section-divider">
+                    <span class="divider-icon"><i class="fas fa-coffee"></i></span>
+                </div>
+                <p class="section-description">
+                    Khám phá đa dạng các loại cà phê cao cấp và đồ uống thơm ngon. Mỗi sản phẩm đều được chế biến tỉ mỉ từ những nguyên liệu tốt nhất.
+                </p>
+            </div>
 
-        <div class="menu-filters">
-            <button type="button" class="filter-btn active" data-filter="all">All Items</button>
-            @foreach (var category in categories)
-            {
-                <button type="button" class="filter-btn" data-filter="@category.CategoryId">@category.CategoryName</button>
-            }
-        </div>
+            <!-- Search & Filter -->
+            <div class="menu-controls">
+                <div class="search-container">
+                    <form class="search-form" id="searchForm">
+                        <div class="input-with-icon">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm sản phẩm...">
+                        </div>
+                        <button type="submit" class="btn-search">
+                            <span>Tìm kiếm</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
 
-
-        @foreach (var category in categories)
-        {
-            var categoryProducts = Model.Where(p => p.CategoryId == category.CategoryId).ToList();
-
-
-            <div class="menu-category" id="category-@category.CategoryId">
-                <h2 class="category-title">@category.CategoryName</h2>
-
-
-                @if (categoryProducts.Any())
-                {
-                    <div class="menu-grid">
-                        @foreach (var product in categoryProducts)
+                <div class="filter-container">
+                    <div class="filter-label">Lọc theo danh mục:</div>
+                    <div class="filter-buttons">
+                        <button type="button" class="filter-btn active" data-filter="all">
+                            <span class="filter-icon"><i class="fas fa-th-large"></i></span>
+                            <span>Tất cả</span>
+                        </button>
+                        @foreach (var category in categories)
                         {
-                            <div class="menu-item" data-category="@product.CategoryId">
-                                <img src="@(string.IsNullOrEmpty(product.ProductImage) ? "/Content/Images/placeholder.jpg" : product.ProductImage)"
-                                     alt="@product.ProductName" class="menu-item-image">
-                                <div class="menu-item-content">
-                                    <div class="menu-item-header">
-                                        <h3 class="menu-item-title">@product.ProductName</h3>
-                                        <span class="menu-item-price">$@product.ProductPrice.ToString("0.00")</span>
-                                    </div>
-                                    <p class="menu-item-description">@product.Description</p>
-                                    @if (!string.IsNullOrEmpty(product.Size))
-                                    {
-                                        <p class="menu-item-size">Size: @product.Size</p>
-                                    }
-                                    <div class="menu-item-actions">
-                                        <form asp-action="AddToCart" asp-controller="ShoppingCart" method="post">
-                                            <input type="hidden" name="productId" value="@product.ProductId" />
-                                            <input type="hidden" name="quantity" value="1" />
-                                            <button type="submit" class="btn-order">Add To Cart</button>
-                                        </form>
-                                        <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="btn-details">Details</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <button type="button" class="filter-btn" data-filter="@category.CategoryId">
+                                <span class="filter-icon"><i class="fas fa-tag"></i></span>
+                                <span>@category.CategoryName</span>
+                            </button>
                         }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Content -->
+            <div class="menu-content">
+                @if (!Model.Any())
+                {
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <h3>Không tìm thấy sản phẩm nào</h3>
+                        <p>Hiện tại chưa có sản phẩm nào trong thực đơn của chúng tôi.</p>
                     </div>
                 }
                 else
                 {
-                    <div class="empty-state">
-                        <div class="empty-state-icon">
-                            <i class="fas fa-coffee"></i>
+                    @foreach (var category in categories)
+                    {
+                        var categoryProducts = Model.Where(p => p.CategoryId == category.CategoryId).ToList();
+
+                        <div class="menu-category" id="category-@category.CategoryId">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-coffee"></i>
+                                </div>
+                                <h3 class="category-title">@category.CategoryName</h3>
+                                <div class="category-divider"></div>
+                                <p class="category-description">
+                                    Thưởng thức những sản phẩm @category.CategoryName tuyệt vời của chúng tôi, được chế biến từ những nguyên liệu tốt nhất.
+                                </p>
+                            </div>
+
+                            @if (categoryProducts.Any())
+                            {
+                                <div class="menu-grid">
+                                    @foreach (var product in categoryProducts)
+                                    {
+                                        <div class="menu-item" data-category="@product.CategoryId">
+                                            <div class="menu-item-badge">Đặc biệt</div>
+                                            <div class="menu-item-image-container">
+                                                <img src="@(string.IsNullOrEmpty(product.ProductImage) ? "/Content/Images/placeholder.jpg" : product.ProductImage)"
+                                                     alt="@product.ProductName" class="menu-item-image">
+                                                <div class="menu-item-overlay">
+                                                    <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="btn-circle">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="menu-item-content">
+                                                <h4 class="menu-item-title">@product.ProductName</h4>
+                                                <div class="menu-item-rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <span class="rating-count">(4.5)</span>
+                                                </div>
+                                                <div class="menu-item-price">@product.ProductPrice.ToString("N0")đ</div>
+                                                <p class="menu-item-description">
+                                                    @(string.IsNullOrEmpty(product.Description)
+                                                        ? "Thưởng thức hương vị đặc biệt của cà phê cao cấp."
+                                                        : product.Description)
+                                                </p>
+                                                @if (!string.IsNullOrEmpty(product.Size))
+                                                {
+                                                    <div class="menu-item-size">
+                                                        <span class="size-label">Kích cỡ:</span>
+                                                        <span class="size-value">@product.Size</span>
+                                                    </div>
+                                                }
+                                                <div class="menu-item-actions">
+                                                    <form asp-action="AddToCart" asp-controller="ShoppingCart" method="post" class="add-to-cart-form">
+                                                        <input type="hidden" name="productId" value="@product.ProductId" />
+                                                        <input type="hidden" name="quantity" value="1" />
+                                                        <button type="submit" class="btn-add-to-cart">
+                                                            <i class="fas fa-shopping-cart"></i>
+                                                            <span>Thêm vào giỏ</span>
+                                                        </button>
+                                                    </form>
+                                                    <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="btn-details">
+                                                        <i class="fas fa-info-circle"></i>
+                                                        <span>Chi tiết</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="empty-category">
+                                    <div class="empty-icon">
+                                        <i class="fas fa-coffee"></i>
+                                    </div>
+                                    <p>Không có sản phẩm nào trong danh mục này.</p>
+                                </div>
+                            }
                         </div>
-                        <p class="empty-state-text">No products available in this category.</p>
-                    </div>
+                    }
                 }
             </div>
+        </div>
+    </section>
+
+    <!-- Promo Section -->
+    <section class="promo-section">
+        <div class="promo-overlay"></div>
+        <div class="container">
+            <div class="promo-content">
+                <h2 class="promo-title">Thưởng thức cà phê tại nhà</h2>
+                <p class="promo-description">Đặt hàng ngay hôm nay và nhận ưu đãi đặc biệt cho đơn hàng đầu tiên của bạn</p>
+                <a href="#" class="btn-promo">
+                    <span>Đặt hàng ngay</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Button -->
+    <a href="@Url.Action("Index", "ShoppingCart")" class="cart-button" id="cartButton">
+        <i class="fas fa-shopping-cart cart-icon"></i>
+        <span class="cart-count" id="cartCount">@(ViewBag.CartCount ?? 0)</span>
+    </a>
+
+    <!-- Back to top button -->
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+</div>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<style>
+    :root {
+        --primary: #6b4226;
+        --primary-light: #8c6242;
+        --primary-dark: #4e301c;
+        --secondary: #a67c52;
+        --accent: #d4a762;
+        --accent-light: #e9d2b3;
+        --accent-dark: #b38d4e;
+        --success: #4caf50;
+        --warning: #ff9800;
+        --danger: #f44336;
+        --info: #2196f3;
+        --dark: #333333;
+        --light: #f5f5f5;
+        --gray: #757575;
+        --gray-light: #e0e0e0;
+        --white: #ffffff;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.12);
+        --border-radius: 12px;
+        --border-radius-sm: 8px;
+        --border-radius-lg: 20px;
+        --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9f5f0;
+        color: var(--dark);
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+        position: relative;
+        height: 500px;
+        background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2285?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        color: var(--white);
+        overflow: hidden;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+        z-index: 1;
+    }
+
+    .hero-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        font-size: 56px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', serif;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s forwards 0.2s;
+    }
+
+    .hero-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s forwards 0.4s;
+    }
+
+    .divider-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--accent);
+        border-radius: 50%;
+    }
+
+    .divider-line {
+        width: 60px;
+        height: 2px;
+        background-color: var(--accent);
+        margin: 0 10px;
+    }
+
+    .hero-subtitle {
+        font-size: 20px;
+        margin-bottom: 30px;
+        opacity: 0.9;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s forwards 0.6s;
+    }
+
+    .breadcrumb {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s forwards 0.8s;
+    }
+
+        .breadcrumb a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: var(--transition);
         }
-    </div>
-</section>
 
+            .breadcrumb a:hover {
+                color: var(--white);
+            }
 
-@section Scripts {
-    <script>
-        $(document).ready(function() {
-            // Filter functionality
-            $('.filter-btn').click(function() {
-                $('.filter-btn').removeClass('active');
-                $(this).addClass('active');
+    .separator {
+        color: var(--accent-light);
+        font-size: 12px;
+    }
 
+    .current {
+        color: var(--white);
+    }
 
-                var filter = $(this).data('filter');
+    .hero-shape-bottom {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+    }
 
+    /* Section Header */
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+    }
 
-                if (filter === 'all') {
-                    $('.menu-category').show();
-                    $('.menu-item').show();
+    .section-icon {
+        width: 80px;
+        height: 80px;
+        background-color: var(--accent-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: var(--primary);
+        font-size: 32px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 15px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .section-divider {
+        position: relative;
+        height: 2px;
+        width: 80px;
+        background-color: var(--accent);
+        margin: 0 auto 30px;
+    }
+
+    .divider-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f9f5f0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        font-size: 16px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-description {
+        max-width: 800px;
+        margin: 0 auto;
+        font-size: 16px;
+        color: var(--gray);
+        line-height: 1.8;
+    }
+
+    /* Menu Section */
+    .menu-section {
+        padding: 100px 0;
+        position: relative;
+    }
+
+        .menu-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a67c52' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+    /* Menu Controls */
+    .menu-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-bottom: 60px;
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        padding: 30px;
+        box-shadow: var(--shadow);
+    }
+
+    .search-container {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .search-form {
+        display: flex;
+        gap: 15px;
+    }
+
+    .input-with-icon {
+        position: relative;
+        flex: 1;
+    }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+    .search-input {
+        width: 100%;
+        padding: 15px 20px 15px 50px;
+        border: 2px solid var(--gray-light);
+        border-radius: var(--border-radius-lg);
+        font-size: 16px;
+        transition: var(--transition);
+        background-color: var(--light);
+    }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(212, 167, 98, 0.2);
+            background-color: var(--white);
+        }
+
+    .btn-search {
+        background-color: var(--primary);
+        color: var(--white);
+        border: none;
+        padding: 0 25px;
+        border-radius: var(--border-radius-lg);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+    }
+
+        .btn-search:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .filter-container {
+        flex: 2;
+        min-width: 300px;
+    }
+
+    .filter-label {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--primary-dark);
+        font-size: 16px;
+    }
+
+    .filter-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .filter-btn {
+        padding: 10px 20px;
+        background-color: var(--white);
+        border: 2px solid var(--gray-light);
+        border-radius: var(--border-radius-lg);
+        color: var(--gray);
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .filter-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gray);
+    }
+
+    .filter-btn:hover {
+        background-color: var(--accent-light);
+        color: var(--primary-dark);
+        border-color: var(--accent-light);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-btn.active {
+        background-color: var(--primary);
+        color: var(--white);
+        border-color: var(--primary);
+    }
+
+        .filter-btn.active .filter-icon {
+            color: var(--white);
+        }
+
+    /* Menu Content */
+    .menu-content {
+        margin-bottom: 80px;
+    }
+
+    /* Category */
+    .menu-category {
+        margin-bottom: 80px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s forwards;
+    }
+
+    .category-header {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .category-icon {
+        width: 60px;
+        height: 60px;
+        background-color: var(--accent-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        color: var(--primary);
+        font-size: 24px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 15px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .category-divider {
+        height: 2px;
+        width: 60px;
+        background-color: var(--accent);
+        margin: 0 auto 20px;
+    }
+
+    .category-description {
+        max-width: 700px;
+        margin: 0 auto;
+        color: var(--gray);
+    }
+
+    /* Menu Grid */
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    /* Menu Item */
+    .menu-item {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        position: relative;
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+        .menu-item:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+    .menu-item-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: var(--accent);
+        color: var(--white);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 3;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-item-image-container {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+    }
+
+    .menu-item-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+
+    .menu-item:hover .menu-item-image {
+        transform: scale(1.1);
+    }
+
+    .menu-item-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .menu-item:hover .menu-item-overlay {
+        opacity: 1;
+    }
+
+    .btn-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--white);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: var(--transition);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    .menu-item:hover .btn-circle {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.1s;
+    }
+
+    .btn-circle:hover {
+        background-color: var(--primary);
+        color: var(--white);
+        transform: translateY(-5px) scale(1.1);
+        text-decoration: none;
+    }
+
+    .menu-item-content {
+        padding: 25px;
+    }
+
+    .menu-item-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--primary-dark);
+        margin: 0 0 10px;
+        font-family: 'Playfair Display', serif;
+        height: 50px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .menu-item-rating {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 15px;
+        color: var(--warning);
+        font-size: 14px;
+    }
+
+    .rating-count {
+        color: var(--gray);
+        margin-left: 5px;
+    }
+
+    .menu-item-price {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--secondary);
+        margin-bottom: 15px;
+    }
+
+    .menu-item-description {
+        color: var(--gray);
+        margin-bottom: 20px;
+        font-size: 14px;
+        height: 60px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        line-height: 1.6;
+    }
+
+    .menu-item-size {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        background-color: var(--light);
+        padding: 8px 15px;
+        border-radius: 20px;
+        display: inline-flex;
+    }
+
+    .size-label {
+        color: var(--gray);
+    }
+
+    .size-value {
+        font-weight: 600;
+        color: var(--primary-dark);
+    }
+
+    .menu-item-actions {
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn-add-to-cart, .btn-details {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: var(--border-radius-lg);
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+    .btn-add-to-cart {
+        background-color: var(--primary);
+        color: var(--white);
+        border: none;
+        flex: 1;
+    }
+
+        .btn-add-to-cart:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(107, 66, 38, 0.2);
+        }
+
+    .btn-details {
+        background-color: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+    }
+
+        .btn-details:hover {
+            background-color: var(--accent-light);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 167, 98, 0.2);
+            text-decoration: none;
+        }
+
+    /* Empty State */
+    .empty-state, .empty-category {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        padding: 60px 30px;
+        text-align: center;
+        box-shadow: var(--shadow);
+    }
+
+    .empty-icon {
+        font-size: 60px;
+        color: var(--accent);
+        margin-bottom: 30px;
+        display: inline-block;
+        animation: pulse 2s infinite;
+    }
+
+    .empty-state h3 {
+        font-size: 28px;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .empty-state p, .empty-category p {
+        color: var(--gray);
+        max-width: 500px;
+        margin: 0 auto;
+        font-size: 16px;
+    }
+
+    /* Promo Section */
+    .promo-section {
+        position: relative;
+        padding: 100px 0;
+        color: var(--white);
+        background-image: url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        margin-bottom: 80px;
+    }
+
+    .promo-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+        z-index: 1;
+    }
+
+    .promo-content {
+        position: relative;
+        z-index: 2;
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .promo-title {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .promo-description {
+        font-size: 18px;
+        margin-bottom: 30px;
+        line-height: 1.8;
+        opacity: 0.9;
+    }
+
+    .btn-promo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 15px 30px;
+        background-color: var(--accent);
+        color: var(--primary-dark);
+        border-radius: var(--border-radius-lg);
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 16px;
+    }
+
+        .btn-promo:hover {
+            background-color: var(--white);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+
+    /* Cart Button */
+    .cart-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 65px;
+        height: 65px;
+        background-color: var(--primary);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+        z-index: 1000;
+    }
+
+        .cart-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px) rotate(5deg);
+            color: var(--white);
+            text-decoration: none;
+        }
+
+    .cart-icon {
+        font-size: 24px;
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: var(--danger);
+        color: var(--white);
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        border: 2px solid var(--white);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Back to top button */
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 50px;
+        height: 50px;
+        background-color: var(--white);
+        color: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: var(--transition);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-5px);
+        }
+
+   
+
+    .menu-item:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .menu-item:nth-child(3) {
+        animation-delay: 0.2s;
+    }
+
+    .menu-item:nth-child(4) {
+        animation-delay: 0.3s;
+    }
+
+    /* Notification */
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: var(--border-radius);
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+        transform: translateX(120%);
+        transition: transform 0.3s ease;
+    }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+    .notification-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .notification.success {
+        border-left: 4px solid var(--success);
+    }
+
+    .notification.error {
+        border-left: 4px solid var(--danger);
+    }
+
+    .notification.success i {
+        color: var(--success);
+    }
+
+    .notification.error i {
+        color: var(--danger);
+    }
+
+   
+
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Xử lý số lượng giỏ hàng
+        let cartCount = localStorage.getItem("cartCount") || 0;
+        updateCartCount(cartCount);
+
+        // Cập nhật số lượng giỏ hàng
+        function updateCartCount(count) {
+            let cartCountElement = document.getElementById("cartCount");
+            if (cartCountElement) {
+                if (count > 0) {
+                    cartCountElement.textContent = count;
+                    cartCountElement.style.display = "flex";
                 } else {
-                    $('.menu-category').hide();
-                    $('#category-' + filter).show();
+                    cartCountElement.style.display = "none";
                 }
-            });
+            }
+        }
 
-
-            // Search functionality
-            $('#searchForm').submit(function(e) {
+        // Xử lý nút thêm vào giỏ hàng
+        document.querySelectorAll(".add-to-cart-form").forEach(form => {
+            form.addEventListener("submit", function(e) {
                 e.preventDefault();
-                var searchTerm = $('#searchInput').val().toLowerCase();
 
+                let count = parseInt(localStorage.getItem("cartCount") || "0") + 1;
+                localStorage.setItem("cartCount", count);
+                updateCartCount(count);
 
-                if (searchTerm === '') {
-                    $('.menu-item').show();
-                    $('.menu-category').show();
-                    return;
-                }
+                // Hiệu ứng thêm vào giỏ hàng
+                const cartButton = document.getElementById("cartButton");
+                cartButton.classList.add("pulse");
+                setTimeout(() => {
+                    cartButton.classList.remove("pulse");
+                }, 1000);
 
-
-                $('.menu-item').each(function() {
-                    var itemName = $(this).find('.menu-item-title').text().toLowerCase();
-                    var itemDesc = $(this).find('.menu-item-description').text().toLowerCase();
-
-
-                    if (itemName.includes(searchTerm) || itemDesc.includes(searchTerm)) {
-                        $(this).show();
+                // Gửi form bằng AJAX
+                const formData = new FormData(this);
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Hiển thị thông báo thành công
+                        showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
                     } else {
-                        $(this).hide();
+                        showNotification("Có lỗi xảy ra khi thêm vào giỏ hàng.", "error");
                     }
-                });
-
-
-                // Hide categories with no visible items
-                $('.menu-category').each(function() {
-                    var visibleItems = $(this).find('.menu-item:visible').length;
-                    if (visibleItems === 0) {
-                        $(this).hide();
-                    } else {
-                        $(this).show();
-                    }
+                })
+                .catch(error => {
+                    showNotification("Có lỗi xảy ra khi thêm vào giỏ hàng.", "error");
                 });
             });
         });
-    </script>
-}
 
+        // Hiển thị thông báo
+        function showNotification(message, type) {
+            // Kiểm tra xem đã có thông báo nào chưa
+            let notification = document.querySelector('.notification');
+            if (notification) {
+                notification.remove();
+            }
+
+            // Tạo thông báo mới
+            notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Hiển thị thông báo
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+
+            // Ẩn thông báo sau 3 giây
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Xử lý filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Xóa active class từ tất cả các nút
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Thêm active class cho nút được click
+                this.classList.add('active');
+
+                const filter = this.getAttribute('data-filter');
+
+                if (filter === 'all') {
+                    // Hiển thị tất cả danh mục
+                    document.querySelectorAll('.menu-category').forEach(category => {
+                        category.style.display = 'block';
+                    });
+                } else {
+                    // Ẩn tất cả danh mục
+                    document.querySelectorAll('.menu-category').forEach(category => {
+                        category.style.display = 'none';
+                    });
+
+                    // Hiển thị danh mục được chọn
+                    document.getElementById(`category-${filter}`).style.display = 'block';
+                }
+            });
+        });
+
+        // Xử lý tìm kiếm
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            if (searchTerm === '') {
+                // Nếu không có từ khóa tìm kiếm, hiển thị tất cả
+                document.querySelectorAll('.menu-item').forEach(item => {
+                    item.style.display = 'block';
+                });
+
+                document.querySelectorAll('.menu-category').forEach(category => {
+                    category.style.display = 'block';
+                });
+
+                return;
+            }
+
+            // Đặt lại filter
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+
+            // Tìm kiếm sản phẩm
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const title = item.querySelector('.menu-item-title').textContent.toLowerCase();
+                const description = item.querySelector('.menu-item-description').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Ẩn danh mục không có sản phẩm nào hiển thị
+            document.querySelectorAll('.menu-category').forEach(category => {
+                const visibleItems = category.querySelectorAll('.menu-item[style="display: block;"]').length;
+
+                if (visibleItems === 0) {
+                    category.style.display = 'none';
+                } else {
+                    category.style.display = 'block';
+                }
+            });
+        });
+
+        // Xử lý nút back to top
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Hiệu ứng cuộn mượt cho các liên kết
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Hiệu ứng hiển thị các phần tử khi cuộn
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.menu-category').forEach(category => {
+            observer.observe(category);
+        });
+
+        // Hiệu ứng badge cho sản phẩm
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach((item, index) => {
+            // Chỉ hiển thị badge cho một số sản phẩm
+            if (index % 3 === 0) {
+                const badge = item.querySelector('.menu-item-badge');
+                if (badge) {
+                    badge.style.display = 'block';
+                }
+            } else {
+                const badge = item.querySelector('.menu-item-badge');
+                if (badge) {
+                    badge.style.display = 'none';
+                }
+            }
+        });
+    });
+</script>

@@ -3,26 +3,14 @@
     <StaticWebAssetEndpoint Include="_content/TheCoffeeShop/css/Home.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\Home.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"15459"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 06:54:55 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-fSp\u002BCqvID8A/O4b2/z8QggVDAYXwIfWn\u002B06ksd82nHw="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7558"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022fSp\u002BCqvID8A/O4b2/z8QggVDAYXwIfWn\u002B06ksd82nHw=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 05:28:56 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/TheCoffeeShop/css/Home.o042bexiku.css">
+    <StaticWebAssetEndpoint Include="_content/TheCoffeeShop/css/Home.t4pdyudg2t.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\Home.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"o042bexiku"},{"Name":"integrity","Value":"sha256-KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814="},{"Name":"label","Value":"_content/TheCoffeeShop/css/Home.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"15459"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022KAwSu85kfYDZo8c28ud54o//oQeVEBFObUGzxwKo814=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 06:54:55 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/TheCoffeeShop/css/menu.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\menu.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-7dNq6i6T8j9\u002B4AVya8B3mzNyC/qLoQv9azmj9UK7IGk="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7211"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00227dNq6i6T8j9\u002B4AVya8B3mzNyC/qLoQv9azmj9UK7IGk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 06:40:08 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/TheCoffeeShop/css/menu.tg5xy2lhwe.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\menu.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"tg5xy2lhwe"},{"Name":"integrity","Value":"sha256-7dNq6i6T8j9\u002B4AVya8B3mzNyC/qLoQv9azmj9UK7IGk="},{"Name":"label","Value":"_content/TheCoffeeShop/css/menu.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7211"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00227dNq6i6T8j9\u002B4AVya8B3mzNyC/qLoQv9azmj9UK7IGk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 06:40:08 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"t4pdyudg2t"},{"Name":"integrity","Value":"sha256-fSp\u002BCqvID8A/O4b2/z8QggVDAYXwIfWn\u002B06ksd82nHw="},{"Name":"label","Value":"_content/TheCoffeeShop/css/Home.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7558"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022fSp\u002BCqvID8A/O4b2/z8QggVDAYXwIfWn\u002B06ksd82nHw=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 05:28:56 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TheCoffeeShop/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
@@ -796,13 +784,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\TheCoffeeShop.4lj9q8ks2l.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"4lj9q8ks2l"},{"Name":"integrity","Value":"sha256-aIXYf\u002B9s\u002ByogtKNsxzSOooXGHD6NVySQWGIQmT7NL2M="},{"Name":"label","Value":"_content/TheCoffeeShop/TheCoffeeShop.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1131"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022aIXYf\u002B9s\u002ByogtKNsxzSOooXGHD6NVySQWGIQmT7NL2M=\u0022"},{"Name":"Last-Modified","Value":"Sat, 22 Mar 2025 16:21:04 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1131"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022aIXYf\u002B9s\u002ByogtKNsxzSOooXGHD6NVySQWGIQmT7NL2M=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 05:01:05 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TheCoffeeShop/TheCoffeeShop.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\TheCoffeeShop.4lj9q8ks2l.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-aIXYf\u002B9s\u002ByogtKNsxzSOooXGHD6NVySQWGIQmT7NL2M="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1131"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022aIXYf\u002B9s\u002ByogtKNsxzSOooXGHD6NVySQWGIQmT7NL2M=\u0022"},{"Name":"Last-Modified","Value":"Sat, 22 Mar 2025 16:21:04 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1131"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022aIXYf\u002B9s\u002ByogtKNsxzSOooXGHD6NVySQWGIQmT7NL2M=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 05:01:05 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

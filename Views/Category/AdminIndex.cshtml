@@ -1,0 +1,1277 @@
+﻿@model IEnumerable<TheCoffeeShop.Models.Category>
+@{
+    ViewData["Title"] = "Quản lý danh mục";
+    
+}
+
+<div class="admin-container">
+    <div class="admin-sidebar">
+        <div class="sidebar-header">
+            <img src="/Content/Images/logo.png" alt="The Coffee Shop" class="logo">
+            <h2>The Coffee Shop</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="/Admin/Dashboard"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
+                <li><a href="/Order/AdminIndex"><i class="fas fa-shopping-cart"></i> Quản lý đơn hàng</a></li>
+                <li><a href="/Product/AdminIndex"><i class="fas fa-coffee"></i> Sản phẩm</a></li>
+                <li class="active" > <a href="/Category/AdminIndex"><i class="fas fa-tags"></i> Danh mục</a></li>
+                <li><a href="/Admin/Users"><i class="fas fa-users"></i> Khách hàng</a></li>
+                <li><a href="/Admin/Reports"><i class="fas fa-chart-bar"></i> Báo cáo</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="admin-content">
+        <div class="admin-header">
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm danh mục...">
+            </div>
+            <div class="header-actions">
+                <div class="notification">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="admin-profile">
+                    <img src="/Content/Images/admin-avatar.jpg" alt="Admin" class="avatar">
+                    <div class="admin-info">
+                        <span class="admin-name">Admin</span>
+                        <span class="admin-role">Quản trị viên</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-dashboard">
+            <div class="dashboard-header">
+                <h1>Quản lý danh mục</h1>
+                <div class="dashboard-actions">
+                    <button class="btn-export"><i class="fas fa-file-export"></i> Xuất báo cáo</button>
+                    <button class="btn-add" id="addCategoryBtn"><i class="fas fa-plus"></i> Thêm danh mục</button>
+                </div>
+            </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+                    <button type="button" class="close-alert">&times;</button>
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i> @TempData["ErrorMessage"]
+                    <button type="button" class="close-alert">&times;</button>
+                </div>
+            }
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(76, 175, 80, 0.1);">
+                        <i class="fas fa-tags" style="color: #4CAF50;"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Tổng danh mục</h3>
+                        <p>@ViewBag.TotalCategories</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(33, 150, 243, 0.1);">
+                        <i class="fas fa-coffee" style="color: #2196F3;"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Tổng sản phẩm</h3>
+                        <p>@ViewBag.TotalProducts</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(76, 175, 80, 0.1);">
+                        <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Danh mục có sản phẩm</h3>
+                        <p>@ViewBag.ActiveCategories</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(244, 67, 54, 0.1);">
+                        <i class="fas fa-exclamation-circle" style="color: #F44336;"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Danh mục trống</h3>
+                        <p>@ViewBag.EmptyCategories</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-group">
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">Tất cả danh mục</option>
+                        <option value="active">Có sản phẩm</option>
+                        <option value="empty">Không có sản phẩm</option>
+                    </select>
+                </div>
+                <button id="applyFilter" class="btn-filter"><i class="fas fa-filter"></i> Lọc</button>
+            </div>
+
+            <div class="categories-table-container">
+                <table class="categories-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên danh mục</th>
+                            <th>Số lượng sản phẩm</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model)
+                        {
+                            var productCount = category.Products.Count;
+                            var status = productCount > 0 ? "active" : "empty";
+
+                            <tr data-status="@status" data-category-id="@category.CategoryId">
+                                <td class="category-id">@category.CategoryId</td>
+                                <td class="category-name">@category.CategoryName</td>
+                                <td class="product-count">@productCount</td>
+                                <td>
+                                    @if (productCount > 0)
+                                    {
+                                        <span class="status-badge active">Có sản phẩm</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge empty">Không có sản phẩm</span>
+                                    }
+                                </td>
+                                <td class="actions">
+                                    <button class="btn-action view" data-category-id="@category.CategoryId" title="Xem sản phẩm">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action edit" data-category-id="@category.CategoryId" data-category-name="@category.CategoryName" title="Chỉnh sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-action delete @(productCount > 0 ? "disabled" : "")" data-category-id="@category.CategoryId" title="Xóa" @(productCount > 0 ? "disabled" : "")>
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <span class="pagination-info">Hiển thị 1-@(Model.Count() < 10 ? Model.Count() : 10) của @Model.Count() danh mục</span>
+                <div class="pagination-controls">
+                    <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                    <div class="pagination-numbers">
+                        <button class="pagination-number active">1</button>
+                        @if (Model.Count() > 10)
+                        {
+                            <button class="pagination-number">2</button>
+                        }
+                        @if (Model.Count() > 20)
+                        {
+                            <button class="pagination-number">3</button>
+                        }
+                    </div>
+                    <button class="pagination-btn" @(Model.Count() <= 10 ? "disabled" : "")><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thêm/Sửa Danh Mục -->
+<div id="categoryModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Thêm danh mục mới</h2>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="categoryForm" method="post">
+                <input type="hidden" id="categoryId" name="CategoryId" value="0">
+                <div class="form-group">
+                    <label for="categoryName">Tên danh mục</label>
+                    <input type="text" id="categoryName" name="CategoryName" class="form-control" required>
+                    <div class="invalid-feedback">Vui lòng nhập tên danh mục</div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-cancel">Hủy</button>
+            <button type="button" class="btn-save" id="saveCategory">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Xem Sản Phẩm -->
+<div id="productsModal" class="modal">
+    <div class="modal-content modal-lg">
+        <div class="modal-header">
+            <h2>Sản phẩm trong danh mục: <span id="categoryNameTitle"></span></h2>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="productsList" class="products-grid">
+                <!-- Danh sách sản phẩm sẽ được thêm vào đây bằng JavaScript -->
+            </div>
+            <div id="noProducts" class="no-products" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Không có sản phẩm nào trong danh mục này</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-close">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Xác Nhận Xóa -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content modal-sm">
+        <div class="modal-header">
+            <h2>Xác nhận xóa</h2>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Bạn có chắc chắn muốn xóa danh mục này?</p>
+            <p class="text-danger"><small>Lưu ý: Chỉ có thể xóa danh mục không có sản phẩm.</small></p>
+        </div>
+        <div class="modal-footer">
+            <form id="deleteForm" method="post">
+                <input type="hidden" id="deleteCategoryId" name="id">
+                @Html.AntiForgeryToken()
+                <button type="button" class="btn-cancel">Hủy</button>
+                <button type="submit" class="btn-delete">Xóa</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary: #6b4226;
+        --primary-light: #8c6242;
+        --primary-dark: #4e301c;
+        --secondary: #a67c52;
+        --accent: #d4a762;
+        --accent-light: #e9d2b3;
+        --success: #4caf50;
+        --warning: #ff9800;
+        --danger: #f44336;
+        --info: #2196f3;
+        --dark: #333333;
+        --light: #f5f5f5;
+        --gray: #757575;
+        --gray-light: #e0e0e0;
+        --white: #ffffff;
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f5f5f5;
+        color: var(--dark);
+    }
+
+    /* Admin Layout */
+    .admin-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .admin-sidebar {
+        width: 260px;
+        background-color: var(--white);
+        box-shadow: var(--shadow);
+        position: fixed;
+        height: 100vh;
+        z-index: 100;
+    }
+
+    .sidebar-header {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--gray-light);
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .sidebar-header h2 {
+        font-size: 18px;
+        color: var(--primary);
+        font-weight: 600;
+    }
+
+    .sidebar-nav {
+        padding: 20px 0;
+    }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+            .sidebar-nav a i {
+                margin-right: 10px;
+                font-size: 18px;
+                width: 20px;
+                text-align: center;
+            }
+
+            .sidebar-nav a:hover {
+                background-color: rgba(107, 66, 38, 0.1);
+                color: var(--primary);
+            }
+
+        .sidebar-nav li.active a {
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 0 30px 30px 0;
+        }
+
+    /* Main Content */
+    .admin-content {
+        flex: 1;
+        margin-left: 260px;
+    }
+
+    /* Header */
+    .admin-header {
+        background-color: var(--white);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 99;
+    }
+
+    .header-search {
+        position: relative;
+    }
+
+        .header-search input {
+            padding: 10px 15px 10px 40px;
+            border: 1px solid var(--gray-light);
+            border-radius: 30px;
+            width: 300px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+            .header-search input:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 2px rgba(107, 66, 38, 0.2);
+            }
+
+        .header-search i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .notification {
+        position: relative;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+
+        .notification i {
+            font-size: 20px;
+            color: var(--dark);
+        }
+
+    .badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: var(--danger);
+        color: var(--white);
+        font-size: 10px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+    }
+
+    .admin-profile {
+        display: flex;
+        align-items: center;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    .admin-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .admin-name {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .admin-role {
+        font-size: 12px;
+        color: var(--gray);
+    }
+
+    /* Dashboard */
+    .admin-dashboard {
+        padding: 30px;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+        .dashboard-header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+    .dashboard-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-export, .btn-add {
+        padding: 10px 20px;
+        border-radius: var(--border-radius);
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+    }
+
+    .btn-export {
+        background-color: var(--white);
+        color: var(--primary);
+        border: 1px solid var(--primary);
+    }
+
+        .btn-export:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+    .btn-add {
+        background-color: var(--primary);
+        color: var(--white);
+    }
+
+        .btn-add:hover {
+            background-color: var(--primary-dark);
+        }
+
+    /* Alert */
+    .alert {
+        padding: 15px;
+        border-radius: var(--border-radius);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+        .alert i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+    .alert-success {
+        background-color: rgba(76, 175, 80, 0.1);
+        color: var(--success);
+        border-left: 4px solid var(--success);
+    }
+
+    .alert-danger {
+        background-color: rgba(244, 67, 54, 0.1);
+        color: var(--danger);
+        border-left: 4px solid var(--danger);
+    }
+
+    .close-alert {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: inherit;
+    }
+
+    /* Stats */
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        padding: 20px;
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+    }
+
+        .stat-icon i {
+            font-size: 24px;
+        }
+
+    .stat-info h3 {
+        font-size: 14px;
+        color: var(--gray);
+        margin-bottom: 5px;
+    }
+
+    .stat-info p {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--dark);
+    }
+
+    /* Filter Section */
+    .filter-section {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        padding: 20px;
+        box-shadow: var(--shadow);
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filter-group {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .filter-select {
+        padding: 10px 15px;
+        border: 1px solid var(--gray-light);
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        min-width: 180px;
+    }
+
+    .btn-filter {
+        background-color: var(--primary);
+        color: var(--white);
+        border: none;
+        padding: 10px 20px;
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+    }
+
+        .btn-filter:hover {
+            background-color: var(--primary-dark);
+        }
+
+    /* Categories Table */
+    .categories-table-container {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+
+    .categories-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .categories-table th, .categories-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .categories-table th {
+            background-color: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .categories-table tbody tr:hover {
+            background-color: rgba(107, 66, 38, 0.05);
+        }
+
+    .category-id {
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .category-name {
+        font-weight: 500;
+    }
+
+    .product-count {
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .status-badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+        .status-badge.active {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge.empty {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+        }
+
+    .actions {
+        display: flex;
+        gap: 5px;
+    }
+
+    .btn-action {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+        .btn-action.view {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--info);
+        }
+
+        .btn-action.edit {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--warning);
+        }
+
+        .btn-action.delete {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+        }
+
+        .btn-action.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-action:hover:not(.disabled) {
+            transform: translateY(-3px);
+        }
+
+        .btn-action.view:hover {
+            background-color: var(--info);
+            color: var(--white);
+        }
+
+        .btn-action.edit:hover {
+            background-color: var(--warning);
+            color: var(--white);
+        }
+
+        .btn-action.delete:hover:not(.disabled) {
+            background-color: var(--danger);
+            color: var(--white);
+        }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .pagination-info {
+        font-size: 14px;
+        color: var(--gray);
+    }
+
+    .pagination-controls {
+        display: flex;
+        align-items: center;
+    }
+
+    .pagination-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid var(--gray-light);
+        background-color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+        .pagination-btn:hover:not([disabled]) {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .pagination-btn[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+    .pagination-numbers {
+        display: flex;
+        margin: 0 10px;
+    }
+
+    .pagination-number {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid var(--gray-light);
+        background-color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+        .pagination-number:hover {
+            background-color: rgba(107, 66, 38, 0.1);
+        }
+
+        .pagination-number.active {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .modal-content {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 500px;
+        margin: 50px auto;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+        .modal-content.modal-lg {
+            max-width: 800px;
+        }
+
+        .modal-content.modal-sm {
+            max-width: 400px;
+        }
+
+    .modal-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+    .close-modal {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--gray);
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        padding: 20px;
+        border-top: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    /* Form */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid var(--gray-light);
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        transition: var(--transition);
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(107, 66, 38, 0.2);
+        }
+
+        .form-control.is-invalid {
+            border-color: var(--danger);
+        }
+
+    .invalid-feedback {
+        display: none;
+        color: var(--danger);
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .form-control.is-invalid + .invalid-feedback {
+        display: block;
+    }
+
+    /* Buttons */
+    .btn-save, .btn-cancel, .btn-close, .btn-delete {
+        padding: 10px 20px;
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+    }
+
+    .btn-save {
+        background-color: var(--primary);
+        color: var(--white);
+    }
+
+        .btn-save:hover {
+            background-color: var(--primary-dark);
+        }
+
+    .btn-cancel, .btn-close {
+        background-color: var(--light);
+        color: var(--dark);
+    }
+
+        .btn-cancel:hover, .btn-close:hover {
+            background-color: var(--gray-light);
+        }
+
+    .btn-delete {
+        background-color: var(--danger);
+        color: var(--white);
+    }
+
+        .btn-delete:hover {
+            background-color: #d32f2f;
+        }
+
+    /* Products Grid */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .product-card {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: var(--transition);
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .product-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-name {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--dark);
+    }
+
+    .product-price {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .product-description {
+        font-size: 12px;
+        color: var(--gray);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .no-products {
+        text-align: center;
+        padding: 30px;
+        color: var(--gray);
+    }
+
+        .no-products i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+    .text-danger {
+        color: var(--danger);
+    }
+
+
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elements
+        const searchInput = document.getElementById('searchInput');
+        const statusFilter = document.getElementById('statusFilter');
+        const applyFilterBtn = document.getElementById('applyFilter');
+        const categoryRows = document.querySelectorAll('.categories-table tbody tr');
+        const addCategoryBtn = document.getElementById('addCategoryBtn');
+        const categoryModal = document.getElementById('categoryModal');
+        const productsModal = document.getElementById('productsModal');
+        const deleteModal = document.getElementById('deleteModal');
+        const closeModalBtns = document.querySelectorAll('.close-modal, .btn-cancel, .btn-close');
+        const saveCategoryBtn = document.getElementById('saveCategory');
+        const categoryForm = document.getElementById('categoryForm');
+        const categoryIdInput = document.getElementById('categoryId');
+        const categoryNameInput = document.getElementById('categoryName');
+        const modalTitle = document.getElementById('modalTitle');
+        const deleteForm = document.getElementById('deleteForm');
+        const deleteCategoryIdInput = document.getElementById('deleteCategoryId');
+        const alertElements = document.querySelectorAll('.alert');
+        const closeAlertBtns = document.querySelectorAll('.close-alert');
+
+        // Close alerts
+        closeAlertBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.closest('.alert').style.display = 'none';
+            });
+        });
+
+        // Auto-hide alerts after 5 seconds
+        setTimeout(() => {
+            alertElements.forEach(alert => {
+                alert.style.display = 'none';
+            });
+        }, 5000);
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            categoryRows.forEach(row => {
+                const categoryId = row.querySelector('.category-id').textContent.toLowerCase();
+                const categoryName = row.querySelector('.category-name').textContent.toLowerCase();
+
+                if (categoryId.includes(searchTerm) || categoryName.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter functionality
+        applyFilterBtn.addEventListener('click', function() {
+            const statusValue = statusFilter.value;
+
+            categoryRows.forEach(row => {
+                const status = row.getAttribute('data-status');
+
+                if (!statusValue || status === statusValue) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Add Category
+        addCategoryBtn.addEventListener('click', function() {
+            resetCategoryForm();
+            modalTitle.textContent = 'Thêm danh mục mới';
+            categoryForm.action = '/Order/CreateCategory';
+            categoryModal.style.display = 'block';
+        });
+
+        // Edit Category
+        document.querySelectorAll('.btn-action.edit').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const categoryId = this.getAttribute('data-category-id');
+                const categoryName = this.getAttribute('data-category-name');
+
+                resetCategoryForm();
+                modalTitle.textContent = 'Chỉnh sửa danh mục';
+                categoryIdInput.value = categoryId;
+                categoryNameInput.value = categoryName;
+                categoryForm.action = '/Order/EditCategory/' + categoryId;
+                categoryModal.style.display = 'block';
+            });
+        });
+
+        // View Products
+        document.querySelectorAll('.btn-action.view').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const categoryId = this.getAttribute('data-category-id');
+                const categoryName = this.closest('tr').querySelector('.category-name').textContent;
+
+                document.getElementById('categoryNameTitle').textContent = categoryName;
+                loadCategoryProducts(categoryId);
+                productsModal.style.display = 'block';
+            });
+        });
+
+        // Delete Category
+        document.querySelectorAll('.btn-action.delete:not(.disabled)').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const categoryId = this.getAttribute('data-category-id');
+                deleteCategoryIdInput.value = categoryId;
+                deleteForm.action = '/Order/DeleteCategory/' + categoryId;
+                deleteModal.style.display = 'block';
+            });
+        });
+
+        // Close Modals
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                categoryModal.style.display = 'none';
+                productsModal.style.display = 'none';
+                deleteModal.style.display = 'none';
+            });
+        });
+
+        // Close Modal on Outside Click
+        window.addEventListener('click', function(e) {
+            if (e.target === categoryModal) {
+                categoryModal.style.display = 'none';
+            }
+            if (e.target === productsModal) {
+                productsModal.style.display = 'none';
+            }
+            if (e.target === deleteModal) {
+                deleteModal.style.display = 'none';
+            }
+        });
+
+        // Save Category
+        saveCategoryBtn.addEventListener('click', function() {
+            if (validateCategoryForm()) {
+                categoryForm.submit();
+            }
+        });
+
+        // Form Validation
+        function validateCategoryForm() {
+            let isValid = true;
+
+            if (!categoryNameInput.value.trim()) {
+                categoryNameInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                categoryNameInput.classList.remove('is-invalid');
+            }
+
+            return isValid;
+        }
+
+        // Reset Form
+        function resetCategoryForm() {
+            categoryIdInput.value = '0';
+            categoryNameInput.value = '';
+            categoryNameInput.classList.remove('is-invalid');
+        }
+
+        // Load Category Products
+        function loadCategoryProducts(categoryId) {
+            const productsList = document.getElementById('productsList');
+            const noProducts = document.getElementById('noProducts');
+
+            // Clear previous content
+            productsList.innerHTML = '';
+
+            // Fetch products for the category
+            fetch('/Order/GetCategoryProducts/' + categoryId)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(products => {
+                    if (products.length === 0) {
+                        productsList.style.display = 'none';
+                        noProducts.style.display = 'block';
+                    } else {
+                        productsList.style.display = 'grid';
+                        noProducts.style.display = 'none';
+
+                        products.forEach(product => {
+                            const productCard = document.createElement('div');
+                            productCard.className = 'product-card';
+
+                            const imageUrl = product.productImage ? product.productImage : '/Content/Images/product-placeholder.jpg';
+
+                            productCard.innerHTML = `
+                                <img src="${imageUrl}" alt="${product.productName}" class="product-image">
+                                <div class="product-info">
+                                    <div class="product-name">${product.productName}</div>
+                                    <div class="product-price">${formatCurrency(product.price)} VNĐ</div>
+                                    <div class="product-description">${product.description || 'Không có mô tả'}</div>
+                                </div>
+                            `;
+
+                            productsList.appendChild(productCard);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching products:', error);
+                    productsList.style.display = 'none';
+                    noProducts.style.display = 'block';
+                    noProducts.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Đã xảy ra lỗi khi tải sản phẩm. Vui lòng thử lại sau.</p>
+                    `;
+                });
+        }
+
+        // Format Currency
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('vi-VN').format(value);
+        }
+    });
+</script>
+

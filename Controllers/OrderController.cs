@@ -27,6 +27,9 @@ public class OrderController : Controller
         return View(orders);
     }
 
+   
+
+
     // GET: /Order
     public async Task<IActionResult> Index()
     {

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +17,35 @@ namespace TheCoffeeShop.Controllers
         {
             _context = context;
         }
+        public async Task<IActionResult> UserIndex(string searchString, string category)
+        {
+            // Lấy danh sách bài viết kèm thông tin tác giả và sản phẩm liên quan
+            var blogs = _context.Blogs
+                .Include(b => b.Account)
+                .Include(b => b.Product)
+                .OrderByDescending(b => b.BlogDate)
+                .AsQueryable();
+
+            // Xử lý tìm kiếm nếu có
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                blogs = blogs.Where(b =>
+                    b.BlogName.Contains(searchString) ||
+                    b.BlogContent.Contains(searchString));
+            }
+
+            // Xử lý lọc theo danh mục nếu có
+            // Lưu ý: Trong thực tế, bạn cần thêm trường Category vào model Blog
+            // Đây chỉ là ví dụ, bạn có thể điều chỉnh theo cấu trúc dữ liệu thực tế
+            if (!string.IsNullOrEmpty(category) && category != "all")
+            {
+                // Giả sử có trường Category trong Blog
+                // blogs = blogs.Where(b => b.Category == category);
+            }
+
+            return View("UserIndex", await blogs.ToListAsync());
+        }
+
 
         // GET: Blog
         public async Task<IActionResult> Index()

@@ -17,8 +17,28 @@ namespace TheCoffeeShop.Controllers
         {
             _context = context;
         }
+        public async Task<IActionResult> AdminIndex()
+        {
+            // Lấy danh sách sản phẩm kèm theo thông tin danh mục
+            var products = await _context.Products
+                    .Include(p => p.Category)
+                    .ToListAsync();
 
-        // GET: Product
+            // Lấy danh sách danh mục cho dropdown filter
+            var categories = await _context.Categories.ToListAsync();
+
+            // Thiết lập các thông tin thống kê cho dashboard
+            ViewBag.TotalProducts = products.Count;
+            ViewBag.TotalCategories = categories.Count;
+            ViewBag.BestSellingProducts = await _context.Products.CountAsync(p => p.ProductPrice > 0); // Placeholder, thay bằng logic thực tế
+            ViewBag.OutOfStockProducts = 0; // Placeholder, thay bằng logic thực tế
+
+            // Thiết lập danh sách danh mục cho dropdown filter
+            ViewBag.Categories = categories;
+
+            return View(products);
+        }
+        //GET: Product
         public async Task<IActionResult> Index()
         {
             var coffeeShopDbContext = _context.Products.Include(p => p.Category);

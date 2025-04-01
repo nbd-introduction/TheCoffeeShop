@@ -1,57 +1,429 @@
-@model TheCoffeeShop.Models.Blog
+﻿@model TheCoffeeShop.Models.Blog
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa bài viết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<div class="blog-delete-container">
+    <div class="delete-header">
+        <div class="header-content">
+            <h1 class="delete-title">Xóa bài viết</h1>
+            <p class="delete-subtitle">Bạn có chắc chắn muốn xóa bài viết này?</p>
+        </div>
+        <div class="header-actions">
+            <a href="@Url.Action("Index")" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Quay lại danh sách
+            </a>
+        </div>
+    </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Blog</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BlogName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BlogName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BlogDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BlogDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BlogContent)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BlogContent)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BlogImage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BlogImage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Account)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Account.AccountId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Product)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.ProductId)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="BlogId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="delete-content">
+        <div class="delete-warning">
+            <div class="warning-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="warning-text">
+                <h3>Cảnh báo!</h3>
+                <p>Hành động này không thể hoàn tác. Khi xóa, tất cả dữ liệu liên quan đến bài viết này sẽ bị mất vĩnh viễn.</p>
+            </div>
+        </div>
+
+        <div class="blog-preview">
+            <div class="preview-header">
+                <div class="preview-image">
+                    @if (!string.IsNullOrEmpty(Model.BlogImage))
+                    {
+                        <img src="@Model.BlogImage" alt="@Model.BlogName" />
+                    }
+                    else
+                    {
+                        <div class="no-image">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                    }
+                </div>
+                <div class="preview-info">
+                    <h2 class="preview-title">@Model.BlogName</h2>
+                    <div class="preview-meta">
+                        @if (Model.BlogDate.HasValue)
+                        {
+                            <div class="meta-item">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>@Model.BlogDate.Value.ToString("dd/MM/yyyy")</span>
+                            </div>
+                        }
+                        @if (Model.Account != null)
+                        {
+                            <div class="meta-item">
+                                <i class="far fa-user"></i>
+                                <span>@Model.Account.UserName</span>
+                            </div>
+                        }
+                        @if (Model.Product != null)
+                        {
+                            <div class="meta-item">
+                                <i class="fas fa-coffee"></i>
+                                <span>@Model.Product.ProductName</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-content">
+                @if (!string.IsNullOrEmpty(Model.BlogContent))
+                {
+                    <p class="content-preview">
+                        @(Model.BlogContent.Length > 300 ? Model.BlogContent.Substring(0, 300) + "..." : Model.BlogContent)
+                    </p>
+                }
+                else
+                {
+                    <p class="no-content">Không có nội dung</p>
+                }
+            </div>
+        </div>
+
+        <div class="delete-details">
+            <div class="details-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-info-circle"></i> Thông tin chi tiết</h3>
+                </div>
+                <div class="card-body">
+                    <table class="details-table">
+                        <tr>
+                            <th>ID bài viết:</th>
+                            <td>@Model.BlogId</td>
+                        </tr>
+                        <tr>
+                            <th>Tiêu đề:</th>
+                            <td>@Model.BlogName</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày đăng:</th>
+                            <td>@(Model.BlogDate.HasValue ? Model.BlogDate.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa cập nhật")</td>
+                        </tr>
+                        <tr>
+                            <th>Tác giả:</th>
+                            <td>@(Model.Account != null ? Model.Account.UserName : "Không có thông tin")</td>
+                        </tr>
+                        <tr>
+                            <th>Sản phẩm liên quan:</th>
+                            <td>@(Model.Product != null ? Model.Product.ProductName : "Không có")</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="delete-actions">
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="BlogId" />
+                <div class="action-buttons">
+                    <a href="@Url.Action("Index")" class="btn-cancel">
+                        <i class="fas fa-times"></i> Hủy
+                    </a>
+                    <button type="submit" class="btn-delete">
+                        <i class="fas fa-trash"></i> Xác nhận xóa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+<style>
+    :root {
+        --primary: #6b4226;
+        --primary-light: #8c6242;
+        --primary-dark: #4e301c;
+        --secondary: #a67c52;
+        --accent: #d4a762;
+        --accent-light: #e9d2b3;
+        --success: #4caf50;
+        --warning: #ff9800;
+        --danger: #f44336;
+        --info: #2196f3;
+        --dark: #333333;
+        --light: #f5f5f5;
+        --gray: #757575;
+        --gray-light: #e0e0e0;
+        --white: #ffffff;
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9f5f0;
+        color: var(--dark);
+        line-height: 1.6;
+    }
+
+    .blog-delete-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .delete-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .delete-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--danger);
+        margin-bottom: 5px;
+    }
+
+    .delete-subtitle {
+        font-size: 16px;
+        color: var(--gray);
+        margin: 0;
+    }
+
+    .btn-back {
+        background-color: var(--white);
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        padding: 10px 20px;
+        border-radius: 30px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+        .btn-back:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+    .delete-content {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin-bottom: 40px;
+    }
+
+    .delete-warning {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+        background-color: rgba(244, 67, 54, 0.1);
+        border-left: 4px solid var(--danger);
+    }
+
+    .warning-icon {
+        font-size: 36px;
+        color: var(--danger);
+    }
+
+    .warning-text h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--danger);
+        margin-bottom: 5px;
+    }
+
+    .warning-text p {
+        margin: 0;
+        color: var(--dark);
+    }
+
+    .blog-preview {
+        padding: 20px;
+        border-bottom: 1px solid var(--gray-light);
+    }
+
+    .preview-header {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .preview-image {
+        width: 120px;
+        height: 120px;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+        .preview-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .no-image {
+        width: 100%;
+        height: 100%;
+        background-color: var(--accent-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 36px;
+    }
+
+    .preview-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .preview-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+
+    .preview-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--gray);
+        font-size: 14px;
+    }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+    .preview-content {
+        padding: 0 20px;
+    }
+
+    .content-preview {
+        color: var(--gray);
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .no-content {
+        color: var(--gray);
+        font-style: italic;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    .delete-details {
+        padding: 20px;
+    }
+
+    .details-card {
+        border: 1px solid var(--gray-light);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background-color: var(--light);
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--gray-light);
+    }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .details-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .details-table th, .details-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .details-table th {
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+            width: 40%;
+        }
+
+        .details-table tr:last-child th, .details-table tr:last-child td {
+            border-bottom: none;
+        }
+
+    .delete-actions {
+        padding: 20px;
+        border-top: 1px solid var(--gray-light);
+        background-color: var(--light);
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+    }
+
+    .btn-cancel, .btn-delete {
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .btn-cancel {
+        background-color: var(--white);
+        color: var(--dark);
+        border: 1px solid var(--gray-light);
+        text-decoration: none;
+    }
+
+    .btn-delete {
+        background-color: var(--danger);
+        color: var(--white);
+        border: none;
+    }
+
+    .btn-cancel:hover {
+        background-color: var(--gray-light);
+    }
+
+    .btn-delete:hover {
+        background-color: #d32f2f;
+    }
+
+    
+    }
+</style>
