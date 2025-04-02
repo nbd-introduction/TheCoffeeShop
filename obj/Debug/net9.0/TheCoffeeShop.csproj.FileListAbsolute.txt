@@ -259,7 +259,8 @@ D:\Study\TheCoffeeShop\obj\Debug\net9.0\TheCoffeeShop.sourcelink.json
 D:\Study\TheCoffeeShop\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\Study\TheCoffeeShop\obj\Debug\net9.0\scopedcss\bundle\TheCoffeeShop.styles.css
 D:\Study\TheCoffeeShop\obj\Debug\net9.0\scopedcss\projectbundle\TheCoffeeShop.bundle.scp.css
-D:\Study\TheCoffeeShop\obj\Debug\net9.0\compressed\8072xdtji4-yk9f32fg3f.gz
+D:\Study\TheCoffeeShop\obj\Debug\net9.0\compressed\e5t25gcmm5-t4pdyudg2t.gz
+D:\Study\TheCoffeeShop\obj\Debug\net9.0\compressed\8072xdtji4-1x97qztyau.gz
 D:\Study\TheCoffeeShop\obj\Debug\net9.0\compressed\1s5pgaelps-61n19gt1b8.gz
 D:\Study\TheCoffeeShop\obj\Debug\net9.0\compressed\rr9k2ymw6e-jnfxbyxisf.gz
 D:\Study\TheCoffeeShop\obj\Debug\net9.0\compressed\hqkp0txkl5-bqjiyaj88i.gz
@@ -339,4 +340,3 @@ D:\Study\TheCoffeeShop\obj\Debug\net9.0\refint\TheCoffeeShop.dll
 D:\Study\TheCoffeeShop\obj\Debug\net9.0\TheCoffeeShop.pdb
 D:\Study\TheCoffeeShop\obj\Debug\net9.0\TheCoffeeShop.genruntimeconfig.cache
 D:\Study\TheCoffeeShop\obj\Debug\net9.0\ref\TheCoffeeShop.dll
-D:\Study\TheCoffeeShop\obj\Debug\net9.0\compressed\e5t25gcmm5-t4pdyudg2t.gz

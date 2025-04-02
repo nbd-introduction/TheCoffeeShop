@@ -63,7 +63,7 @@
                                 @(featuredPost.BlogContent.Length > 200 ? featuredPost.BlogContent.Substring(0, 200) + "..." : featuredPost.BlogContent)
                             }
                         </p>
-                        <a href="@Url.Action("UserBlogDetails", new { id = featuredPost.BlogId })" class="btn-read-more">
+                        <a href="@Url.Action("Details", new { id = featuredPost.BlogId })" class="btn-read-more">
                             Đọc tiếp <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -146,7 +146,7 @@
                                 @(blog.BlogContent.Length > 120 ? blog.BlogContent.Substring(0, 120) + "..." : blog.BlogContent)
                             }
                         </p>
-                        <a href="@Url.Action("UserBlogDetails", new { id = blog.BlogId })" class="card-read-more">
+                        <a href="@Url.Action("Details", new { id = blog.BlogId })" class="card-read-more">
                             Đọc tiếp <i class="fas fa-long-arrow-alt-right"></i>
                         </a>
                     </div>
@@ -199,7 +199,7 @@
                                 @(blog.BlogContent.Length > 180 ? blog.BlogContent.Substring(0, 180) + "..." : blog.BlogContent)
                             }
                         </p>
-                        <a href="@Url.Action("UserBlogDetails", new { id = blog.BlogId })" class="list-read-more">
+                        <a href="@Url.Action("Details", new { id = blog.BlogId })" class="list-read-more">
                             Đọc tiếp <i class="fas fa-long-arrow-alt-right"></i>
                         </a>
                     </div>

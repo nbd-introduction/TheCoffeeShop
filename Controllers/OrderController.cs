@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TheCoffeeShop.Models;
 
@@ -10,7 +11,7 @@ public class OrderController : Controller
     {
         _context = context;
     }
-
+    [Authorize(Roles = "3")]
     public async Task<IActionResult> AdminIndex()
     {
         // Lấy danh sách đơn hàng kèm theo thông tin liên quan

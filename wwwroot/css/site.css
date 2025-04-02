@@ -1,4 +1,4 @@
-/* Additional styles for header and footer */
+﻿/* Additional styles for header and footer */
 
 /* Header */
 header {
@@ -187,5 +187,33 @@ main {
 
         .nav-links li {
             margin: 15px 0;
+        }
+    .login-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+    /* Nút đăng xuất */
+    .logout-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .logout-btn:hover {
+            background-color: #c82333;
         }
 }

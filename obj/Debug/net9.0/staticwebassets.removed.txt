@@ -1,2 +1,0 @@
-D:\Study\TheCoffeeShop\wwwroot\css\menu.css
-D:\Study\TheCoffeeShop\wwwroot\js\Menu.js

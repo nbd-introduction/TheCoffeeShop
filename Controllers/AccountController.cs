@@ -29,11 +29,31 @@ namespace TheCoffeeShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(String username, string password)
+        public async Task<IActionResult> Login(String username, string password)
         {
+            //string hashedPassword = HashPassword(password);
+
+            // Kiểm tra thông tin đăng nhập với mật khẩu đã băm
+            //var account = _context.Accounts.FirstOrDefault(acc => acc.UserName == username && acc.PassWord == hashedPassword);
             var account = _context.Accounts.FirstOrDefault(acc => acc.UserName == username && acc.PassWord == password);
             if (account != null)
             {
+                var claims = new List<Claim>
+                {
+                    
+                    new Claim(ClaimTypes.Name, account.UserName),
+                    new Claim(ClaimTypes.Role, account.Role.ToString())
+                };
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
+                };
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties);
                 HttpContext.Session.SetInt32("AccountId", account.AccountId) ;
                 return RedirectToAction("Index", "Home");
             }
@@ -53,14 +73,12 @@ namespace TheCoffeeShop.Controllers
         public async Task<IActionResult> Create([Bind("UserName,PassWord,Email,Phone,Adress,FullName")] Account account)
         {
             // Lấy giá trị confirmPassword từ form
-            string confirmPassword = Request.Form["confirmPassword"].ToString();
+            string confirmPassword = Request.Form["confirmPassword"].ToString().Trim();
+            string password = Request.Form["PassWord"].ToString().Trim();
 
-            // Kiểm tra xác nhận mật khẩu
-            if (account.PassWord != confirmPassword)
-            {
-                ModelState.AddModelError("PassWord", "Mật khẩu và xác nhận mật khẩu không khớp");
-                return View(account);
-            }
+
+            // Gán mật khẩu đúng cho account trước khi lưu vào DB
+            account.PassWord = password;
 
             // Kiểm tra tên đăng nhập đã tồn tại chưa
             if (await _context.Accounts.AnyAsync(a => a.UserName == account.UserName))
@@ -81,7 +99,7 @@ namespace TheCoffeeShop.Controllers
                 try
                 {
                     // Thiết lập các giá trị mặc định
-                    account.Role = 0; // 0: Khách hàng, 1: Admin
+                    account.Role = 1; // 1: Admin
                     account.IsBan = false;
 
                     // Mã hóa mật khẩu
@@ -91,8 +109,8 @@ namespace TheCoffeeShop.Controllers
                     _context.Add(account);
                     await _context.SaveChangesAsync();
 
-                    // Đăng nhập người dùng sau khi đăng ký
-                    await LoginUserAsync(account);
+                   
+                   
 
                     // Chuyển hướng đến trang chủ
                     TempData["SuccessMessage"] = "Đăng ký tài khoản thành công!";
@@ -108,6 +126,7 @@ namespace TheCoffeeShop.Controllers
 
             return View(account);
         }
+
 
         // Mã hóa mật khẩu
         private string HashPassword(string password)
@@ -126,32 +145,18 @@ namespace TheCoffeeShop.Controllers
             }
         }
 
-        // Đăng nhập người dùng
-        private async Task LoginUserAsync(Account account)
+        [HttpPost]
+        public async Task<IActionResult> Logout()
         {
-            var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.NameIdentifier, account.AccountId.ToString()),
-        new Claim(ClaimTypes.Name, account.UserName),
-        new Claim(ClaimTypes.Email, account.Email ?? string.Empty),
-        new Claim(ClaimTypes.Role, account.Role.ToString())
-    };
-
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
-            };
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); // Đăng xuất khỏi hệ thống
+            HttpContext.Session.Clear(); // Xóa session
+            return RedirectToAction("Index", "Account"); // Chuyển hướng về trang chủ
         }
 
-
-
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
 
 
     }

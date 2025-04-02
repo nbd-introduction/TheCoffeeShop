@@ -19,12 +19,28 @@
                 <ul class="nav-links">
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     <li><a href="@Url.Action("Menu", "Product")">Menu</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="@Url.Action("UserIndex", "Blog")">Blog</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
                 <div class="cart">
-                    <a href="#" class="btn btn-primary">Shop Now</a>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a href="@Url.Action("Index", "Account")" class="btn btn-primary login-btn">
+                            Đăng nhập
+                        </a>
+                    }
                 </div>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="cart">
+                        <form asp-action="Logout" asp-controller="Account" method="post" id="logoutForm" class="logout-form">
+                            <button type="submit" class="btn btn-primary logout-btn">
+                                Log Out
+                            </button>
+                        </form>
+                    </div>
+                }
             </nav>
         </div>
     </header>

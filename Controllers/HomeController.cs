@@ -17,11 +17,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var accountId = HttpContext.Session.GetInt32("AccountId");
-        if (accountId == null)
-        {
-            return RedirectToAction("Index", "Account");
-        }
+      
 
       
         return View();

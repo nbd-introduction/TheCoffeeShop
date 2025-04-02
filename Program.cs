@@ -8,7 +8,17 @@ builder.Services.AddDbContext<CoffeeShopDbContext>(options => options.UseSqlServ
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Index";
+        options.AccessDeniedPath = "/Account/AccessDenied"; 
+    });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdmin", policy => policy.RequireRole("3"));
+    options.AddPolicy("RequireStaff", policy => policy.RequireRole("2", "3"));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,14 +32,18 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+    
 
 
 app.Run();

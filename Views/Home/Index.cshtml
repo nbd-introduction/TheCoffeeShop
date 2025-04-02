@@ -125,10 +125,12 @@
                     <div class="coffee-content">
                         <h3 class="coffee-name">Espresso</h3>
                         <div class="coffee-price">35.000đ</div>
-                        <a href="#" class="btn-order add-to-cart" data-id="4">
-                            <span>Đặt ngay</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
+                        <form asp-action="AddToCart" asp-controller="ShoppingCart" method="post" class="add-to-cart-form">
+                            <button type="submit" class="btn-order add-to-cart">
+                                <span>Đặt ngay</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -197,7 +199,7 @@
             <div class="promo-content">
                 <h2 class="promo-title">Cơ hội để có một buổi sáng tuyệt vời</h2>
                 <p class="promo-description">Bắt đầu ngày mới với cà phê cao cấp của chúng tôi. Đặt hàng ngay và thưởng thức ly cà phê hoàn hảo.</p>
-                <a href="@Url.Action("Menu", "Product")" class="btn-primary">
+                <a  href="@Url.Action("Menu", "Product")" class="btn-primary">
                     <span>Đặt hàng ngay</span>
                     <i class="fas fa-shopping-cart"></i>
                 </a>
