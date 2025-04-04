@@ -103,7 +103,7 @@ namespace TheCoffeeShop.Controllers
                     account.IsBan = false;
 
                     // Mã hóa mật khẩu
-                    account.PassWord = HashPassword(account.PassWord);
+                    //account.PassWord = HashPassword(account.PassWord);
 
                     // Thêm tài khoản vào database
                     _context.Add(account);

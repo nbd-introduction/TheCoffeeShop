@@ -18,6 +18,7 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAdmin", policy => policy.RequireRole("3"));
     options.AddPolicy("RequireStaff", policy => policy.RequireRole("2", "3"));
+    options.AddPolicy("RequireUser", policy => policy.RequireRole("1", "2", "3"));
 });
 var app = builder.Build();
 

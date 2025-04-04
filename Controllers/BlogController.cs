@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -75,6 +76,7 @@ namespace TheCoffeeShop.Controllers
         }
 
         // GET: Blog/Create
+        [Authorize(Roles = "2, 3")]
         public IActionResult Create()
         {
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId");
@@ -87,6 +89,7 @@ namespace TheCoffeeShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> Create([Bind("BlogId,BlogName,BlogDate,BlogContent,BlogImage,AccountId,ProductId")] Blog blog)
         {
             if (ModelState.IsValid)
@@ -101,6 +104,7 @@ namespace TheCoffeeShop.Controllers
         }
 
         // GET: Blog/Edit/5
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -123,6 +127,7 @@ namespace TheCoffeeShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> Edit(int id, [Bind("BlogId,BlogName,BlogDate,BlogContent,BlogImage,AccountId,ProductId")] Blog blog)
         {
             if (id != blog.BlogId)
@@ -156,6 +161,7 @@ namespace TheCoffeeShop.Controllers
         }
 
         // GET: Blog/Delete/5
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -178,6 +184,7 @@ namespace TheCoffeeShop.Controllers
         // POST: Blog/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var blog = await _context.Blogs.FindAsync(id);

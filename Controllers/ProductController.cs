@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace TheCoffeeShop.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "3")]
         public async Task<IActionResult> AdminIndex()
         {
             // Lấy danh sách sản phẩm kèm theo thông tin danh mục
@@ -39,6 +41,7 @@ namespace TheCoffeeShop.Controllers
             return View(products);
         }
         //GET: Product
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> Index()
         {
             var coffeeShopDbContext = _context.Products.Include(p => p.Category);
@@ -58,7 +61,7 @@ namespace TheCoffeeShop.Controllers
             ViewBag.CartCounts = cartTotalQuantity;
             return View(await coffeeShopDbContext.ToListAsync());
         }
-
+        [Authorize(Roles = "1, 2, 3")]
         // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -79,6 +82,7 @@ namespace TheCoffeeShop.Controllers
         }
 
         // GET: Product/Create
+        [Authorize(Roles = "2, 3")]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
@@ -90,6 +94,7 @@ namespace TheCoffeeShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> Create([Bind("ProductId,ProductName,ProductPrice,Description,Size,ProductImage,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
@@ -103,6 +108,7 @@ namespace TheCoffeeShop.Controllers
         }
 
         // GET: Product/Edit/5
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -124,6 +130,7 @@ namespace TheCoffeeShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductPrice,Description,Size,ProductImage,CategoryId")] Product product)
         {
             if (id != product.ProductId)
@@ -156,6 +163,7 @@ namespace TheCoffeeShop.Controllers
         }
 
         // GET: Product/Delete/5
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -177,6 +185,7 @@ namespace TheCoffeeShop.Controllers
         // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "2, 3")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Products.FindAsync(id);

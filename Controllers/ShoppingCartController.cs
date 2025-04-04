@@ -33,7 +33,7 @@ namespace TheCoffeeShop.Controllers
             int cartTotalQuantity = (int)carts.Sum(item => item.Quality);
 
             // Đặt giá trị vào ViewBag để hiển thị trên nút giỏ hàng
-            ViewBag.CartCount = cartTotalQuantity;
+            ViewBag.CartCount = 0;
             return View(carts);
 
 
@@ -154,7 +154,23 @@ namespace TheCoffeeShop.Controllers
 
             return RedirectToAction("Index", "ShoppingCart");
         }
-        
+        [HttpGet]
+        public JsonResult GetCartCount()
+        {
+            int count = 0;
+
+            // Lấy số lượng sản phẩm trong giỏ hàng từ database
+            var accountId = HttpContext.Session.GetInt32("AccountId");
+            if (accountId != null)
+            {
+                // Tính tổng số lượng sản phẩm trong giỏ hàng
+                count = (int)_context.Carts
+                    .Where(c => c.AccountId == accountId)
+                    .Sum(c => c.Quality);
+            }
+
+            return Json(new { count = count });
         }
+    }
     }
 

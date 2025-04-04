@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using TheCoffeeShop.Models;
 
 namespace TheCoffeeShop.Controllers;
@@ -18,8 +19,19 @@ public class HomeController : Controller
     public IActionResult Index()
     {
       
+    var accountId = HttpContext.Session.GetInt32("AccountId");
+        if (accountId != null)
+        {
+            ViewBag.CartCount = _context.Carts
+                .Where(c => c.AccountId == accountId)
+                .Sum(c => c.Quality);
+        }
+        else
+        {
+            ViewBag.CartCount = 0;
+        }
 
-      
+
         return View();
     }
 

@@ -149,14 +149,18 @@
                                                     </div>
                                                 }
                                                 <div class="menu-item-actions">
-                                                    <form asp-action="AddToCart" asp-controller="ShoppingCart" method="post" class="add-to-cart-form">
-                                                        <input type="hidden" name="productId" value="@product.ProductId" />
-                                                        <input type="hidden" name="quantity" value="1" />
-                                                        <button type="submit" class="btn-add-to-cart">
-                                                            <i class="fas fa-shopping-cart"></i>
-                                                            <span>Thêm vào giỏ</span>
-                                                        </button>
-                                                    </form>
+                                                    @if (User.Identity.IsAuthenticated && User.IsInRole("1"))
+                                                    {
+                                                        <form asp-action="AddToCart" asp-controller="ShoppingCart" method="post" class="add-to-cart-form">
+                                                            <input type="hidden" name="productId" value="@product.ProductId" />
+                                                            <input type="hidden" name="quantity" value="1" />
+                                                            <button type="submit" class="btn-add-to-cart">
+                                                                <i class="fas fa-shopping-cart"></i>
+                                                                <span>Thêm vào giỏ</span>
+                                                            </button>
+                                                        </form>
+                                                    }
+                                                    
                                                     <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="btn-details">
                                                         <i class="fas fa-info-circle"></i>
                                                         <span>Chi tiết</span>
@@ -1089,22 +1093,117 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Xử lý số lượng giỏ hàng
-        let cartCount = localStorage.getItem("cartCount") || 0;
-        updateCartCount(cartCount);
+            // Lấy số lượng giỏ hàng từ server khi trang tải
+            fetch('@Url.Action("GetCartCount", "ShoppingCart")')
+            .then(res => res.json())
+            .then(data => {
+                updateCartCount(data.count);
+            })
+            .catch(error => {
+                console.error('Không thể lấy số lượng giỏ hàng:', error);
+            });
 
-        // Cập nhật số lượng giỏ hàng
-        function updateCartCount(count) {
-            let cartCountElement = document.getElementById("cartCount");
-            if (cartCountElement) {
-                if (count > 0) {
-                    cartCountElement.textContent = count;
-                    cartCountElement.style.display = "flex";
-                } else {
-                    cartCountElement.style.display = "none";
+            // Xử lý form thêm vào giỏ hàng
+            document.querySelectorAll(".add-to-cart-form").forEach(form => {
+                form.addEventListener("submit", function(e) {
+                    e.preventDefault();
+
+                    // Hiệu ứng thêm vào giỏ hàng
+                    const cartButton = document.getElementById("cartButton");
+                    if (cartButton) {
+                        cartButton.classList.add("pulse");
+                        setTimeout(() => {
+                            cartButton.classList.remove("pulse");
+                        }, 1000);
+                    }
+
+                    // Gửi form bằng AJAX
+                    const formData = new FormData(this);
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (response.redirected) {
+                            // Nếu chuyển hướng đến trang đăng nhập
+                            if (response.url.includes("Account/Index")) {
+                                window.location.href = response.url;
+                            } else {
+                                // Cập nhật số lượng giỏ hàng từ server
+                                fetch('@Url.Action("GetCartCount", "ShoppingCart")')
+                                .then(res => res.json())
+                                .then(data => {
+                                    updateCartCount(data.count);
+                                    showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
+                                });
+                            }
+                        } else if (response.ok) {
+                            // Cập nhật số lượng giỏ hàng từ server
+                            fetch('@Url.Action("GetCartCount", "ShoppingCart")')
+                            .then(res => res.json())
+                            .then(data => {
+                                updateCartCount(data.count);
+                                showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
+                            });
+                        } else {
+                            showNotification("Có lỗi xảy ra khi thêm vào giỏ hàng.", "error");
+                        }
+                    })
+                    .catch(error => {
+                        showNotification("Có lỗi xảy ra khi thêm vào giỏ hàng.", "error");
+                    });
+                });
+            });
+
+            // Cập nhật số lượng giỏ hàng
+            function updateCartCount(count) {
+                let cartCountElement = document.getElementById("cartCount");
+                if (cartCountElement) {
+                    if (count > 0) {
+                        cartCountElement.textContent = count;
+                        cartCountElement.style.display = "flex";
+                    } else {
+                        cartCountElement.style.display = "none";
+                    }
                 }
             }
-        }
+
+            // Hiển thị thông báo
+            function showNotification(message, type) {
+                // Kiểm tra xem đã có thông báo nào chưa
+                let notification = document.querySelector('.notification');
+                if (notification) {
+                    notification.remove();
+                }
+
+                // Tạo thông báo mới
+                notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+
+                document.body.appendChild(notification);
+
+                // Hiển thị thông báo
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 10);
+
+                // Ẩn thông báo sau 3 giây
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            }
 
         // Xử lý nút thêm vào giỏ hàng
         document.querySelectorAll(".add-to-cart-form").forEach(form => {
